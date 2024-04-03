@@ -1,12 +1,13 @@
 import React from "react";
 import { useAuth } from "./AuthContext";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const { currentUser, userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAuth();
   return (
     <>
       {userLoggedIn ? (
-        <div>Hello {currentUser.email}</div>
+        <Link to={"/profile"}> Profile </Link>
       ) : (
         <h3>Login first bro</h3>
       )}

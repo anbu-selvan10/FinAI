@@ -1,6 +1,6 @@
 import Login from "./components/auth/login";
 import Register from "./components/auth/signup";
-
+import Form from "./components/Profile";
 import Header from "./components/Header";
 import HomePage from "./components/Home";
 
@@ -13,6 +13,10 @@ function App() {
     {
       path: "*",
       element: <Login />,
+    },
+    {
+      path: "/profile",
+      element: <Form />,
     },
     {
       path: "/login",
