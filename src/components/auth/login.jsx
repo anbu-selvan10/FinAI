@@ -52,14 +52,14 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-page">
       {userLoggedIn && <Navigate to={"/home"} replace={true} />}
 
       <main className="main">
         <div className="container">
           <div className="text-center">
             <div className="mt-2">
-              <h3>Welcome Back</h3>
+              <h3>Welcome Back!</h3>
             </div>
           </div>
           <form onSubmit={onSubmit} className="form">
@@ -95,8 +95,9 @@ const Login = () => {
               disabled={isSigningIn}
               className={`button ${isSigningIn ? "disabled" : ""}`}
             >
-              {isSigningIn ? "Signing In..." : "Sign In"}
+              <span>{isSigningIn ? "Signing In..." : "Sign In"}</span>
             </button>
+
             <div className="forgot-password">
               <button
                 type="button"
@@ -104,18 +105,21 @@ const Login = () => {
                 disabled={isSigningIn}
                 className="forgot-password-button"
               >
-                Forgot Password?
+                <div className="textforpass">Forgot Password?</div>
               </button>
             </div>
           </form>
           <p className="sign-up">
             Don't have an account? <Link to={"/register"}>Sign up</Link>
           </p>
+
           <div className="or-divider">
             <div className="divider-line"></div>
             <div className="divider-text">OR</div>
             <div className="divider-line"></div>
           </div>
+
+          <br></br>
           <button
             disabled={isSigningIn}
             onClick={(e) => {
@@ -128,7 +132,10 @@ const Login = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             ></svg>
-            {isSigningIn ? "Signing In..." : "Continue with Google"}
+
+            <div className="textcontgg">
+              {isSigningIn ? "Signing In..." : "Continue with Google"}
+            </div>
           </button>
         </div>
       </main>

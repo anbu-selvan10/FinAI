@@ -40,7 +40,7 @@ const Register = () => {
     } else {
       return (
         <span className="verification-error">
-          Please verify your email to access the home page.
+          Please signup and verify your email to access the home page.
         </span>
       );
     }
@@ -103,7 +103,7 @@ const Register = () => {
               disabled={isRegistering}
               className={`button ${isRegistering ? "disabled" : ""}`}
             >
-              {isRegistering ? "Signing Up..." : "Sign Up"}
+              <span>{isRegistering ? "Signing Up..." : "Sign Up"}</span>
             </button>
             <div className="text-sm text-center sign-in">
               Already have an account?{" "}

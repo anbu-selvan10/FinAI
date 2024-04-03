@@ -1,0 +1,28 @@
+.nav {
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  transition: color 0.3s ease;
+  margin-left: 10px;
+}
+
+.link:hover {
+  color: blue;
+}
+
+.logo-link {
+  margin-right: auto;
+}
+
+.logo-img {
+  width: 110px;
+  height: 7h;
+  margin-top: 5%;
+  flex-shrink: 0;
+}
