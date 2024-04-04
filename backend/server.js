@@ -6,7 +6,7 @@ const app = express();
 const port = 4000;
 
 mongoose
-  .connect("//url", {
+  .connect("", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
