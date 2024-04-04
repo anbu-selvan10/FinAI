@@ -6,7 +6,7 @@ const app = express();
 const port = 4000;
 
 mongoose
-  .connect("", {
+  .connect("//uri", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

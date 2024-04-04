@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import "../styles/profile.css";
 
 const Form = () => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -57,11 +59,16 @@ const Form = () => {
     } catch (error) {
       console.error("Error submitting form:", error.response.data.error);
       setErrorMsg(error.response.data.error);
+    } finally {
+      navigate("/home");
     }
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    <div className="loading-container">
+      <div className="loading-animation"></div>
+      <p className="loading-text">Loading...</p>
+    </div>
   }
 
   if (existingUser) {
