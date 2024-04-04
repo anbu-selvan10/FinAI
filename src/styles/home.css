@@ -1,0 +1,22 @@
+.card-body{
+    width: 50%; 
+    max-width: 300px; 
+    height: 380px; 
+    border: none; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    padding-top:30px;
+    margin-top: 5vh;
+    margin-left: 5vh;
+}
+
+.profiletext{
+    align-items: center;
+    text-align: center;
+}
+
+.loginfirsttext{
+    align-items: center;
+    text-align: center;
+}
+
