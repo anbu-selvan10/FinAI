@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
+import "../styles/profile.css";
 
 const Form = () => {
   const { currentUser } = useAuth();
@@ -65,88 +66,99 @@ const Form = () => {
 
   if (existingUser) {
     return (
-      <div>
-        <h2>Profile</h2>
-        <p>User Name: {existingUser.userName}</p>
-        <p>Name: {existingUser.name}</p>
-        <p>Age: {existingUser.age}</p>
-        <p>About Me: {existingUser.aboutMe}</p>
-        <p>Phone: {existingUser.phone}</p>
-        <p>Email : {existingUser.email}</p>
-        <button onClick={() => console.log("Update button clicked")}>
-          Update
-        </button>
+      <div className="formprofile">
+        <h2 className="prftext"><u>Profile</u></h2>
+        
+        <p class="prfelement">User Name: {existingUser.userName}</p>
+        <p class="prfelement">Name: {existingUser.name}</p>
+        <p class="prfelement">Age: {existingUser.age}</p>
+        <p class="prfelement">About Me: {existingUser.aboutMe}</p>
+        <p class="prfelement">Phone: {existingUser.phone}</p>
+        <p class="prfelement">Email : {existingUser.email}</p>
+
+     
       </div>
     );
   }
 
   return (
+    
+    <div className="formnew">
+
     <form onSubmit={handleSubmit}>
+    <h3 className="formheading"><u>Update Profile</u></h3>
       <label>
-        UserName:
+        <p className="formtextnew">UserName:</p>
         <input
           type="text"
           name="userName"
           value={formData.userName}
           onChange={handleChange}
+          className="formnewbox"
         />
       </label>
       <br />
       <label>
-        Name:
+      <p className="formtextnew">Name:</p>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
+          className="formnewbox"
         />
       </label>
       <br />
       <label>
-        Age:
+      <p className="formtextnew">Age:</p>
         <input
           type="number"
           name="age"
           value={formData.age}
           onChange={handleChange}
+          className="formnewbox"
         />
       </label>
       <br />
       <label>
-        About Me:
+      <p className="formtextnew">About Me:</p>
         <textarea
           name="aboutMe"
           value={formData.aboutMe}
           onChange={handleChange}
+          className="formnewarea"
         />
       </label>
       <br />
       <label>
-        Phone:
+      <p className="formtextnew">Phone:</p>
         <input
           type="tel"
           name="phone"
           value={formData.phone}
           onChange={handleChange}
+          className="formnewbox"
         />
       </label>
       <br />
       <label>
-        Email:
+      <p className="formtextnew">Email:</p>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          className="formnewbox"
           readOnly
         />
       </label>
       <br />
-      <button onSubmit={handleSubmit} type="submit">
+      <button onSubmit={handleSubmit} type="submit" className="submitnewform">
         Submit
       </button>
-      {errorMsg && <p>{errorMsg}</p>}
+      {errorMsg && <p className="formnewerrortxt">{errorMsg}</p>}
     </form>
+    </div>
   );
 };
 
