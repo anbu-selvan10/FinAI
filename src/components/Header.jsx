@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { doSignOut } from "../config/auth";
 import "../../src/styles/header.css";
 import logofinai from "../../src/img/finAI.jpg";

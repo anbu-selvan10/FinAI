@@ -5,7 +5,7 @@ import {
   doSignInWithGoogle,
   doPasswordReset,
 } from "../../config/auth";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import "../../styles/login.css";
 
 const Login = () => {

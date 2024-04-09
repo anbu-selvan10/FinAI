@@ -3,8 +3,8 @@ import Register from "./components/auth/signup";
 import Form from "./components/Profile";
 import Header from "./components/Header";
 import HomePage from "./components/Home";
-
-import { AuthProvider } from "./components/AuthContext";
+import { ExpenseTracker } from "./components/ExpenseTracker";
+import { AuthProvider } from "./components/contexts/AuthContext";
 import { useRoutes } from "react-router-dom";
 import "./styles/App.css";
 
@@ -29,6 +29,10 @@ function App() {
     {
       path: "/home",
       element: <HomePage />,
+    },
+    {
+      path: "/expense",
+      element: <ExpenseTracker />,
     },
   ];
   let routesElement = useRoutes(routesArray);
