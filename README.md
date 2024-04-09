@@ -1,3 +1,4 @@
 # FIN-AI
 
-User Authentication Done using FireBase
+User Authentication Done using FireBase <br>
+User Profile added in MongoDB Atlas <br>
