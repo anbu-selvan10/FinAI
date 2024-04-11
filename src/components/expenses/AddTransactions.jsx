@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ExpenseContext } from "../contexts/ExpenseContext";
+import "../../styles/expenses.css";
 
 export const AddTransactions = () => {
   const { dispatch } = useContext(ExpenseContext);
@@ -31,6 +32,7 @@ export const AddTransactions = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
         required
+        className="inpboxexp"
       >
         <option value="">Select Category</option>
         <option value="Automotive">Automotive</option>
@@ -55,8 +57,9 @@ export const AddTransactions = () => {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         required
+        className="inpboxexp"
       />
-      <button type="submit">Add</button>
+      <button type="submit" className="submitexp">Add</button>
     </form>
   );
 };
