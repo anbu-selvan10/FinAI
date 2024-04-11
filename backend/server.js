@@ -7,7 +7,7 @@ const port = 4000;
 
 mongoose
   .connect(
-    "mongodb+srv://Anbu:tQ5wNYbZjfk4rEuT@cluster0.6bzyp56.mongodb.net/FinAI",
+    "//",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -38,7 +38,7 @@ const User = mongoose.model("User", userSchema);
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "vivek@220105",
+  password: "//",
   database: "finai",
 });
 
