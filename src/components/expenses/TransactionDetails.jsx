@@ -7,6 +7,7 @@ export const TransactionDetails = ({ transaction }) => {
     <li>
       <div>Category : {transaction.category}</div>{" "}
       <div>Amount: ₹{transaction.amount}</div>{" "}
+      <div>Time: {transaction.time}</div>{" "}
       <button
         onClick={() =>
           dispatch({ type: "REMOVE_TRANSACTION", id: transaction.id })

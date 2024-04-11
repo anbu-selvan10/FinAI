@@ -1,4 +1,5 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useContext } from "react";
+import { useAuth } from "./AuthContext";
 import v4 from "uuid-random";
 
 export const ExpenseContext = createContext();
@@ -11,6 +12,7 @@ const expenseReducer = (state, action) => {
         {
           category: action.transaction.category,
           amount: action.transaction.amount,
+          time: action.transaction.time,
           id: v4(),
         },
       ];
@@ -22,13 +24,18 @@ const expenseReducer = (state, action) => {
 };
 
 const ExpenseContextProvider = (props) => {
+  const { currentUser } = useAuth();
+
   const [transactions, dispatch] = useReducer(expenseReducer, [], () => {
-    const data = localStorage.getItem("transactions");
+    const data = localStorage.getItem(`transactions_${currentUser.email}`);
     return data ? JSON.parse(data) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+    localStorage.setItem(
+      `transactions_${currentUser.email}`,
+      JSON.stringify(transactions)
+    );
   }, [transactions]);
 
   return (
