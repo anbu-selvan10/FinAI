@@ -29,6 +29,15 @@ const HomePage = () => {
               </Link>
               <img className="cardpfl" src={profilepic} id="profilelogin"></img>
             </div>
+            <div className="card-body">
+              <Link
+                to={"/budget"}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <h4 className="profiletext"> Budget Tracker</h4>
+              </Link>
+              <img className="cardpfl" src={profilepic} id="profilelogin"></img>
+            </div>
           </div>
         </div>
       ) : (
