@@ -43,19 +43,19 @@ export const BudgetTracker = () => {
           `last_submission_${currentUser.email}`
         );
       
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
       
         if (
           lastSubmissionDate &&
-          new Date(lastSubmissionDate) > oneWeekAgo
+          new Date(lastSubmissionDate) > oneMonthAgo
         ) {
-          setMsg("You can only submit expenses once a week. Please try again later.");
+          setMsg("You can only submit expenses once a month. Please try again later.");
           return;
         }
       
         const confirmed = window.confirm(
-          "Do you want to record the budget for this week?"
+          "Do you want to record the budget for this month?"
         );
       
         if (confirmed) {
@@ -75,12 +75,12 @@ export const BudgetTracker = () => {
                 currentDate
               );
               setMsg(
-                "Thank You! Budget submitted successfully. You can come again after a week!"
+                "Thank You! Budget submitted successfully. You can come again after a month!"
               );
             }
           } catch (error) {
             if (error.response && error.response.status === 400) {
-              setMsg("You have already submitted budget for this week. Visit after a week!");
+              setMsg("You have already submitted budget for this month. Visit after a month!");
             } else {
               setMsg("An error occurred. Please try again later.");
             }
