@@ -33,32 +33,35 @@ export const BudgetTracker = () => {
     };
 
     const handleSubmit = async () => {
-        const currentUserEmail = currentUser.email;
-        const budget = localStorage.getItem(
-          `budget_${currentUser.email}`
-        );
-        setMsg("");
-      
-        const lastSubmissionDate = localStorage.getItem(
-          `last_submission_${currentUser.email}`
-        );
-      
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-      
-        if (
-          lastSubmissionDate &&
-          new Date(lastSubmissionDate) > oneMonthAgo
-        ) {
+      const currentUserEmail = currentUser.email;
+      const budget = localStorage.getItem(
+        `budget_${currentUser.email}`
+      );
+      setMsg("");
+    
+      const lastSubmissionDate = localStorage.getItem(
+        `last_submission_${currentUser.email}`
+      );
+    
+      if (lastSubmissionDate) {
+        const lastSubmission = new Date(lastSubmissionDate);
+        const currentDate = new Date();
+        const differenceInMilliseconds = currentDate - lastSubmission;
+
+        const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+        if (differenceInDays < 30) {
           setMsg("You can only submit expenses once a month. Please try again later.");
           return;
         }
+      }
+    
+      const confirmed = window.confirm(
+        "Do you want to record the budget for this month?"
+      );
+    
       
-        const confirmed = window.confirm(
-          "Do you want to record the budget for this month?"
-        );
-      
-        if (confirmed) {
+      if (confirmed) {
           try {
             const currentDate = getCurrentDate();
             const response = await axios.post(
