@@ -4,6 +4,7 @@ import { TransactionList } from "./expenses/TransactionList";
 import { AddTransactions } from "./expenses/AddTransactions";
 import ExpenseContextProvider from "./contexts/ExpenseContext";
 import { useAuth } from "./contexts/AuthContext";
+import "../styles/expenses.css";
 
 export const ExpenseTracker = () => {
   const { currentUser } = useAuth();
@@ -60,7 +61,7 @@ export const ExpenseTracker = () => {
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          setMsg("You have already submitted expenses for today.");
+          setMsg("You have already submitted expenses for today. Visit tomorrow!");
         } else {
           setMsg("An error occurred. Please try again later.");
         }
@@ -69,28 +70,36 @@ export const ExpenseTracker = () => {
   };
 
   return (
-    <div>
-      <ExpenseContextProvider>
-        <h2>Expense Tracker</h2>
+    <div className="expense-wrapper">
+     <ExpenseContextProvider>
+     
+      <div className="cardexp">
+      <div className="textalignexp">
+       <h2 className="exptitle">Expense Tracker</h2>
         <p>
           Today is {getCurrentDayName()}, {getCurrentDate()}
         </p>
-        <p>
+        <p className="impmessageexp">
           You can click the submit button once a day. So, it is advised to click
           the submit button at the end of the day after you have recorded all
           the transactions
         </p>
+        
         <TransactionList />
         <AddTransactions />
+        </div>
+        </div>
         <button
           onClick={() => {
             handleSubmit();
-          }}
+          }} className="buttonexp"
         >
           Submit
         </button>
-        {msg && <div>{msg}</div>}
+        {msg && <div className="messagesubmitexp">{msg}</div>}
       </ExpenseContextProvider>
+      
     </div>
+    
   );
 };

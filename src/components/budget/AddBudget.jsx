@@ -1,27 +1,14 @@
 import React, { useContext, useState } from "react";
-import { ExpenseContext } from "../contexts/ExpenseContext";
-import "../../styles/expenses.css";
+import { BudgetContext } from "../contexts/BudgetContext";
 
-export const AddTransactions = () => {
-  const { dispatch } = useContext(ExpenseContext);
+export const AddBudget = () => {
+  const { dispatch } = useContext(BudgetContext);
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState(0);
 
-  const getCurrentTime = () => {
-    const currentDate = new Date();
-    let hours = currentDate.getHours();
-    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-    const amPM = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    const time = `${hours}:${minutes} ${amPM}`;
-    return time;
-    
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const currentTime = getCurrentTime();
-    dispatch({ type: "ADD_TRANSACTION", transaction: { category, amount, time: currentTime } });
+    dispatch({ type: "ADD_BUDGET", budget: { category, amount } });
     setCategory("");
     setAmount(0);
   };
@@ -59,7 +46,11 @@ export const AddTransactions = () => {
         required
         className="inpboxexp"
       />
-      <button type="submit" className="submitexp">Add</button>
+      <button type="submit" onSubmit={handleSubmit} className="submitexp">
+        Add
+      </button>
     </form>
   );
 };
+
+export default AddBudget;

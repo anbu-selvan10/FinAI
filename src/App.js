@@ -7,6 +7,7 @@ import { ExpenseTracker } from "./components/ExpenseTracker";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import { useRoutes } from "react-router-dom";
 import "./styles/App.css";
+import { BudgetTracker } from "./components/BudgetTracker";
 
 function App() {
   const routesArray = [
@@ -34,6 +35,10 @@ function App() {
       path: "/expense",
       element: <ExpenseTracker />,
     },
+    {
+      path: "/budget",
+      element: <BudgetTracker/>,
+    }
   ];
   let routesElement = useRoutes(routesArray);
 

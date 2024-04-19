@@ -6,13 +6,10 @@ const app = express();
 const port = 4000;
 
 mongoose
-  .connect(
-    "//url",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect("//url", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to MongoDB Atlas");
   })
@@ -175,6 +172,94 @@ app.post("/expense_track", async (req, res) => {
           return res
             .status(500)
             .send("An error occurred while inserting expenses.");
+        }
+      }
+    }
+  );
+});
+
+async function insertBudget(month, year, username, categories, parsedBudget) {
+  for (const category of categories) {
+    const totalAmount = parsedBudget.reduce((acc, transaction) => {
+      if (transaction.category === category) {
+        return acc + parseFloat(transaction.amount);
+      }
+      return acc;
+    }, 0);
+
+    if (totalAmount > 0) {
+      const insertQuery = `INSERT INTO Budget (month, year, username, category, budget_amt_categorized) 
+                           VALUES (?, ?, ?, ?, ?)`;
+      const insertValues = [month, year, username, category, totalAmount];
+      await db.query(insertQuery, insertValues);
+      console.log(`Category total inserted for category: ${category}`);
+    }
+  }
+}
+
+app.post("/budget_track", async (req, res) => {
+  const { email, budget, currentMonthYear } = req.body;
+  const parts = currentMonthYear.split(" ");
+  const month = parts[0];
+  const year = parseInt(parts[1]);
+  const user = await User.findOne({ email });
+
+  const categories = [
+    "Automotive",
+    "Bills & Utilities",
+    "Education",
+    "Entertainment",
+    "Food & Drink",
+    "Petrol & Gas",
+    "Gifts & Donations",
+    "Groceries",
+    "Health & Wellness",
+    "Home",
+    "Personal",
+    "Professional Services",
+    "Shopping",
+    "Travel",
+    "Miscellaneous",
+  ];
+
+  let parsedBudget;
+  try {
+    parsedBudget = JSON.parse(budget);
+  } catch (error) {
+    console.error("Error parsing budget data:", error);
+    return res.status(400).send("Invalid budget data.");
+  }
+
+  db.query(
+    "SELECT * FROM Budget WHERE month = ? AND year = ? AND username = ?",
+    [month, year, user.userName],
+    async function (err, result) {
+      if (err) {
+        console.error("Error checking existing records:", err);
+        return res
+          .status(500)
+          .send("An error occurred while checking existing records.");
+      }
+
+      if (result.length > 0) {
+        return res
+          .status(400)
+          .send("You have already submitted budget for this month.");
+      } else {
+        try {
+          await insertBudget(
+            month,
+            year,
+            user.userName,
+            categories,
+            parsedBudget
+          );
+          return res.sendStatus(200);
+        } catch (error) {
+          console.error("Error inserting budget:", error);
+          return res
+            .status(500)
+            .send("An error occurred while inserting budget.");
         }
       }
     }
