@@ -6,10 +6,13 @@ const app = express();
 const port = 4000;
 
 mongoose
-  .connect("//url", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "//url",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Connected to MongoDB Atlas");
   })
@@ -192,7 +195,7 @@ async function insertBudget(month, year, username, categories, parsedBudget) {
                            VALUES (?, ?, ?, ?, ?)`;
       const insertValues = [month, year, username, category, totalAmount];
       await db.query(insertQuery, insertValues);
-      console.log(`Category total inserted for category: ${category}`);
+      console.log(`Category Budget inserted for category: ${category}`);
     }
   }
 }
