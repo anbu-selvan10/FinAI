@@ -8,11 +8,9 @@ const BudgetDetails = ({ budget }) => {
     <li className="translist">
       <div className="detailstrans">{budget.category}</div>{" "}
       <div className="detailstrans"> ₹{budget.amount}</div>{" "}
-      <div className="detailstrans">{budget.time}</div>{" "}
-      <button className="transremove"
-        onClick={() =>
-          dispatch({ type: "REMOVE_BUDGET", id: budget.id})
-        }
+      <button
+        className="transremove"
+        onClick={() => dispatch({ type: "REMOVE_BUDGET", id: budget.id })}
       >
         -
       </button>

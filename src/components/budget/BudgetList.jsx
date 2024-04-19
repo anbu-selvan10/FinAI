@@ -4,9 +4,7 @@ import BudgetDetails from "./BudgetDetails";
 
 const BudgetList = () => {
   const { budget } = useContext(BudgetContext);
-  const amounts = budget.map((budget) =>
-    parseInt(budget.amount)
-  );
+  const amounts = budget.map((budget) => parseInt(budget.amount));
   const total = amounts.reduce((acc, item) => (acc += item), 0);
 
   return (
@@ -17,12 +15,7 @@ const BudgetList = () => {
         <div>
           <ul>
             {budget.map((bg) => {
-              return (
-                <BudgetDetails
-                  budget={bg}
-                  key={bg.id}
-                ></BudgetDetails>
-              );
+              return <BudgetDetails budget={bg} key={bg.id}></BudgetDetails>;
             })}
           </ul>
         </div>
