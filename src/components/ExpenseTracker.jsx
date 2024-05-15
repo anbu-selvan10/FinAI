@@ -6,6 +6,7 @@ import ExpenseContextProvider from "./contexts/ExpenseContext";
 import { useAuth } from "./contexts/AuthContext";
 import "../styles/expenses.css";
 
+
 export const ExpenseTracker = () => {
   const { currentUser } = useAuth();
   const [msg, setMsg] = useState("");
@@ -71,35 +72,31 @@ export const ExpenseTracker = () => {
 
   return (
     <div className="expense-wrapper">
-     <ExpenseContextProvider>
-     
-      <div className="cardexp">
-      <div className="textalignexp">
-       <h2 className="exptitle">Expense Tracker</h2>
-        <p>
-          Today is {getCurrentDayName()}, {getCurrentDate()}
-        </p>
-        <p className="impmessageexp">
-          You can click the submit button once a day. So, it is advised to click
-          the submit button at the end of the day after you have recorded all
-          the transactions
-        </p>
+      <ExpenseContextProvider>
+          <div className="container">
+            <div className="textalignexp">
+              <h2 className="exptitle">Expense Tracker</h2>
+              <p>
+                Today is {getCurrentDayName()}, {getCurrentDate()}
+              </p>
+              <p className="impmessageexp">
+                You can click the submit button once a day. So, it is advised to click
+                the submit button at the end of the day after you have recorded all
+                the transactions
+              </p>
+              
+              <TransactionList />
+              <AddTransactions />
+            </div>
+          
         
-        <TransactionList />
-        <AddTransactions />
-        </div>
-        </div>
-        <button
-          onClick={() => {
-            handleSubmit();
-          }} className="buttonexp"
-        >
-          Submit
-        </button>
+          <button onClick={() => handleSubmit()} className="buttonexp">
+            Submit
+          </button>  
         {msg && <div className="messagesubmitexp">{msg}</div>}
+        </div>
       </ExpenseContextProvider>
       
     </div>
-    
   );
 };

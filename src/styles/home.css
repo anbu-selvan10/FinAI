@@ -1,13 +1,16 @@
-.card-body {
-  width: 50%;
-  max-width: 300px;
-  height: 380px;
+.item {
+  width: 60%;
+  max-width: 450px;
+  height: 350px;
   border: none;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding-top: 30px;
   margin-top: 5vh;
   margin-left: 5vh;
+  position: relative;
+  justify-content: center;
+  padding-bottom: 30px;
 }
 
 .profiletext {
@@ -19,3 +22,52 @@
   align-items: center;
   text-align: center;
 }
+
+.containerhome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.hometext {
+  text-align: center;
+}
+
+.item-img {
+  max-width: 250px;
+  height: 250px;
+  align-items: center;
+  padding-left: 20%;
+}
+
+.finaihomedesc{
+  text-align: center;
+  margin-bottom:0%;
+  position: relative;
+  transform: translate(0%,100%); 
+  font-size: 3vh;
+}
+
+.homebg1 {
+  margin-top: 300px;
+  background-color: black;
+  height: 400px;
+  position: relative; 
+}
+
+.finaitext {
+  text-align: center;
+  font-size: 30vh;
+  color: white;
+  position: absolute;
+  top: 0%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+}
+
+.homebgmain {
+  background-color: white;
+}
+
+
+

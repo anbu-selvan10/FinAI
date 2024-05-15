@@ -68,20 +68,36 @@ export const BudgetTracker = () => {
     }
   };
 
-  return (
-    <BudgetContextProvider>
-      <p>Budget for {getCurrentMonthYear()}</p>
-      <BudgetList />
-      <AddBudget />
-      <button
-        onClick={() => {
-          handleSubmit();
-        }}
-        className="buttonexp"
-      >
-        Submit
-      </button>
-      {msg && <div className="messagesubmitexp">{msg}</div>}
-    </BudgetContextProvider>
+  return(
+    <div className="expense-wrapper">
+      <BudgetContextProvider>
+    
+        
+          <div className="container">
+         
+            <div className="textalignexp">
+              <h2 className="exptitle">Budget Tracker</h2>
+              <p>
+                Budget for {getCurrentMonthYear()}
+              </p>
+              <p className="impmessageexp">
+                You can click the submit button once a month. So, it is advised to click
+                the submit button at the end of the day after you have planned your budget for this
+                month.
+              </p>
+              
+              <BudgetList />
+              <AddBudget />
+            </div>
+          
+        
+          <button onClick={() => handleSubmit()} className="buttonexp">
+            Submit
+          </button>  
+        {msg && <div className="messagesubmitexp">{msg}</div>}
+        </div>
+      </BudgetContextProvider>
+      
+    </div>
   );
 };

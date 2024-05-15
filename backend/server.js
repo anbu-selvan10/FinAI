@@ -7,7 +7,7 @@ const port = 4000;
 
 mongoose
   .connect(
-    "//url",
+    "",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -38,7 +38,7 @@ const User = mongoose.model("User", userSchema);
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "//pw",
+  password: "",
   database: "finai",
 });
 

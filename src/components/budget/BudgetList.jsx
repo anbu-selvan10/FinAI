@@ -3,13 +3,13 @@ import { BudgetContext } from "../contexts/BudgetContext";
 import BudgetDetails from "./BudgetDetails";
 
 const BudgetList = () => {
-  const { budget } = useContext(BudgetContext);
+  const {budget} = useContext(BudgetContext);
   const amounts = budget.map((budget) => parseInt(budget.amount));
   const total = amounts.reduce((acc, item) => (acc += item), 0);
 
-  return (
+  return(
     <>
-      <h3>Net Amount: {total}</h3>
+      <h3>Net Amount:{total}</h3>
       <h4>Your Budget</h4>
       {budget.length ? (
         <div>
@@ -19,7 +19,7 @@ const BudgetList = () => {
             })}
           </ul>
         </div>
-      ) : (
+      ):(
         <p>No transactions</p>
       )}
     </>
