@@ -2,14 +2,21 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_community.utilities import SQLDatabase
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain_community.vectorstores.chroma import Chroma
-from langchain_community.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.prompts import SemanticSimilarityExampleSelector, FewShotPromptTemplate, PromptTemplate
 from langchain.chains.sql_database.prompt import PROMPT_SUFFIX, _mysql_prompt
+from dotenv import load_dotenv
+import os
 
-llm = GoogleGenerativeAI(model="models/text-bison-001", google_api_key="", temperature=0.1)
+load_dotenv()
+
+GOOGLE_API = os.getenv("GOOGLE_API")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+
+llm = GoogleGenerativeAI(model="models/text-bison-001", google_api_key=GOOGLE_API, temperature=0.1)
 
 db_user = "root"
-db_password = "vivek220105"
+db_password = MYSQL_PASSWORD
 db_host = "localhost"
 db_name = "finai"
 
@@ -181,6 +188,7 @@ Pay attention to use CURDATE() function to get the current date, if the question
 Pay attention to use month name instead of month number for `month` for the budget table.
 Pay attention to use correct username.
 Pay attention to total_expense. There is no column called total_expense. For total_expense sum(expense_amt_categorized) for that month.
+Pay attention to the month and year name. Don't use current month name and year for every query.
 
 Use the following format:
 
@@ -207,4 +215,4 @@ few_shot_prompt = FewShotPromptTemplate(
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, prompt=few_shot_prompt)
 
-print(db_chain.invoke("How much percentage of budget was allocated to Groceries this month by Vivek@123?"))
+print(db_chain.invoke("What is the total budget by Anbu@253 in April 2024?"))

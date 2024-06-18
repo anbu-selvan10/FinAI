@@ -2,12 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const mysql = require("mysql");
+const dotenv = require('dotenv');
 const app = express();
 const port = 4000;
 
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD
+console.log(MONGODB_URI)
+
 mongoose
   .connect(
-    "",
+    MONGODB_URI,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -38,7 +45,7 @@ const User = mongoose.model("User", userSchema);
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: MYSQL_PASSWORD,
   database: "finai",
 });
 
