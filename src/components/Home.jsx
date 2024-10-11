@@ -3,7 +3,8 @@ import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 import profilepic from "../img/profile.png";
 import expense from "../img/expenses.png"; 
-import budget from "../img/budget.jpg"; 
+import budget from "../img/budget.jpg";
+import chatbot from "../img/chatbot.jpeg"; 
 
 import "../../src/styles/home.css";
 
@@ -57,6 +58,17 @@ const HomePage = () => {
               </Link>
 
             <img src={budget} alt="Budgeting" className="item-img" />
+    
+          </div>
+          <div className="item item-4">
+              <Link
+                to={"/chatbot"}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <h1 className="profiletext"> RM Bot</h1>
+              </Link>
+
+            <img src={chatbot} alt="rmbot" className="item-img" />
     
           </div>
         </div>

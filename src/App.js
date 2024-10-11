@@ -8,6 +8,7 @@ import { AuthProvider } from "./components/contexts/AuthContext";
 import { useRoutes } from "react-router-dom";
 import "./styles/App.css";
 import { BudgetTracker } from "./components/BudgetTracker";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   const routesArray = [
@@ -38,6 +39,10 @@ function App() {
     {
       path: "/budget",
       element: <BudgetTracker/>,
+    },
+    {
+      path:"/chatbot",
+      element:<Chatbot/>
     }
   ];
   let routesElement = useRoutes(routesArray);

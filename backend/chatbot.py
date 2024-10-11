@@ -5,9 +5,14 @@ from langchain_experimental.sql import SQLDatabaseChain
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
+
+app = Flask(__name__)
+CORS(app) 
 
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
 AZURE_KEY = os.getenv("AZURE_KEY")
@@ -65,7 +70,7 @@ SQLQuery: Query to run with no preamble
 SQLResult: Result of the SQL query
 Answer: Final answer in natural language
 
-The SQL query should be outputted plainly, do not surround it in quotes or anything else.
+The SQL query should be outputted plainly, do not surround it in quotes or anything else like markers ```sql```.
 
 No preamble. Only respond in the format shown below.
 """
@@ -119,7 +124,20 @@ few_shot_prompt_with_schema = FewShotPromptTemplate(
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, prompt=few_shot_prompt_with_schema)
 
-question = "Can you give Anbu@253 suggestions to set the budget for next month?"
-response = db_chain.invoke(question)
-
-print(response)
+@app.route('/get_response', methods=['POST'])
+def get_response():
+    data = request.json
+    
+    question = data.get('question', '')
+    print(question)
+    
+    if question:
+        # Invoke the db_chain to get a response
+        response = db_chain.invoke(question)
+        print(response)
+        return jsonify({"response": response['result']})
+    else:
+        return jsonify({"error": "No question provided"}), 400
+    
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
