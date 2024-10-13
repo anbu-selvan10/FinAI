@@ -53,7 +53,7 @@ export const BudgetTracker = () => {
         );
         if (response.status === 200) {
           setMsg(
-            "Thank You! Budget submitted successfully. You can come again after a month!"
+            "Thank You! Budget submitted successfully. 15 RM Coins will be credited.. You can come again after a month!"
           );
         }
       } catch (error) {

@@ -28,6 +28,7 @@ const Chatbot = () => {
 
       const botResponse = response.data.response;
       const formattedResponse = botResponse
+        .replace(/\n\n/g, '<br>')
         .replace(/\n/g, '<br>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/###(.*?)(?=<br>|$)/g, '<h3>$1</h3>');

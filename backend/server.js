@@ -33,6 +33,8 @@ const userSchema = new mongoose.Schema({
   aboutMe: String,
   phone: String,
   email: String,
+  coins:Number,
+  lastExpenseSubmission: Date
 });
 
 const User = mongoose.model("User", userSchema);
@@ -58,6 +60,10 @@ app.get("/users", async (req, res) => {
   try {
     const email = req.query.email;
     const user = await User.findOne({ email });
+    if (user) {
+      user.coins = user.coins || 10;
+      await user.save(); 
+    }
     res.json(user);
   } catch (err) {
     console.error("Error fetching user data:", err);
@@ -67,7 +73,7 @@ app.get("/users", async (req, res) => {
 
 app.post("/users", async (req, res) => {
   try {
-    const { userName, name, age, aboutMe, phone, email } = req.body;
+    const { userName, name, age, aboutMe, phone, email, coins } = req.body;
 
     const existingUser = await User.findOne({ userName });
     if (existingUser) {
@@ -81,6 +87,7 @@ app.post("/users", async (req, res) => {
       aboutMe,
       phone,
       email,
+      coins: coins || 10, 
     });
 
     await newUser.save();
@@ -138,49 +145,65 @@ app.post("/expense_track", async (req, res) => {
     "Miscellaneous",
   ];
 
-  const user = await User.findOne({ email });
-
-  let parsedTransactions;
   try {
-    parsedTransactions = JSON.parse(transactions);
-  } catch (error) {
-    console.error("Error parsing transactions data:", error);
-    return res.status(400).send("Invalid transactions data.");
-  }
+    const user = await User.findOne({ email });
 
-  db.query(
-    "SELECT * FROM Expenses WHERE date = STR_TO_DATE(?, '%d-%m-%Y') AND username = ?",
-    [mysqlDateString, user.userName],
-    async function (err, result) {
-      if (err) {
-        console.error("Error checking existing records:", err);
-        return res
-          .status(500)
-          .send("An error occurred while checking existing records.");
-      }
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
 
-      if (result.length > 0) {
-        return res
-          .status(400)
-          .send("You have already submitted expenses for today.");
-      } else {
-        try {
-          await insertExpenses(
-            mysqlDateString,
-            user.userName,
-            categories,
-            parsedTransactions
-          );
-          return res.sendStatus(200);
-        } catch (error) {
-          console.error("Error inserting expenses:", error);
+    let parsedTransactions;
+    try {
+      parsedTransactions = JSON.parse(transactions);
+    } catch (error) {
+      console.error("Error parsing transactions data:", error);
+      return res.status(400).send("Invalid transactions data.");
+    }
+
+    db.query(
+      "SELECT * FROM Expenses WHERE date = STR_TO_DATE(?, '%d-%m-%Y') AND username = ?",
+      [mysqlDateString, user.userName],
+      async function (err, result) {
+        if (err) {
+          console.error("Error checking existing records:", err);
           return res
             .status(500)
-            .send("An error occurred while inserting expenses.");
+            .send("An error occurred while checking existing records.");
+        }
+
+        if (result.length > 0) {
+          return res
+            .status(400)
+            .send("You have already submitted expenses for today.");
+        } else {
+          try {
+            await insertExpenses(
+              mysqlDateString,
+              user.userName,
+              categories,
+              parsedTransactions
+            );
+
+            user.coins = (user.coins || 0) + 2;
+            await user.save();
+
+            return res.status(200).json({ 
+              message: "Expenses submitted successfully. You earned 2 coins!", 
+              coins: user.coins 
+            });
+          } catch (error) {
+            console.error("Error inserting expenses:", error);
+            return res
+              .status(500)
+              .send("An error occurred while inserting expenses.");
+          }
         }
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.error("Error in expense tracking:", error);
+    return res.status(500).send("An error occurred while processing your request.");
+  }
 });
 
 async function insertBudget(month, year, username, categories, parsedBudget) {
@@ -207,69 +230,88 @@ app.post("/budget_track", async (req, res) => {
   const parts = currentMonthYear.split(" ");
   const month = parts[0];
   const year = parseInt(parts[1]);
-  const user = await User.findOne({ email });
-
-  const categories = [
-    "Automotive",
-    "Bills & Utilities",
-    "Education",
-    "Entertainment",
-    "Food & Drink",
-    "Petrol & Gas",
-    "Gifts & Donations",
-    "Groceries",
-    "Health & Wellness",
-    "Home",
-    "Personal",
-    "Professional Services",
-    "Shopping",
-    "Travel",
-    "Miscellaneous",
-  ];
-
-  let parsedBudget;
+  
   try {
-    parsedBudget = JSON.parse(budget);
-  } catch (error) {
-    console.error("Error parsing budget data:", error);
-    return res.status(400).send("Invalid budget data.");
-  }
+    const user = await User.findOne({ email });
 
-  db.query(
-    "SELECT * FROM Budget WHERE month = ? AND year = ? AND username = ?",
-    [month, year, user.userName],
-    async function (err, result) {
-      if (err) {
-        console.error("Error checking existing records:", err);
-        return res
-          .status(500)
-          .send("An error occurred while checking existing records.");
-      }
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
 
-      if (result.length > 0) {
-        return res
-          .status(400)
-          .send("You have already submitted budget for this month.");
-      } else {
-        try {
-          await insertBudget(
-            month,
-            year,
-            user.userName,
-            categories,
-            parsedBudget
-          );
-          return res.sendStatus(200);
-        } catch (error) {
-          console.error("Error inserting budget:", error);
+    const categories = [
+      "Automotive",
+      "Bills & Utilities",
+      "Education",
+      "Entertainment",
+      "Food & Drink",
+      "Petrol & Gas",
+      "Gifts & Donations",
+      "Groceries",
+      "Health & Wellness",
+      "Home",
+      "Personal",
+      "Professional Services",
+      "Shopping",
+      "Travel",
+      "Miscellaneous",
+    ];
+
+    let parsedBudget;
+    try {
+      parsedBudget = JSON.parse(budget);
+    } catch (error) {
+      console.error("Error parsing budget data:", error);
+      return res.status(400).send("Invalid budget data.");
+    }
+
+    db.query(
+      "SELECT * FROM Budget WHERE month = ? AND year = ? AND username = ?",
+      [month, year, user.userName],
+      async function (err, result) {
+        if (err) {
+          console.error("Error checking existing records:", err);
           return res
             .status(500)
-            .send("An error occurred while inserting budget.");
+            .send("An error occurred while checking existing records.");
+        }
+
+        if (result.length > 0) {
+          return res
+            .status(400)
+            .send("You have already submitted budget for this month.");
+        } else {
+          try {
+            await insertBudget(
+              month,
+              year,
+              user.userName,
+              categories,
+              parsedBudget
+            );
+
+            // Increment the user's coins by 15 after submitting the budget
+            user.coins = (user.coins || 0) + 15;
+            await user.save();
+
+            return res.status(200).json({ 
+              message: "Budget for this month submitted successfully. You earned 15 coins!", 
+              coins: user.coins 
+            });
+          } catch (error) {
+            console.error("Error inserting budget:", error);
+            return res
+              .status(500)
+              .send("An error occurred while inserting budget.");
+          }
         }
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.error("Error in budget tracking:", error);
+    return res.status(500).send("An error occurred while processing your request.");
+  }
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

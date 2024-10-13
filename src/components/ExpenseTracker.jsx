@@ -39,11 +39,11 @@ export const ExpenseTracker = () => {
       `transactions_${currentUser.email}`
     );
     setMsg("");
-
+  
     const confirmed = window.confirm(
       "Do you want to record the expenses for today?"
     );
-
+  
     if (confirmed) {
       try {
         const currentDate = getCurrentDate();
@@ -55,15 +55,16 @@ export const ExpenseTracker = () => {
             currentDate: currentDate,
           }
         );
-        if (response.status == 200) {
+        if (response.status === 200) {
           setMsg(
-            "Thank You! Expenses submitted successfully. You can come again tomorrow!"
+            `${response.data.message} Your new coin balance is ${response.data.coins}.`
           );
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          setMsg("You have already submitted expenses for today. Visit tomorrow!");
+          setMsg(error.response.data);
         } else {
+          console.error("Error submitting expenses:", error);
           setMsg("An error occurred. Please try again later.");
         }
       }

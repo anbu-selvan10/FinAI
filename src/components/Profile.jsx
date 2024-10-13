@@ -12,6 +12,7 @@ const Form = () => {
     age: "",
     aboutMe: "",
     phone: "",
+    coins:10,
     email: currentUser.email,
   });
   const [errorMsg, setErrorMsg] = useState("");
@@ -84,6 +85,7 @@ const Form = () => {
         <p class="prfelement">About Me: {existingUser.aboutMe}</p>
         <p class="prfelement">Phone: {existingUser.phone}</p>
         <p class="prfelement">Email : {existingUser.email}</p>
+        <p class="prfelement">RM Coins: {existingUser.coins || 0}</p>
       </div>
     );
   }
@@ -154,6 +156,17 @@ const Form = () => {
             type="email"
             name="email"
             value={formData.email}
+            onChange={handleChange}
+            className="formnewbox"
+            readOnly
+          />
+        </label>
+        <label>
+          <p className="formtextnew">Reward Coins:</p>
+          <input
+            type="coins"
+            name="coins"
+            value={formData.coins}
             onChange={handleChange}
             className="formnewbox"
             readOnly
