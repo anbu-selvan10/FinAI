@@ -1,6 +1,8 @@
 # FIN-AI
 
-User Authentication Done using FireBase <br>
-User Profile added in MongoDB Atlas <br>
+User Authentication Done <br>
+User Profile added <br>
 Expense Tracker added <br>
 Budget Tracker added <br>
+RM Bot added <br>
+RM Coins added <br>
