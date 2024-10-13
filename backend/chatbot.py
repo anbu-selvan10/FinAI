@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from pymongo import MongoClient
 
-# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
 AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
 AZURE_DEPLOYMENT = os.getenv("AZURE_DEPLOYMENT")
+MONGODB_URI = os.getenv("MONGODB_URI")
 
 llm= AzureChatOpenAI(
         api_key=AZURE_KEY,
@@ -71,6 +72,8 @@ SQLResult: Result of the SQL query
 Answer: Final answer in natural language
 
 The SQL query should be outputted plainly, do not surround it in quotes or anything else like markers ```sql```.
+If the question is not related to the schema, budget, expense, then Don't answer.
+If the user wants to group by month, only group by months in the SQL table.
 
 No preamble. Only respond in the format shown below.
 """
@@ -111,7 +114,18 @@ few_shots = [
         """,
         'SQLResult': "800",
         'Answer': "Anbu@253 saved 800 in the Entertainment category in April 2024."
-    }
+    },
+    {
+    'Question': "Can you give Anbu@253 a budget for next month based on Anbu@253's previous spendings?",
+    'SQLQuery': """
+        SELECT category, AVG(expense_amt_categorized) AS average_spending
+        FROM expenses
+        WHERE username = 'Anbu@253'
+        GROUP BY category;
+    """,
+    'SQLResult': [],
+    'Answer': "Based on Anbu@253's previous spendings, the suggested budget for next month is:\n- Entertainment: 600\n- Food: 300\n- Utilities: 200\n- Transport: 150."
+}
 ]
 
 few_shot_prompt_with_schema = FewShotPromptTemplate(
@@ -124,18 +138,41 @@ few_shot_prompt_with_schema = FewShotPromptTemplate(
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, prompt=few_shot_prompt_with_schema)
 
+client = MongoClient(MONGODB_URI)
+db_mongo = client.get_database('FinAI')
+users_collection = db_mongo['users']
+
 @app.route('/get_response', methods=['POST'])
 def get_response():
     data = request.json
-    
     question = data.get('question', '')
-    print(question)
-    
+    email = data.get('email', '')
+
+    if not email:
+        return jsonify({"error": "No email provided"}), 400
+
+    user = users_collection.find_one({"email": email})
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    username = user.get('userName')
+    if not username:
+        return jsonify({"error": "Username not found for the provided email"}), 404
+
     if question:
-        # Invoke the db_chain to get a response
-        response = db_chain.invoke(question)
-        print(response)
-        return jsonify({"response": response['result']})
+        try:
+            question = question.replace(" me ", f" {username} ").replace(" my ", f" {username}'s ").replace(" i ", "he")
+            response = db_chain.invoke(question)
+            print(response)
+
+            ans = response['result']
+            n_question = f"Question: {question} This is the answer from SQL Chain: {ans}. Give me correct formatted answer like a real answer to the question with answer from sql chain as context. Use ₹ symbol instead of $"
+            n_response = llm.invoke(n_question)
+            return jsonify({"response": n_response.content})
+        except Exception as e:
+            n_response = llm.invoke(question)
+            return jsonify({"response": n_response.content})
     else:
         return jsonify({"error": "No question provided"}), 400
     

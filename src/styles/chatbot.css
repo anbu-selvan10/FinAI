@@ -56,7 +56,7 @@
 .message {
   padding: 10px;
   margin: 10px 0;
-  max-width: 85%;
+  width: 100%;
   border-radius: 8px;
   word-wrap: break-word;
 }

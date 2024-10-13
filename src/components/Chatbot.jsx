@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/chatbot.css';
+import { useAuth } from "./contexts/AuthContext";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]); 
   const [input, setInput] = useState(''); 
+  const { currentUser } = useAuth();
 
   const handleSend = async () => {
     if (!input) return;
@@ -12,9 +14,11 @@ const Chatbot = () => {
     setMessages([...messages, { sender: 'user', text: input }]);
 
     try {
-      const response = await axios.post('http://localhost:5000/get_response', 
+      const email = currentUser.email;
+      const response = await axios.post(`http://localhost:5000/get_response`, 
       {
-        question: input
+        question: input,
+        email: email
       }, 
       {
         headers: {
@@ -23,7 +27,12 @@ const Chatbot = () => {
       });
 
       const botResponse = response.data.response;
-      setMessages([...messages, { sender: 'user', text: input }, { sender: 'bot', text: botResponse }]);
+      const formattedResponse = botResponse
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/###(.*?)(?=<br>|$)/g, '<h3>$1</h3>');
+
+      setMessages([...messages, { sender: 'user', text: input }, { sender: 'bot', text: formattedResponse }]);
       
     } catch (error) {
       console.error("Error in chatbot API call", error);
@@ -46,7 +55,12 @@ const Chatbot = () => {
       <div className='chat-window'>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-            {msg.text}
+            {/* Render HTML for bot messages using dangerouslySetInnerHTML */}
+            {msg.sender === 'bot' ? (
+              <div dangerouslySetInnerHTML={{ __html: msg.text }} />
+            ) : (
+              msg.text
+            )}
           </div>
         ))}
       </div>
