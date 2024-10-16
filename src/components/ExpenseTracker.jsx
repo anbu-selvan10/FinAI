@@ -48,7 +48,7 @@ export const ExpenseTracker = () => {
       try {
         const currentDate = getCurrentDate();
         const response = await axios.post(
-          "http://localhost:4000/expense_track",
+          "http://localhost:4000/api/expenses/expense_track",
           {
             email: currentUserEmail,
             transactions: transactions,

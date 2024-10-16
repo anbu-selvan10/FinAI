@@ -44,7 +44,7 @@ export const BudgetTracker = () => {
       try {
         const currentMonthYear = getCurrentMonthYear();
         const response = await axios.post(
-          "http://localhost:4000/budget_track",
+          "http://localhost:4000/api/budget/budget_track",
           {
             email: currentUserEmail,
             budget: budget,

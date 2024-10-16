@@ -24,7 +24,7 @@ const Form = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/users?email=${currentUser.email}`
+          `http://localhost:4000/api/users?email=${currentUser.email}`
         );
         if (response.data) {
           setExistingUser(response.data);
@@ -54,7 +54,7 @@ const Form = () => {
     setSucMsg("");
     try {
       const response = await axios.post(
-        "http://localhost:4000/users",
+        "http://localhost:4000/api/users",
         formData
       );
       console.log(response.data);
