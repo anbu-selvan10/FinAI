@@ -9,6 +9,7 @@ import { useRoutes } from "react-router-dom";
 import "./styles/App.css";
 import { BudgetTracker } from "./components/BudgetTracker";
 import Chatbot from "./components/Chatbot";
+import RMStore from "./components/RMstore";
 
 function App() {
   const routesArray = [
@@ -43,7 +44,11 @@ function App() {
     {
       path:"/chatbot",
       element:<Chatbot/>
-    }
+    },
+    {
+      path:"/RMStore",
+      element:<RMStore/>
+    },
   ];
   let routesElement = useRoutes(routesArray);
 

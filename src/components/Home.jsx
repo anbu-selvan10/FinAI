@@ -5,6 +5,7 @@ import profilepic from "../img/profile.png";
 import expense from "../img/expenses.png"; 
 import budget from "../img/budget.jpg";
 import chatbot from "../img/chatbot.jpeg"; 
+import store from "../img/store.png";
 
 import "../../src/styles/home.css";
 
@@ -49,7 +50,8 @@ const HomePage = () => {
               </Link>
             <img src={expense} alt="Expense Tracker" className="item-img" />
           </div>
-          <div className="item item-3">
+     
+          <div className="item2 item-3">
               <Link
                 to={"/budget"}
                 style={{ textDecoration: "none", color: "black" }}
@@ -60,7 +62,7 @@ const HomePage = () => {
             <img src={budget} alt="Budgeting" className="item-img" />
     
           </div>
-          <div className="item item-4">
+          <div className="item2 item-4">
               <Link
                 to={"/chatbot"}
                 style={{ textDecoration: "none", color: "black" }}
@@ -69,6 +71,18 @@ const HomePage = () => {
               </Link>
 
             <img src={chatbot} alt="rmbot" className="item-img" />
+    
+          </div>
+
+          <div className="item2 item-5">
+              <Link
+                to={"/RMStore"}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <h1 className="profiletext"> RM Store</h1>
+              </Link>
+
+            <img src={store} alt="rmbot" className="item-img" />
     
           </div>
         </div>

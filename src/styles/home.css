@@ -1,16 +1,29 @@
-.item {
+.item, .item2 {
   width: 60%;
-  max-width: 450px;
+  max-width: 430px;
   height: 350px;
   border: none;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding-top: 30px;
   margin-top: 5vh;
-  margin-left: 5vh;
   position: relative;
-  justify-content: center;
+  justify-content: space-between;
   padding-bottom: 30px;
+  align-items: center;
+  margin-left: 6%;
+}
+
+.containerhome {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  justify-content: space-evenly;
+}
+
+.item2 {
+  margin-top: 5vh;
+  flex-basis: 100%; 
 }
 
 .profiletext {
