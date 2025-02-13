@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 
-load_dotenv()
+load_dotenv(r"..\.env")
 
 app = Flask(__name__)
 CORS(app) 
@@ -75,9 +75,6 @@ Settings.embed_model = AzureOpenAIEmbedding(
 query_engine = NLSQLTableQueryEngine(
     sql_database=sql_database, tables=["budget", "expenses"], llm=llm
 )
-
-# query_str = "Can you give me an analysis of Anbu@253 sum of expenses in each month in categories? And give analysis of Anbu@253 budget"
-# response = query_engine.query(query_str)
 
 @app.route('/get_response', methods=['POST'])
 def get_response():
