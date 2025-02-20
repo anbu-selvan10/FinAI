@@ -1,17 +1,17 @@
 import os
 import smtplib
-import pymysql
 import pymongo
+import calendar
 from email.message import EmailMessage
 from email.utils import formataddr
 from dotenv import load_dotenv
 from pathlib import Path
 from celery import shared_task
 from celery_app import celery_app
-import calendar
 from datetime import datetime
+from supabase import create_client, Client
 
-# Load environment variables from .env file
+# Load environment variables
 current_dir = Path(__file__).resolve().parent if "__file__" in locals() else Path.cwd()
 envars = current_dir / ".env"
 load_dotenv(r"..\.env")
@@ -23,16 +23,12 @@ EMAIL_SERVER = "smtp.gmail.com"
 # Read credentials from .env
 sender_email = os.getenv("EMAIL_ID")
 password_email = os.getenv("EMAIL_PASS")
-db_password = os.getenv("MYSQL_PASSWORD")
+supabase_url = os.getenv("SUPABASE_URL")
+supabase_key = os.getenv("SUPABASE_API_KEY")
 mongo_uri = os.getenv("MONGODB_URI")
 
-# Database Configurations
-DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": db_password,
-    "database": "finai"
-}
+# Initialize Supabase client
+supabase: Client = create_client(supabase_url, supabase_key)
 
 # MongoDB Connection
 mongo_client = pymongo.MongoClient(mongo_uri)
@@ -69,43 +65,41 @@ def fetch_expense_budget_comparison():
     """
     Fetches and compares monthly expenses against budgets.
     Returns records where expenses exceed or equal budget.
-    Account for month being stored as month name (January, February, etc.)
     """
     try:
-        connection = pymysql.connect(**DB_CONFIG, cursorclass=pymysql.cursors.DictCursor)
-        with connection.cursor() as cursor:
-            query = """
-            SELECT 
-                e.username,
-                e.category,
-                DATE_FORMAT(e.date, '%m') as expense_month_num,
-                DATE_FORMAT(e.date, '%M') as expense_month_name,
-                YEAR(e.date) as year,
-                b.budget_amt_categorized,
-                b.month as budget_month,
-                SUM(e.expense_amt_categorized) as total_expenses
-            FROM expenses e
-            JOIN budget b 
-                ON e.username = b.username 
-                AND e.category = b.category 
-                AND DATE_FORMAT(e.date, '%M') = b.month
-                AND YEAR(e.date) = b.year
-            GROUP BY 
-                e.username, 
-                e.category, 
-                DATE_FORMAT(e.date, '%m'),
-                DATE_FORMAT(e.date, '%M'),
-                YEAR(e.date),
-                b.budget_amt_categorized,
-                b.month
-            HAVING total_expenses >= budget_amt_categorized;
-            """
-            cursor.execute(query)
-            results = cursor.fetchall()
-        connection.close()
-        return results
-    except pymysql.MySQLError as err:
-        print(f"Database Error: {err}")
+        # Fetch expenses and budget data from Supabase
+        expense_data = supabase.from_("expenses").select("*").execute().data
+        budget_data = supabase.from_("budget").select("*").execute().data
+
+        exceeded_budgets = []
+
+        if not expense_data or not budget_data:
+            return exceeded_budgets
+
+        # Group and compare expenses with budget
+        expense_summary = {}
+        for expense in expense_data:
+            key = (expense["username"], expense["category"], expense["date"][:7])  # Group by user, category, month
+            expense_summary[key] = expense_summary.get(key, 0) + expense["expense_amt_categorized"]
+
+        for budget in budget_data:
+            budget_key = (budget["username"], budget["category"], f"{budget['year']}-{get_month_number(budget['month']):02d}")
+            budget_amount = budget["budget_amt_categorized"]
+            total_expenses = expense_summary.get(budget_key, 0)
+
+            if total_expenses >= budget_amount:
+                exceeded_budgets.append({
+                    "username": budget["username"],
+                    "category": budget["category"],
+                    "month": budget["month"],
+                    "year": budget["year"],
+                    "budget_amt": budget_amount,
+                    "total_expenses": total_expenses
+                })
+
+        return exceeded_budgets
+    except Exception as e:
+        print(f"Supabase Query Error: {e}")
         return []
 
 @celery_app.task
@@ -187,13 +181,13 @@ def check_and_send_emails():
                 receiver_email=receiver_email,
                 username=username,
                 category=record["category"],
-                month=record["budget_month"],  # Using the month name from budget table
+                month=record["month"],
                 year=record["year"],
-                budget_amt=record["budget_amt_categorized"],
+                budget_amt=record["budget_amt"],
                 total_expenses=record["total_expenses"]
             )
             results.append(f"Scheduled email to {receiver_email} for {record['category']}")
-        
+
         return results
     except Exception as e:
         return f"Error in check_and_send_emails: {str(e)}"
@@ -201,6 +195,7 @@ def check_and_send_emails():
 # Clean up MongoDB connection when the application exits
 import atexit
 atexit.register(lambda: mongo_client.close())
+
 
 
 
