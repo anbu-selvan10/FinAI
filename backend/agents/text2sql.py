@@ -9,12 +9,18 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
+from sqlalchemy.orm import sessionmaker
 
 load_dotenv(r"..\.env")
 
 app = Flask(__name__)
 CORS(app) 
 
+SUPABASE_USER = os.getenv('SUPABASE_USER')
+SUPABASE_PASSWORD = os.getenv('SUPABASE_PASSWORD')
+SUPABASE_HOST = os.getenv('SUPABASE_HOST')
+SUPABASE_DB = os.getenv('SUPABASE_DB')
+SUPABASE_PORT = os.getenv('SUPABASE_PORT')
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
 AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
@@ -44,11 +50,12 @@ client = MongoClient(MONGODB_URI)
 db_mongo = client.get_database('FinAI')
 users_collection = db_mongo['users']
 
-engine = create_engine(f"mysql+pymysql://root:{MYSQL_PASSWORD}@localhost/finai")
+engine = create_engine(f"postgresql+psycopg2://{SUPABASE_USER}:{SUPABASE_PASSWORD}@{SUPABASE_HOST}:{SUPABASE_PORT}/{SUPABASE_DB}")
 meta = MetaData()
 
 budget = Table(
-    'budget', meta, 
+    'budget', meta,
+    Column('id', String), 
     Column('month', String), 
     Column('year', Integer), 
     Column('username', String),
@@ -58,6 +65,7 @@ budget = Table(
 
 expenses = Table(
     'expenses', meta,
+    Column('id', String),
     Column('date', Date),  
     Column('username', String),
     Column('category', String),
@@ -65,6 +73,9 @@ expenses = Table(
 )
 
 sql_database = SQLDatabase(engine, include_tables=["budget", "expenses"])
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+session = SessionLocal()
 
 Settings.embed_model = AzureOpenAIEmbedding(
     deployment_name=AZURE_EMBEDDINGS_DEPLOYMENT,
@@ -75,6 +86,9 @@ Settings.embed_model = AzureOpenAIEmbedding(
 query_engine = NLSQLTableQueryEngine(
     sql_database=sql_database, tables=["budget", "expenses"], llm=llm
 )
+
+with engine.connect() as connection:
+    print("Connection Successful\n")
 
 @app.route('/get_response', methods=['POST'])
 def get_response():
