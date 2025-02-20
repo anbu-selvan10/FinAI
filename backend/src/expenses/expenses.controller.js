@@ -2,7 +2,6 @@ const db = require("../db/sql_db");
 const mongoose = require("../db/mongo_db");
 const User = require("../users/users.model");
 
-
 // Insert Expenses Logic
 const { createClient } = require("@supabase/supabase-js");
 require("dotenv").config();
@@ -17,6 +16,27 @@ const formatDateToISO = (dateStr) => {
   return `${parts[2]}-${parts[1]}-${parts[0]}`; // Rearranging as YYYY-MM-DD
 };
 
+// Function to generate the primary key ID
+const generatePrimaryKey = (date, username, category) => {
+  // Extract the day part (DD) from the ISO date (YYYY-MM-DD)
+  const dateParts = date.split('-');
+  const year = dateParts[0].substring(2); // Get last 2 digits of year
+  const month = dateParts[1];             // Month (MM)
+  const day = dateParts[2];               // Day (DD)
+  
+  // Format as DDMMYY
+  const datePart = `${day}${month}${year}`;
+  
+  // Keep username as is
+  const userPart = username;
+  
+  // Take first 3 chars of category
+  const catPart = category.substring(0, 3).toUpperCase();
+  
+  // Combine in the required format
+  return `${userPart}${catPart}${datePart}`;
+};
+
 const insertExpenses = async (isoDate, username, categories, parsedTransactions) => {
   for (const category of categories) {
     const totalAmount = parsedTransactions.reduce((acc, transaction) => {
@@ -27,11 +47,15 @@ const insertExpenses = async (isoDate, username, categories, parsedTransactions)
     }, 0);
 
     if (totalAmount > 0) {
+      // Generate the primary key ID
+      const id = generatePrimaryKey(isoDate, username, category);
+      
       const { error } = await supabase
         .from("expenses")
         .insert([
           {
-            date: isoDate, // Use formatted date
+            id: id, // Add the primary key
+            date: isoDate,
             username: username,
             category: category,
             expense_amt_categorized: totalAmount,
@@ -43,11 +67,10 @@ const insertExpenses = async (isoDate, username, categories, parsedTransactions)
         throw error;
       }
 
-      console.log(`Category Expenses inserted for category: ${category}`);
+      console.log(`Category Expenses inserted for category: ${category}, ID: ${id}`);
     }
   }
 };
-
 // Expense Tracking Handler
 const trackExpenses = async (req, res) => {
   const { email, transactions, currentDate } = req.body;

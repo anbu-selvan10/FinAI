@@ -7,6 +7,19 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+function generateID(month,username,category,year){
+    month=month.substring(0,3).toUpperCase();
+
+    username=username;
+
+    category=category.substring(0,3).toUpperCase();
+
+    const yearLastTwo=year.toString().slice(-2);
+
+    return `${username}${month}${yearLastTwo}${category}`;
+}
+
+
 // Insert Budget Logic
 async function insertBudget(month, year, username, categories, parsedBudget) {
   for (const category of categories) {
@@ -18,10 +31,13 @@ async function insertBudget(month, year, username, categories, parsedBudget) {
     }, 0);
 
     if (totalAmount > 0) {
+      const id = generateID(month,username,category,year);
+
       const { error } = await supabase
         .from("budget")
         .insert([
           {
+            id:id,
             month: month,
             year: year,
             username: username,
