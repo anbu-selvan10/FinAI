@@ -10,6 +10,7 @@ import "./styles/App.css";
 import { BudgetTracker } from "./components/BudgetTracker";
 import Chatbot from "./components/Chatbot";
 import RMStore from "./components/RMstore";
+import StockAnalyst from "./components/StockAnalyst";
 
 function App() {
   const routesArray = [
@@ -39,15 +40,19 @@ function App() {
     },
     {
       path: "/budget",
-      element: <BudgetTracker/>,
+      element: <BudgetTracker />,
     },
     {
-      path:"/chatbot",
-      element:<Chatbot/>
+      path: "/chatbot",
+      element: <Chatbot />,
     },
     {
-      path:"/RMStore",
-      element:<RMStore/>
+      path: "/RMStore",
+      element: <RMStore />,
+    },
+    {
+      path: "/stock-analyst",
+      element: <StockAnalyst />,
     },
   ];
   let routesElement = useRoutes(routesArray);
