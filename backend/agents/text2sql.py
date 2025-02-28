@@ -6,15 +6,10 @@ from llama_index.core import Settings
 from llama_index.core.query_engine import NLSQLTableQueryEngine
 from dotenv import load_dotenv
 import os
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 from pymongo import MongoClient
 from sqlalchemy.orm import sessionmaker
 
 load_dotenv(r"..\.env")
-
-app = Flask(__name__)
-CORS(app) 
 
 SUPABASE_USER = os.getenv('SUPABASE_USER')
 SUPABASE_PASSWORD = os.getenv('SUPABASE_PASSWORD')
@@ -89,20 +84,3 @@ query_engine = NLSQLTableQueryEngine(
 
 with engine.connect() as connection:
     print("Connection Successful\n")
-
-@app.route('/get_response', methods=['POST'])
-def get_response():
-    data = request.json
-    question = data.get('question', '')
-    email = data.get('email', '')
-    
-    response = query_engine.query(question)
-
-    print(response)
-    
-    return jsonify({
-        'response': str(response),
-    })
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
