@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from stock_analyst import finai_agent
+from stock_analyst import advisor_workflow
 from text2sql import query_engine
 
 app = Flask(__name__)
@@ -31,7 +31,7 @@ def get_analyst_response():
         if not question:
             return jsonify({"error": "No question provided"}), 400
 
-        response = finai_agent.run(question).content
+        response = advisor_workflow.run(question).content
         print(response)
 
         responseDict = {"response": response}
