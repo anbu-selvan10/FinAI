@@ -2,7 +2,6 @@ from phi.agent import Agent
 from phi.model.azure import AzureOpenAIChat
 from phi.tools.yfinance import YFinanceTools
 from phi.tools.duckduckgo import DuckDuckGo
-from phi.tools.postgres import PostgresTools
 from dotenv import load_dotenv
 import phi
 import os
@@ -14,11 +13,6 @@ from phi.utils.log import logger
 
 load_dotenv(r"..\.env")
 
-SUPABASE_USER = os.getenv('SUPABASE_USER')
-SUPABASE_PASSWORD = os.getenv('SUPABASE_PASSWORD')
-SUPABASE_HOST = os.getenv('SUPABASE_HOST')
-SUPABASE_DB = os.getenv('SUPABASE_DB')
-SUPABASE_PORT = os.getenv('SUPABASE_PORT')
 PHI_KEY = os.getenv("PHI_KEY")
 AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
@@ -31,14 +25,6 @@ azure_model = AzureOpenAIChat(
     api_key=AZURE_KEY,
     azure_endpoint=AZURE_ENDPOINT,
     azure_deployment=AZURE_DEPLOYMENT,
-)
-
-postgres_tools = PostgresTools(
-    host=SUPABASE_HOST,
-    port=int(SUPABASE_PORT),
-    db_name=SUPABASE_DB,
-    user=SUPABASE_USER, 
-    password=SUPABASE_PASSWORD
 )
 
 search_agent = Agent(
@@ -61,26 +47,12 @@ stock_agent = Agent(
     markdown=True
 )
 
-#As of now user is hardcoded
-user = "Anbu@253"
-personalized_agent = Agent(
-    name="Personal Agent",
-    model=azure_model,
-    tools=[postgres_tools],
-    instructions=[
-        f"Retrieve the username - {user}'s saved amount for each of the previous months.",
-        "This can be done by summing budget amount and summing expense amount regardless of categories and subtracting.",
-        "Provide small and concise response",
-    ],
-    markdown=True
-)
-
 finai_agent = Agent(
-    team=[search_agent, stock_agent, personalized_agent],
+    team=[search_agent, stock_agent],
     model=azure_model,
     instructions=[
         "Use the search agent to find company-related news and the financial agent to retrieve stock market data.",
-        "You should give advise on investment based on the savings of the user."
+        "You should give advise on investment based on the historical stock data and analyst recommendations."
         "Ensure the data is in concise markdown format for the user."
     ],
     show_tool_calls=True,
@@ -91,19 +63,16 @@ class InvestmentData(BaseModel):
     stock_query: str = Field(..., description="The stock search query.")
     search_results: dict = Field(..., description="Results from the search agent.")
     stock_recommendations: dict = Field(..., description="Results from the stock agent.")
-    last_month_savings: dict = Field(..., description="Savings computed by the personalized agent.")
 
 class StockInvestmentAdvisorWorkflow(Workflow):
     """
     This workflow integrates:
       - search_agent: to get news on the stock,
-      - stock_agent: to get recommendations and fundamentals,
-      - personalized_agent: to compute last month's savings, and
+      - stock_agent: to get recommendations and fundamentals and
       - finai_agent: to advise on whether the user can invest based on the above data.
     """
     searcher: Agent = search_agent
     stock_analyzer: Agent = stock_agent
-    personal_calculator: Agent = personalized_agent
     advisor: Agent = finai_agent
 
     def run(self, stock_query: str) -> Optional[RunResponse]:
@@ -117,18 +86,13 @@ class StockInvestmentAdvisorWorkflow(Workflow):
         stock_response: RunResponse = self.stock_analyzer.run(stock_query)
         stock_recommendations = {"content": stock_response.content}
 
-        logger.info("Step 3: Calculating last month savings")
-        personal_response: RunResponse = self.personal_calculator.run("")
-        last_month_savings = {"content": personal_response.content}
-
         combined_input = InvestmentData(
             stock_query=stock_query,
             search_results=search_results,
             stock_recommendations=stock_recommendations,
-            last_month_savings=last_month_savings,
         )
         advisor_input_str = json.dumps(combined_input.model_dump(), indent=4)
-        logger.info("Step 4: Getting final investment advice from fin_ai agent")
+        logger.info("Step 3: Getting final investment advice from fin_ai agent")
 
         advisor_response = self.advisor.run(advisor_input_str)
         return advisor_response
