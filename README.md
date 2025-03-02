@@ -1,11 +1,11 @@
 # FIN-AI
 
-User Authentication Done <br>
-User Profile added <br>
-Expense Tracker added <br>
-Budget Tracker added <br>
-RM Bot added <br>
-RM Coins added <br>
-Text2SQL agent for personal analysis added <br>
-FinAI Stock Analysis Agent added <br>
-Email Alert Automation added <br>
+`User Authentication` done using Firebase.<br>
+User `Profile` added.<br>
+`Expense Tracker` added.<br>
+`Budget Tracker` added.<br>
+`RM Coins` added.<br>
+`RM Chatbot` added which uses Text2SQL agent for personal analysis.<br>
+FinAI `Stock Analysis Agent` added using Phidata Agentic AI Workflow.<br>
+`Email Alert Automation` added which uses Celery and SQLite Broker.<br>
+`Personalized Portfolio Optimization` added.<br>

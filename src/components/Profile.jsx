@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "./contexts/AuthContext";
 import "../styles/profile.css";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const { currentUser } = useAuth();
@@ -12,13 +13,20 @@ const Form = () => {
     age: "",
     aboutMe: "",
     phone: "",
-    coins:10,
-    email: currentUser.email,
+    coins: 10,
+    email: currentUser ? currentUser.email : null
   });
   const [errorMsg, setErrorMsg] = useState("");
   const [sucMsg, setSucMsg] = useState("");
   const [existingUser, setExistingUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +46,7 @@ const Form = () => {
     };
 
     fetchData();
-  }, [currentUser.email]);
+  }, [currentUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

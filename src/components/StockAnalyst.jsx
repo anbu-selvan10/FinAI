@@ -2,12 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import "../../src/styles/StockAnalyst.css";
+import { useAuth } from "./contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const StockAnalyst = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  
+    useEffect(() => {
+      if (!currentUser) {
+        navigate("/login");
+      }
+    }, [currentUser, navigate]);
 
   // Auto-scroll to bottom of messages
   const scrollToBottom = () => {

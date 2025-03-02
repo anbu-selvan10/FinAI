@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 import profilepic from "../img/profile.png";
@@ -7,15 +7,23 @@ import budget from "../img/budget.jpg";
 import chatbot from "../img/chatbot.jpeg";
 import store from "../img/store.png";
 import stock from "../img/stock-analyst.png";
+import { useNavigate } from 'react-router-dom';  
 
 import "../../src/styles/home.css";
 
 const HomePage = () => {
   const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      navigate('/login');
+    }
+  }, [userLoggedIn, navigate]);
+
   return (
     <>
-      {userLoggedIn ? (
-        <div className="homebgmain">
+      <div className="homebgmain">
           <div className="homebg2">
             <h2 className="finaihomedesc">
               <i>
@@ -99,11 +107,6 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <h3 className="loginfirsttext">
-          Login first to access the homepage content
-        </h3>
-      )}
     </>
   );
 };

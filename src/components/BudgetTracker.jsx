@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BudgetList from "./budget/BudgetList";
 import AddBudget from "./budget/AddBudget";
 import BudgetContextProvider from "./contexts/BudgetContext";
 import { useAuth } from "./contexts/AuthContext";
 import "../styles/budget.css";
+import { useNavigate } from "react-router-dom";
 
 export const BudgetTracker = () => {
   const { currentUser } = useAuth();
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
+
+  if (!currentUser) {
+    return null;
+  }
 
   const getCurrentMonthYear = () => {
     const months = [
@@ -53,7 +65,7 @@ export const BudgetTracker = () => {
         );
         if (response.status === 200) {
           setMsg(
-            "Thank You! Budget submitted successfully. 15 RM Coins will be credited.. You can come again after a month!"
+            "Thank You! Budget submitted successfully. 15 RM Coins will be credited. You can come again after a month!"
           );
         }
       } catch (error) {
@@ -68,36 +80,29 @@ export const BudgetTracker = () => {
     }
   };
 
-  return(
+  return (
     <div className="expense-wrapper">
       <BudgetContextProvider>
-    
-        
-          <div className="container">
-         
-            <div className="textalignexp">
-              <h2 className="exptitle">Budget Tracker</h2>
-              <p>
-                Budget for {getCurrentMonthYear()}
-              </p>
-              <p className="impmessageexp">
-                You can click the submit button once a month. So, it is advised to click
-                the submit button at the end of the day after you have planned your budget for this
-                month.
-              </p>
-              
-              <BudgetList />
-              <AddBudget />
-            </div>
-          
-        
+        <div className="container">
+          <div className="textalignexp">
+            <h2 className="exptitle">Budget Tracker</h2>
+            <p>Budget for {getCurrentMonthYear()}</p>
+            <p className="impmessageexp">
+              You can click the submit button once a month. So, it is advised to
+              click the submit button at the end of the day after you have
+              planned your budget for this month.
+            </p>
+
+            <BudgetList />
+            <AddBudget />
+          </div>
+
           <button onClick={() => handleSubmit()} className="buttonexp">
             Submit
-          </button>  
-        {msg && <div className="messagesubmitexp">{msg}</div>}
+          </button>
+          {msg && <div className="messagesubmitexp">{msg}</div>}
         </div>
       </BudgetContextProvider>
-      
     </div>
   );
 };
