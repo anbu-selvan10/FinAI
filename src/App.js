@@ -11,6 +11,7 @@ import { BudgetTracker } from "./components/BudgetTracker";
 import Chatbot from "./components/Chatbot";
 import RMStore from "./components/RMstore";
 import StockAnalyst from "./components/StockAnalyst";
+import WishlistManager from "./components/WishlistManager";
 
 function App() {
   const routesArray = [
@@ -53,6 +54,10 @@ function App() {
     {
       path: "/stock-analyst",
       element: <StockAnalyst />,
+    },
+    {
+      path: "/wishlist-manager",
+      element: <WishlistManager />,
     },
   ];
   let routesElement = useRoutes(routesArray);
