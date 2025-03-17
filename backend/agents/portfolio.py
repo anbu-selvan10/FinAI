@@ -116,9 +116,9 @@ class BlackLittermanPortfolioOptimizer(Toolkit):
             # Step 5: Optimize Portfolio Allocation
             ef = EfficientFrontier(bl_return, bl_cov)
 
-            if risk_tolerance == "low":
+            if risk_tolerance == "Low Risk":
                 ef.min_volatility()
-            elif risk_tolerance == "medium":
+            elif risk_tolerance == "Medium Risk" or risk_tolerance == "Medium-High Risk":
                 ef.max_quadratic_utility()
             else:
                 ef.max_sharpe()
