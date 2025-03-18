@@ -1,11 +1,84 @@
 from phi.tools import Toolkit
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.tools.yfinance import YFinanceTools
 from phi.agent import Agent
 from phi.utils.log import logger
 from typing import Dict, Any, List
 import yfinance as yf
 import numpy as np
 from datetime import datetime
+from dotenv import load_dotenv
+from phi.model.google import Gemini
+from dotenv import load_dotenv
+import os
+import re
+import json
+from phi.model.azure import AzureOpenAIChat
 
+load_dotenv(r"..\.env")
+
+AZURE_KEY = os.getenv("AZURE_KEY")
+AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
+AZURE_DEPLOYMENT = os.getenv("AZURE_DEPLOYMENT")
+GEMINI_API_KEY=os.getenv('GEMINI_API_KEY')
+
+gemini_model = Gemini(
+    id="gemini-2.0-flash",
+    api_key=GEMINI_API_KEY
+)
+
+
+azure_model = AzureOpenAIChat(
+    id=AZURE_DEPLOYMENT,
+    api_key=AZURE_KEY,
+    azure_endpoint=AZURE_ENDPOINT,
+    azure_deployment=AZURE_DEPLOYMENT,
+)
+
+news_agent = Agent(
+        name="News Impact Assessor",
+        role="Assess financial news impact",
+        model=azure_model,
+        tools=[DuckDuckGo(), YFinanceTools()],
+        instructions=[
+            "Analyze last month and recent financial news of the stock using the tool to determine potential market impact.",
+            "Rate on a scale of 0-10 (0: positive, 10: extremely negative).",
+            '''
+            Please analyze the sentiment of the following text and rate it on a scale from 0 to 10, where:
+
+            0 = Extremely Positive: Overwhelmingly positive, with no significant drawbacks. Highly optimistic, celebratory.
+            1 = Very Positive: Strongly positive, with only minor, negligible downsides.
+            2 = Positive: Positive news overall, with minor issues or challenges acknowledged.
+            3 = Slightly Positive: Positive tone, but with more noticeable issues or a cautious outlook.
+            4 = Neutral to Slightly Positive: Neither clearly positive nor negative, but leaning slightly toward positive.
+            5 = Neutral: Balanced, neither positive nor negative. The tone is factual and objective.
+            6 = Slightly Negative: Negative tone with some positive aspects or potential for recovery.
+            7 = Negative: Clearly negative with some potential for improvement or recovery.
+            8 = Very Negative: Strongly negative, with little to no hope or positive aspects.
+            9 = Extremely Negative: Overwhelmingly negative, with no positives. The situation is dire or highly problematic.
+            10 = Extremely Negative: Highly severe, possibly catastrophic news, with no redeeming qualities.
+            ''',
+            '''Strictly format the output as a python dictionary in the below format:
+                {
+                    "rating": <rating here>,
+                    "reason": <reason here>
+                }
+            ''',
+            "The output should be only json."
+        ],
+        show_tool_calls=False,
+        markdown=False,
+    )
+
+def extract_rating(text):
+    match = re.search(r'\{.*\}', text, re.DOTALL)
+
+    if match:
+        json_data = json.loads(match.group())
+        return float(json_data["rating"])
+    else:
+        return 5.0
+    
 class StockRiskTools(Toolkit):
     def __init__(self):
         super().__init__(name="stock_risk_tools")
@@ -217,7 +290,11 @@ class StockRiskTools(Toolkit):
             last_close = indicators[2]
             avg_volume_value = indicators[3]
             
-            news_impact = 5.0 
+            news_json = news_agent.run(f"{stock_symbol}").content
+            logger.info(f"Extracting news - \n{news_json}\n")
+
+            news_impact = extract_rating(news_json)
+            logger.info(f"Extracting rating - \n{news_impact}\n")
             
             # Normalize metrics
             normalized = self.normalize_metrics(
@@ -297,21 +374,6 @@ class StockRiskTools(Toolkit):
         except Exception as e:
             logger.error(f"Error in risk analysis: {e}")
 
-from dotenv import load_dotenv
-import os
-from phi.model.azure import AzureOpenAIChat
-load_dotenv(r"..\.env")
-
-AZURE_KEY = os.getenv("AZURE_KEY")
-AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
-AZURE_DEPLOYMENT = os.getenv("AZURE_DEPLOYMENT")
-
-azure_model = AzureOpenAIChat(
-    id=AZURE_DEPLOYMENT,
-    api_key=AZURE_KEY,
-    azure_endpoint=AZURE_ENDPOINT,
-    azure_deployment=AZURE_DEPLOYMENT,
-)
 
 risk_analysis_team = Agent(
     name="Risk Analysis Team",
@@ -329,5 +391,5 @@ risk_analysis_team = Agent(
     markdown=False,
 )
 
-print(risk_analysis_team.run("Tell me the risk of WIPRO.NS").content)
+print(risk_analysis_team.run("Tell me the risk of WIPRO.NS, INFY.NS, RELIANCE.NS").content)
     
