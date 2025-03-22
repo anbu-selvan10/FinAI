@@ -1,4 +1,7 @@
-from typing import List, Dict
+import json
+from typing import List, Dict, Optional
+from pydantic import BaseModel, Field
+from phi.workflow import Workflow, RunResponse
 import yfinance as yf
 from phi.agent import Agent
 from phi.model.google import Gemini
@@ -11,63 +14,10 @@ from phi.utils.log import logger
 import os
 from dotenv import load_dotenv
 from phi.tools.yfinance import YFinanceTools
-import datetime
-from sqlalchemy import create_engine, text
-from decimal import Decimal
+from risk_analyst import risk_analysis_team
+from savings import savings_agent
 
 load_dotenv(r"..\.env")
-
-SUPABASE_USER = os.getenv('SUPABASE_USER')
-SUPABASE_PASSWORD = os.getenv('SUPABASE_PASSWORD')
-SUPABASE_HOST = os.getenv('SUPABASE_HOST')
-SUPABASE_DB = os.getenv('SUPABASE_DB')
-SUPABASE_PORT = os.getenv('SUPABASE_PORT')
-
-DATABASE_URL = f"postgresql+psycopg2://{SUPABASE_USER}:{SUPABASE_PASSWORD}@{SUPABASE_HOST}:{SUPABASE_PORT}/{SUPABASE_DB}"
-
-def get_savings(username, db_url=DATABASE_URL):
-    today = datetime.date.today()
-    prev_month = today.month - 1 if today.month > 1 else 12
-    prev_year = today.year if today.month > 1 else today.year - 1
-    engine = create_engine(db_url)
-    
-    query1 = text(f"""
-        SELECT 
-            category, 
-            COALESCE(budget_amt_categorized, 0) AS budget_amt
-        FROM budget where username = :username
-        AND month = TO_CHAR(TO_DATE({prev_month}::TEXT, 'MM'), 'FMMonth')
-        AND year = :prev_year
-    """)
-    
-    query2 = text("""
-        SELECT 
-            category, 
-            COALESCE(SUM(expense_amt_categorized), 0) AS expense_amt
-        FROM expenses
-        WHERE EXTRACT(MONTH FROM date) = :prev_month
-            AND EXTRACT(YEAR FROM date) = :prev_year
-            AND username = :username
-        GROUP BY category;
-    """)
-
-    with engine.connect() as conn:
-        result1 = conn.execute(query1, {"prev_month": prev_month, "prev_year": prev_year, "username": username})
-        budget_data = result1.fetchall()
-        result2 = conn.execute(query2, {"prev_month": prev_month, "prev_year": prev_year, "username": username})
-        expenses_data = result2.fetchall()
-
-    total_budget = sum(amount for _, amount in budget_data)
-    total_expenses = sum(float(amount) if isinstance(amount, Decimal) else amount for _, amount in expenses_data)
-    savings = total_budget - total_expenses
-
-    return {
-        "budget data": budget_data,
-        "expenses data": expenses_data,
-        "total_budget": total_budget,
-        "total_expenses": total_expenses,
-        "savings": savings
-    }
 
 GEMINI_API_KEY=os.getenv('GEMINI_API_KEY')
 
@@ -138,6 +88,7 @@ class BlackLittermanPortfolioOptimizer(Toolkit):
 portfolio_agent = Agent(
     name="Portfolio Analyst",
     model=gemini_model,
+    team=[risk_analysis_team, savings_agent],
     tools=[
         YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True),
         BlackLittermanPortfolioOptimizer()
@@ -146,8 +97,51 @@ portfolio_agent = Agent(
     instructions=[
         "Fetch stock data using YFinance.",
         "Calculate expected monthly returns using historical data.",
+        "Get the savings using savings_agent and combined risk level or final risk using risk_analysis_team and pass as savings and risk_tolerance",
         "Use these returns as market views in the Black-Litterman model.",
         "Optimize portfolio allocation based on user's savings and risk tolerance.",
-        "Return results in JSON format."
+        "Return results in JSON format with username, risk_tolerance for the combined stock and portfolio advise"
     ]
 )
+
+class InvestmentData(BaseModel):
+    stock_query: str = Field(..., description="The stock search query.")
+    savings_results: dict = Field(..., description="Results from the search agent.")
+    risk_results: dict = Field(..., description="Results from the stock agent.")
+
+class PortfolioAdvisorWorkflow(Workflow):
+    """
+    This workflow integrates:
+      - search_agent: to get news on the stock,
+      - stock_agent: to get recommendations and fundamentals and
+      - finai_agent: to advise on whether the user can invest based on the above data.
+    """
+    savings: Agent = savings_agent
+    risk: Agent = risk_analysis_team
+    portfolio_advisor: Agent = portfolio_agent
+
+    def run(self, stock_query: str) -> Optional[RunResponse]:
+        logger.info(f"Starting Portfolio Optimization Workflow for: {stock_query}")
+
+        logger.info("Step 1: Calculating Savings")
+        savings_response: RunResponse = self.savings.run(stock_query)
+        savings_results = {"content": savings_response.content}
+        logger.info(f"Result: \n{savings_results}\n")
+
+        logger.info("Step 2: Calculating Risk Tolerance")
+        risk_response: RunResponse = self.risk.run(stock_query)
+        risk_results = {"content": risk_response.content}
+        logger.info(f"Result: \n{risk_results}\n")
+
+        combined_input = InvestmentData(
+            stock_query=stock_query,
+            savings_results=savings_results,
+            risk_results=risk_results,
+        )
+        advisor_input_str = json.dumps(combined_input.model_dump(), indent=4)
+        logger.info("Step 3: Getting final portfolio advice")
+
+        advisor_response = self.portfolio_advisor.run(advisor_input_str)
+        return advisor_response
+
+portfolio_advisor_workflow = PortfolioAdvisorWorkflow()

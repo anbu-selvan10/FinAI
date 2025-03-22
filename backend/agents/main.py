@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from stock_analyst import advisor_workflow
 from text2sql import query_engine
-from portfolio import get_savings, portfolio_agent
+from portfolio import portfolio_advisor_workflow
 
 app = Flask(__name__)
 
@@ -52,9 +52,7 @@ def get_portfolio_response():
         if not question:
             return jsonify({"error": "No question provided"}), 400
 
-        result = get_savings(username)
-        print(result)
-        response = portfolio_agent.run(f"{question} with {result["savings"]}").content
+        response = portfolio_advisor_workflow.run(f"{question} with {username}").content
 
         responseDict = {"response": response}
 

@@ -381,15 +381,15 @@ risk_analysis_team = Agent(
     model=azure_model,
     tools=[StockRiskTools()],
     instructions=[
+        "Act as a NER to identify the stock symbols in the query. Stocks can be more than one",
         "Use the StockRiskTools for analysing risk for the given stock symbol.",
         "Provide confidence level (low, medium, high).",
-        "Format output as a json or python dictionary. Keep it Ccncise",
+        "Format output as a json or python dictionary. Keep it Concise",
         "Include risk factors and their significance in the analysis.",
+        "If there are more than one stock is given, analyse the risk of each stock and give a final risk category for all the stocks combined."
         "Do not include any detailed data, news, or tool traces.",
     ],
     show_tool_calls=False,
     markdown=False,
 )
-
-print(risk_analysis_team.run("Tell me the risk of WIPRO.NS, INFY.NS, RELIANCE.NS").content)
     
