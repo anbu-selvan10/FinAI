@@ -15,3 +15,4 @@
 1. UI patchwork
 2. Backend session and storage for agents
 3. Create neat UIs for AI agents
+4. RM Bot -> Personalized analyser with Spending Pattern DL Model
