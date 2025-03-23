@@ -1,53 +1,106 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { BudgetContext } from "../contexts/BudgetContext";
 
-export const AddBudget = () => {
-  const { dispatch } = useContext(BudgetContext);
+const AddBudget = () => {
   const [category, setCategory] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
+  const [customCategory, setCustomCategory] = useState("");
+  const { addBudget } = useContext(BudgetContext);
+
+  const defaultCategories = [
+    "Automotive",
+    "Bills & Utilities",
+    "Education",
+    "Entertainment",
+    "Food & Drink",
+    "Petrol & Gas",
+    "Gifts & Donations",
+    "Groceries",
+    "Health & Wellness",
+    "Home",
+    "Personal",
+    "Professional Services",
+    "Rent",
+    "Savings",
+    "Shopping",
+    "Travel",
+    "Miscellaneous",
+    "Other",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "ADD_BUDGET", budget: { category, amount } });
+    
+    // Validate inputs
+    if (category === "") {
+      alert("Please select a category");
+      return;
+    }
+    
+    if (amount === "" || isNaN(amount) || Number(amount) <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+    
+    // If "Other" is selected, use the custom category
+    const finalCategory = category === "Other" ? customCategory : category;
+    
+    // Validate custom category
+    if (category === "Other" && customCategory.trim() === "") {
+      alert("Please enter a custom category");
+      return;
+    }
+    
+    // Add the budget
+    addBudget(finalCategory, Number(amount));
+    
+    // Reset form
     setCategory("");
-    setAmount(0);
+    setAmount("");
+    setCustomCategory("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        required
-        className="inpboxexp"
-      >
-        <option value="">Select Category</option>
-        <option value="Automotive">Automotive</option>
-        <option value="Bills & Utilities">Bills & Utilities</option>
-        <option value="Education">Education</option>
-        <option value="Entertainment">Entertainment</option>
-        <option value="Food & Drink">Food & Drink</option>
-        <option value="Petrol & Gas">Petrol & Gas</option>
-        <option value="Gifts & Donations">Gifts & Donations</option>
-        <option value="Groceries">Groceries</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="Home">Home</option>
-        <option value="Personal">Personal</option>
-        <option value="Professional Services">Professional Services</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Travel">Travel</option>
-        <option value="Miscellaneous">Miscellaneous</option>
-      </select>
-      <input
-        type="number"
-        placeholder="Amount"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        required
-        className="inpboxexp"
-      />
-      <button type="submit" onSubmit={handleSubmit} className="submitexp">
-        Add
+    <form className="add-budget-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="category-select"
+        >
+          <option value="">Select Category</option>
+          {defaultCategories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
+      
+      {category === "Other" && (
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Enter custom category"
+            value={customCategory}
+            onChange={(e) => setCustomCategory(e.target.value)}
+            className="custom-category-input"
+          />
+        </div>
+      )}
+      
+      <div className="form-group">
+        <input
+          type="number"
+          placeholder="Enter amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="amount-input"
+        />
+      </div>
+      
+      <button type="submit" className="add-budget-btn">
+        Add Budget Item
       </button>
     </form>
   );

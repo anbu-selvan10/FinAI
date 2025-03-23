@@ -83,9 +83,12 @@ const trackBudget = async (req, res) => {
       "Home",
       "Personal",
       "Professional Services",
+      "Rent",
+      "Savings",
       "Shopping",
       "Travel",
       "Miscellaneous",
+      "Other",
     ];
 
     let parsedBudget;

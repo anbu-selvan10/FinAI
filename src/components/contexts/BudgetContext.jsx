@@ -1,41 +1,61 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import v4 from "uuid-random";
 
 export const BudgetContext = createContext();
 
-const budgetReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_BUDGET":
-      return [
-        ...state,
-        {
-          category: action.budget.category,
-          amount: action.budget.amount,
-          id: v4(),
-        },
-      ];
-    case "REMOVE_BUDGET":
-      return state.filter((bg) => bg.id !== action.id);
-    default:
-      return state;
-  }
-};
-
 const BudgetContextProvider = (props) => {
+  const [budgets, setBudgets] = useState([]);
   const { currentUser } = useAuth();
 
-  const [budget, dispatch] = useReducer(budgetReducer, [], () => {
-    const data1 = localStorage.getItem(`budget_${currentUser.email}`);
-    return data1 ? JSON.parse(data1) : [];
-  });
-
   useEffect(() => {
-    localStorage.setItem(`budget_${currentUser.email}`, JSON.stringify(budget));
-  }, [budget]);
+    if (currentUser) {
+      const storedBudget = localStorage.getItem(`budget_${currentUser.email}`);
+      if (storedBudget) {
+        setBudgets(JSON.parse(storedBudget));
+      }
+    }
+  }, [currentUser]);
+
+  const saveBudgetToLocal = (newBudgets) => {
+    if (currentUser) {
+      localStorage.setItem(
+        `budget_${currentUser.email}`,
+        JSON.stringify(newBudgets)
+      );
+      
+      // Dispatch custom event for budget updates
+      const event = new Event("budgetUpdated");
+      window.dispatchEvent(event);
+    }
+  };
+
+  const addBudget = (category, amount) => {
+    // Generate a unique ID for the new budget item
+    const id = Math.random().toString(36).substr(2, 9);
+    const newBudget = { id, category, amount };
+    const newBudgets = [...budgets, newBudget];
+    setBudgets(newBudgets);
+    saveBudgetToLocal(newBudgets);
+  };
+
+  const removeBudget = (id) => {
+    const newBudgets = budgets.filter((budget) => budget.id !== id);
+    setBudgets(newBudgets);
+    saveBudgetToLocal(newBudgets);
+  };
+
+  const updateBudget = (id, updatedBudget) => {
+    const newBudgets = budgets.map((budget) => 
+      budget.id === id ? updatedBudget : budget
+    );
+    setBudgets(newBudgets);
+    saveBudgetToLocal(newBudgets);
+  };
 
   return (
-    <BudgetContext.Provider value={{ budget, dispatch }}>
+    <BudgetContext.Provider
+      value={{ budgets, addBudget, removeBudget, updateBudget }}
+    >
       {props.children}
     </BudgetContext.Provider>
   );

@@ -1,28 +1,32 @@
 import React, { useContext } from "react";
 import { BudgetContext } from "../contexts/BudgetContext";
-import BudgetDetails from "./BudgetDetails";
 
 const BudgetList = () => {
-  const {budget} = useContext(BudgetContext);
-  const amounts = budget.map((budget) => parseInt(budget.amount));
-  const total = amounts.reduce((acc, item) => (acc += item), 0);
+  const { budgets, removeBudget } = useContext(BudgetContext);
 
-  return(
-    <>
-      <h3>Net Amount:{total}</h3>
-      <h4>Your Budget</h4>
-      {budget.length ? (
-        <div>
-          <ul>
-            {budget.map((bg) => {
-              return <BudgetDetails budget={bg} key={bg.id}></BudgetDetails>;
-            })}
-          </ul>
-        </div>
-      ):(
-        <p>No transactions</p>
+  return (
+    <div className="budget-list">
+      <h3>Your Budget Allocations</h3>
+      {budgets.length === 0 ? (
+        <p className="empty-budget-message">No budget items added yet. Add your first category below.</p>
+      ) : (
+        budgets.map((budget) => (
+          <div className="budget-item" key={budget.id}>
+            <span className="budget-category">{budget.category}</span>
+            <div className="budget-item-actions">
+              <span className="budget-item-amount">₹{budget.amount}</span>
+              <button 
+                className="remove-budget-btn"
+                onClick={() => removeBudget(budget.id)}
+                aria-label="Remove budget item"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        ))
       )}
-    </>
+    </div>
   );
 };
 
