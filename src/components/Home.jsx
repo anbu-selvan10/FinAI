@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 import profilepic from "../img/profile.png";
@@ -12,6 +12,21 @@ import { useNavigate } from 'react-router-dom';
 import "../../src/styles/home.css";
 
 const HomePage = () => {
+  const [activeCard, setActiveCard] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
 
@@ -21,103 +36,92 @@ const HomePage = () => {
     }
   }, [userLoggedIn, navigate]);
 
-  const tools = [
+  const cards = [
     {
       id: 'profile',
-      title: 'Profile',
-      description: 'View and manage your personal information and account settings.',
-      image: profilepic, // Replace with profilepic when you have the actual import
-      path: '/profile'
+      title: 'PROFILE',
+      image: profilepic,
+      path: '/profile',
+      description: 'View and manage your personal financial information. Track your progress and set your financial goals.'
     },
     {
       id: 'expense',
-      title: 'Expense Tracker',
-      description: 'Track and categorize your spending with detailed visual reports.',
-      image: expense, // Replace with expense when you have the actual import
-      path: '/expense'
+      title: 'EXPENSE TRACKER',
+      image: expense,
+      path: '/expense',
+      description: 'Record your daily expenses across various categories. Get insights into your spending habits and identify areas for improvement.'
     },
     {
       id: 'budget',
-      title: 'Budget Tracker',
-      description: 'Set financial goals and create detailed budgets to stay on target.',
-      image: budget, // Replace with budget when you have the actual import
-      path: '/budget'
+      title: 'BUDGET TRACKER',
+      image: budget,
+      path: '/budget',
+      description: 'Plan and manage your monthly budget effectively. Set spending limits for different categories and track your progress.'
     },
     {
-      id: 'rmbot',
-      title: 'RM Bot',
-      description: 'Get personalized financial advice and answers to your money questions.',
-      image: chatbot, // Replace with chatbot when you have the actual import
-      path: '/chatbot'
+      id: 'chatbot',
+      title: 'RM BOT',
+      image: chatbot,
+      path: '/chatbot',
+      description: 'Your personal financial assistant. Get answers to your financial questions and receive personalized advice.'
     },
     {
       id: 'stock',
-      title: 'Stock Analyst',
-      description: 'Analyze market trends and get insights on potential investments.',
-      image: stock, // Replace with stock when you have the actual import
-      path: '/stock-analyst'
+      title: 'STOCK ANALYST',
+      image: stock,
+      path: '/stock-analyst',
+      description: 'Analyze stock market trends and make informed investment decisions. Get real-time updates and expert recommendations.'
     },
     {
       id: 'store',
-      title: 'RM Store',
-      description: 'Shop for premium features and tools to enhance your financial journey.',
-      image: store, // Replace with store when you have the actual import
-      path: '/RMStore'
+      title: 'RM STORE',
+      image: store,
+      path: '/RMStore',
+      description: 'Use your earned RM Coins to claim products as rewards.'
     }
   ];
 
-
   return (
-    <>
-      <div className="homebgmain">
-          <div className="homebg2">
-            <h2 className="finaihomedesc">
-              <i>
-                "Your Personalized Financial Assistant is here!
-                <br></br>
-                Record your daily expenses on various categories using our daily
-                tracker!
-                <br></br>
-                Plan your monthly budget accordingly and analyse your
-                spendings!"
-              </i>
-            </h2>
-          </div>
-          <div className="homebg1">
-            <h1 className="finaitext">FinAI</h1>
-          </div>
-          <div className="homebg2">
-            <div className="containerhome">
-            <div className="tools-container">
-      {tools.map((tool, index) => (
-        <div 
-          className={`tool-card ${index % 2 === 0 ? 'image-left' : 'image-right'}`} 
-          key={tool.id}
-        >
-          <div className="tool-content-wrapper">
-            <div className="tool-image-container">
-              {/* Replace with your actual image component */}
-              <img 
-                src={tool.image} 
-                alt={tool.title} 
-                className="tool-img" 
-              />
-            </div>
-            <div className="tool-text-container">
-              <h3 className="tool-title">{tool.title}</h3>
-              <p className="tool-description">{tool.description}</p>
-              <Link to={tool.path} className="tool-link">
-                VIEW {tool.title} <span className="arrow">›</span>
-              </Link>
-            </div>
+    <div className="finai-container">
+      {/* Hero Section */}
+      <section className="hero-section" style={{ transform: `translateY(${scrollPosition * 0.4}px)` }}>
+        <div className="hero-content">
+          <h1 className="finai-title">FinAI</h1>
+          <p className="finai-tagline">Your Personalized Financial Assistant</p>
+          <div className="hero-description">
+            <p>"Record your daily expenses on various categories using our daily tracker!</p>
+            <p>Plan your monthly budget accordingly and analyse your spendings!"</p>
           </div>
         </div>
-      ))}
+      </section>
+
+      {/* Cards Section */}
+      <section className="home-cards-section">
+          {cards.map((card, index) => (
+            <div 
+              key={card.id}
+              className={`home-card-container ${activeCard === card.id ? 'active' : ''}`}
+              onMouseEnter={() => setActiveCard(card.id)}
+              onMouseLeave={() => setActiveCard(null)}
+            >
+              <div className="home-card-background" style={{ backgroundImage: `url(${card.image})` }}></div>
+              <div className="home-card-content">
+                <h2 className="home-card-title">{card.title}</h2>
+                
+                <div className="home-card-details" style={{ 
+                  opacity: activeCard === card.id ? 1 : 0,
+                  transform: activeCard === card.id ? 'translateY(0)' : 'translateY(20px)'
+                }}>
+                  <p className="home-card-description">{card.description}</p>
+                  <Link to={card.path} className="home-card-button">
+                    VIEW {card.title}
+                  </Link>
+                </div>
+              </div>
+          </div>
+        ))}
+</section>
     </div>
-            </div>
-          </div>
-        </div>
-    </>
   );
 };
 
