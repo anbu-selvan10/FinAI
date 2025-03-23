@@ -1,109 +1,346 @@
-.formprofile {
-  width: 50%;
-  max-width: 460px;
-  height: 360px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Profile Styles - profile.css */
+
+/* Common Styles */
+.profile-container {
+  background-color: #f5f5f5;
 }
 
-.prftext {
-  text-align: center;
-}
-
-.prfelement {
-  margin: 4%;
-}
-
-.formnew {
-  width: 50%;
-  max-width: 360px;
-  height: 680px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-}
-
-.formnewarea {
-  margin-bottom: 10px;
-  resize: none;
-  margin-left: 30px;
-  width: 80%;
-  height: 50px;
-}
-
-.formtextnew {
-  margin-left: 3%;
-}
-
-.formnewbox {
-  width: 80%;
+.profile-container * {
   box-sizing: border-box;
-  margin-left: 30px;
-  height: 25px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.submitnewform {
-  position: absolute;
-  transform: translate(270%, 50%);
-}
-
-.formnewerrortxt {
-  margin-top: 10%;
-  text-align: center;
-  color: red;
-}
-
-.formheading {
-  text-align: center;
-}
-
+/* Loading Styles */
 .loading-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  );
+  justify-content: center;
+  height: 100vh;
 }
 
 .loading-animation {
-  border: 8px solid #f3f3f3; 
-  border-top: 8px solid #3498db;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   animation: spin 1s linear infinite;
 }
 
 .loading-text {
-  font-weight: bold;
-  font-size: 24px; 
-  margin-top: 10px; 
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Edit Profile Styles (First Image) */
+.edit-profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.edit-profile-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #777;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-button.active {
+  color: #2684FF;
+  font-weight: 500;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2684FF;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #2684FF;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(38, 132, 255, 0.2);
+}
+
+
+.update-button {
+  background-color: #FF4B2B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.update-button:hover {
+  background-color: #FF3517;
+}
+
+.error-message {
+  color: #d32f2f;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #2e7d32;
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* User Profile View (Second Image) */
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+  padding-top: 10px;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.profile-title {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.profile-location {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.follow-button, .contact-button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.follow-button {
+  background-color: #262626;
+  color: white;
+  border: none;
+}
+
+.contact-button {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #333;
+}
+
+.follow-button:hover {
+  background-color: #1a1a1a;
+}
+
+.contact-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-stats {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.stat-item {
+  text-align: center;
+  position: relative;
+}
+
+.stat-badge {
+  width: 28px;
+  height: 28px;
+  background-color: #FF5722;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+
+.stat-item:nth-child(2) .stat-badge {
+  background-color: #7C4DFF;
+}
+
+.stat-item:nth-child(3) .stat-badge {
+  background-color: #212121;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 100px; /* Set a consistent height */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Remove the duplicate profile-container definition */
+.profile-container .edit-profile-container {
+  margin: 0; /* Remove the margin that's causing overlap */
+  border-radius: 0; /* Remove border radius inside container */
+  box-shadow: none; /* Remove inner shadow */
+}
+
+.profile-header {
+  position: relative;
+  display: flex;
+  padding: 40px;
+  background: linear-gradient(135deg, #8a2be2, #ff69b4);
+  background-size: cover;
+  color: #333;
+  max-width: 700px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 24px;
+  border: 4px solid white;
+}
+
+/* Adjust stat display for the coin value */
+.profile-stats {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+/* Style the add social media button */
+.follow-button {
+  background-color: #262626;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.follow-button:hover {
+  background-color: #1a1a1a;
 }
