@@ -1,105 +1,317 @@
-.container{
-  align-items: center;
-  justify-content: center;
-  align-items: column;
-  text-align: center;
-}
-
-.messagesubmitexp {
-  text-align: center;
-  display: block; 
-}
-
-.transremove{
-  width: 96%;
-  align-items: column;
-}
-
-.translist {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.detailstrans{
-  padding: 10px;
-  font-size: large;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  margin-right: 4%;
-}
-
-.textalignexp {
-  text-align:center;
-  font-size:larger;
-}
-
-.buttonexp {
-  background-color: white;
-  color: black;
-  transition: background-color 0.3s ease;
-  padding: 10px 10px;
-  cursor: pointer;
-  border: none;
-}
-
-.buttonexp:hover{
-  background-color: black;
-  color: white;
-}
-
-.expense-wrapper{
-  width: 100%;
+/* Scoped Expense Tracker Styling */
+.expense-wrapper {
   min-height: 100vh;
-  background: linear-gradient(45deg, #a9b4c8, #6babe3, #6689f4, #8830f4);
-  background-size: 400% 400%;
-  animation: gradientAnimation 10s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #83a4d4, #b6fbff);
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
-@keyframes gradientAnimation {
-  0% {
-      background-position: 0% 50%;
-  }
-  50% {
-      background-position: 100% 50%;
-  }
-  100% {
-      background-position: 0% 50%;
-  }
+.expense-wrapper .container {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+  padding: 0;
+  position: relative;
 }
 
-.exptitle{
-  text-align:center;
+.expense-wrapper .container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.submitexp {
-  background-color: white;
-  color: black;
-  border: none;
-  padding: 10px 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  max-width: fit-content;
+.expense-wrapper .textalignexp {
+  padding: 30px 40px;
 }
 
-.submitexp:hover {
-  background-color: black;
-  color: white;
+.expense-wrapper .exptitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: #5c6bc0;
+  position: relative;
+  display: inline-block;
 }
 
-.messagesubmitexp {
+.expense-wrapper .exptitle::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 4px;
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  bottom: -8px;
+  left: 0;
+  border-radius: 2px;
+}
+
+.expense-wrapper p {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.expense-wrapper .impmessageexp {
+  color: #e65100;
+  font-size: 14px;
+  background-color: rgba(255, 152, 0, 0.1);
+  padding: 10px 15px;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+  margin: 20px 0;
+}
+
+/* Transaction List Styling */
+.expense-wrapper .transaction-list {
+  margin: 30px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.expense-wrapper .transaction-list h3 {
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  color: #f5f5f5;
+  padding: 15px 20px;
+  margin: 0;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-wrapper .total-amount {
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.expense-wrapper .transactions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.expense-wrapper .transactions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.expense-wrapper .transactions::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+.expense-wrapper .transactions::-webkit-scrollbar-thumb {
+  background-color: #5c6bc0;
+  border-radius: 20px;
+}
+
+.expense-wrapper .translist {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+  align-items: center;
+}
+
+.expense-wrapper .translist:hover {
+  background-color: rgba(92, 107, 192, 0.05);
+}
+
+.expense-wrapper .no-transactions {
+  padding: 30px;
   text-align: center;
-}
-
-.inpboxexp {
-  width: 95%;
-  margin: 0 auto;
-}
-
-.impmessageexp {
+  color: #999;
   font-style: italic;
-  color: red;
-  font-size: smaller;
+}
+
+.expense-wrapper .detailstrans {
+  font-size: 16px;
+}
+
+.expense-wrapper .detailstrans:nth-child(1) {
+  font-weight: 500;
+}
+
+.expense-wrapper .detailstrans:nth-child(2) {
+  font-weight: 600;
+  color: #f44336;
+}
+
+.expense-wrapper .detailstrans:nth-child(3) {
+  font-size: 14px;
+  color: #999;
+}
+
+.expense-wrapper .transremove {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.expense-wrapper .transremove:hover {
+  background-color: #f44336;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Add Transaction Form */
+.expense-wrapper form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 15px;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.expense-wrapper .inpboxexp {
+  padding: 14px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.expense-wrapper select.inpboxexp {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235c6bc0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.expense-wrapper .inpboxexp:focus {
+  border-color: #5c6bc0;
+  box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.2);
+  outline: none;
+}
+
+.expense-wrapper .submitexp {
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  color: white;
+  border: none;
+  padding: 0 25px;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(92, 107, 192, 0.3);
+}
+
+.expense-wrapper .submitexp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(92, 107, 192, 0.4);
+}
+
+.expense-wrapper .submitexp:active {
+  transform: translateY(1px);
+}
+
+/* Submit Button */
+.expense-wrapper .buttonexp {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.expense-wrapper .buttonexp::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.expense-wrapper .buttonexp:hover::before {
+  left: 100%;
+}
+
+.expense-wrapper .messagesubmitexp {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4caf50;
+  color: #2e7d32;
+  font-weight: 500;
+  animation: fadeInMessage 0.5s ease-in-out;
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .expense-wrapper form {
+    grid-template-columns: 1fr;
+  }
+  
+  .expense-wrapper .translist {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 5px 10px;
+  }
+  
+  .expense-wrapper .detailstrans:nth-child(3) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  
+  .expense-wrapper .transremove {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-self: end;
+  }
+  
+  .expense-wrapper .textalignexp {
+    padding: 20px;
+  }
 }

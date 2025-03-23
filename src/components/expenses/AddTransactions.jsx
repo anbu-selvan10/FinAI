@@ -47,9 +47,13 @@ export const AddTransactions = () => {
         <option value="Home">Home</option>
         <option value="Personal">Personal</option>
         <option value="Professional Services">Professional Services</option>
+        <option value="Rent">Rent</option>
+        <option value="Savings">Savings</option>
         <option value="Shopping">Shopping</option>
         <option value="Travel">Travel</option>
         <option value="Miscellaneous">Miscellaneous</option>
+        <option value="Other">Other</option>
+
       </select>
       <input
         type="number"

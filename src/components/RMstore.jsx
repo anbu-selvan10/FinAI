@@ -65,21 +65,23 @@ const RMStore = () => {
         {existingUser ? existingUser.userName : 0}'s coins balance:{" "}
         {existingUser ? existingUser.coins : 0}
       </h3>
-
-      {items.map((item, index) => (
-        <div className="card-container" key={item.id}>
-          <img src={item.img} alt={item.name} className="card-image" />
-
-          <h2 className="card-title">{item.name}</h2>
-
-          <button
-            className="card-button"
-            onClick={() => handleSubmit(item.price)}
-          >
-            Spend {item.price} Coins
-          </button>
-        </div>
-      ))}
+  
+      <div className="cards-grid">
+        {items.map((item, index) => (
+          <div className="card-container" key={item.id}>
+            <img src={item.img} alt={item.name} className="card-image" />
+  
+            <h2 className="card-title">{item.name}</h2>
+  
+            <button
+              className="card-button"
+              onClick={() => handleSubmit(item.price)}
+            >
+              Spend {item.price} Coins
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

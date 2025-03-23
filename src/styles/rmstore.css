@@ -1,65 +1,272 @@
-.rmstoretitle{
-    text-align: center;
-    padding-top: 1%;
-    
+/* Modern RM Store Styling */
+.rmstoretitlecont {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
-
-.rmstoredesc{
+  
+  /* Store Header */
+  .rmstoretitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #232f3e;
+    margin-bottom: 10px;
     text-align: center;
-}
-
-.avcoins{
-    text-align: center;
-}
-
-
-
-.card-container {
-    width: 500px;
-    height: 400px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #fff;
-    text-align: center;
-    margin-left: 10%;
-    margin-top: 2%;
-    
+    position: relative;
+    padding-bottom: 15px;
   }
   
-
-.card-image {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 20px;
-
-}
+  .rmstoretitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9900, #f3a847);
+    border-radius: 2px;
+  }
   
-
-.card-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
+  .rmstoredesc {
+    text-align: center;
+    color: #565959;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
   
-
-.card-button {
-    background-color: #ff9800;
+  .avcoins {
+    background: linear-gradient(135deg, #232f3e, #131921);
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px auto 40px;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
   
-.card-button:hover {
-    background-color: #e68900;
-}
+  .avcoins::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: coinShine 3s infinite;
+  }
+  
+  @keyframes coinShine {
+    to {
+      left: 200%;
+    }
+  }
+  
+  /* Product Grid */
+  .rmstoretitlecont {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  @media (min-width: 576px) {
+    .rmstoretitlecont {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .rmstoretitlecont {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+  }
+  
+  /* Make the title and description span the full width */
+  .rmstoretitle, .rmstoredesc, .avcoins {
+    grid-column: 1 / -1;
+  }
+  
+  /* Product Cards */
+  .card-container {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .card-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #e7e7e7;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-container:hover .card-image {
+    transform: scale(1.05);
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    color: #0F1111;
+    padding: 15px 20px;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-button {
+    background: linear-gradient(180deg, #f7dfa5, #f0c14b);
+    border: 1px solid #a88734;
+    color: #111;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-button:hover {
+    background: linear-gradient(180deg, #f5d78e, #eeb933);
+  }
+  
+  .card-button:active {
+    background: #f0c14b;
+    transform: scale(0.98);
+  }
+  
+  /* Add a "prime" ribbon to random cards */
+  .card-container:nth-child(3n+5)::before {
+    content: 'Top Pick';
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background: #232f3e;
+    color: white;
+    padding: 5px 30px;
+    transform: rotate(45deg);
+    font-size: 12px;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Add ratings to some cards */
+  .card-container:nth-child(even)::after {
+    content: '⭐⭐⭐⭐⭐';
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #ffa41c;
+    letter-spacing: 2px;
+  }
+  
+  /* Add a "deal" badge to some cards */
+  .card-container:nth-child(3n+4)::after {
+    content: 'Deal';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #cc0c39;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 3px;
+  }
+  
+  /* Animation for new items */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+  
+  .card-container:nth-child(3n)::before {
+    content: 'New';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #007185;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 3px;
+    animation: pulse 2s infinite;
+    z-index: 2;
+  }
+  
+  /* Apply pulse animation to the coin balance */
+  @keyframes highlightCoins {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .avcoins {
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, #232f3e, #131921, #232f3e, #131921);
+    animation: highlightCoins 5s ease infinite;
+  }
+
+  
+  /* Fix for layout */
+  .rmstoretitlecont {
+    display: block;
+  }
+  
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+  
+  @media (min-width: 576px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
