@@ -21,6 +21,52 @@ const HomePage = () => {
     }
   }, [userLoggedIn, navigate]);
 
+  const tools = [
+    {
+      id: 'profile',
+      title: 'Profile',
+      description: 'View and manage your personal information and account settings.',
+      image: profilepic, // Replace with profilepic when you have the actual import
+      path: '/profile'
+    },
+    {
+      id: 'expense',
+      title: 'Expense Tracker',
+      description: 'Track and categorize your spending with detailed visual reports.',
+      image: expense, // Replace with expense when you have the actual import
+      path: '/expense'
+    },
+    {
+      id: 'budget',
+      title: 'Budget Tracker',
+      description: 'Set financial goals and create detailed budgets to stay on target.',
+      image: budget, // Replace with budget when you have the actual import
+      path: '/budget'
+    },
+    {
+      id: 'rmbot',
+      title: 'RM Bot',
+      description: 'Get personalized financial advice and answers to your money questions.',
+      image: chatbot, // Replace with chatbot when you have the actual import
+      path: '/chatbot'
+    },
+    {
+      id: 'stock',
+      title: 'Stock Analyst',
+      description: 'Analyze market trends and get insights on potential investments.',
+      image: stock, // Replace with stock when you have the actual import
+      path: '/stock-analyst'
+    },
+    {
+      id: 'store',
+      title: 'RM Store',
+      description: 'Shop for premium features and tools to enhance your financial journey.',
+      image: store, // Replace with store when you have the actual import
+      path: '/RMStore'
+    }
+  ];
+
+
   return (
     <>
       <div className="homebgmain">
@@ -42,68 +88,32 @@ const HomePage = () => {
           </div>
           <div className="homebg2">
             <div className="containerhome">
-              <div className="item item-1">
-                <Link
-                  to={"/profile"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> Profile </h1>
-                </Link>
-
-                <img src={profilepic} alt="Profile" className="item-img" />
-              </div>
-              <div className="item item-2">
-                <Link
-                  to={"/expense"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> Expense Tracker </h1>
-                </Link>
-                <img src={expense} alt="Expense Tracker" className="item-img" />
-              </div>
-
-              <div className="item2 item-3">
-                <Link
-                  to={"/budget"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> Budget Tracker</h1>
-                </Link>
-
-                <img src={budget} alt="Budgeting" className="item-img" />
-              </div>
-              <div className="item2 item-4">
-                <Link
-                  to={"/chatbot"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> RM Bot</h1>
-                </Link>
-
-                <img src={chatbot} alt="rmbot" className="item-img" />
-              </div>
-
-              <div className="item2 item-4">
-                <Link
-                  to={"/stock-analyst"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> Stock Analyst</h1>
-                </Link>
-
-                <img src={stock} alt="rmbot" className="item-img" />
-              </div>
-
-              <div className="item2 item-5">
-                <Link
-                  to={"/RMStore"}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <h1 className="profiletext"> RM Store</h1>
-                </Link>
-
-                <img src={store} alt="rmbot" className="item-img" />
-              </div>
+            <div className="tools-container">
+      {tools.map((tool, index) => (
+        <div 
+          className={`tool-card ${index % 2 === 0 ? 'image-left' : 'image-right'}`} 
+          key={tool.id}
+        >
+          <div className="tool-content-wrapper">
+            <div className="tool-image-container">
+              {/* Replace with your actual image component */}
+              <img 
+                src={tool.image} 
+                alt={tool.title} 
+                className="tool-img" 
+              />
+            </div>
+            <div className="tool-text-container">
+              <h3 className="tool-title">{tool.title}</h3>
+              <p className="tool-description">{tool.description}</p>
+              <Link to={tool.path} className="tool-link">
+                VIEW {tool.title} <span className="arrow">›</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
             </div>
           </div>
         </div>

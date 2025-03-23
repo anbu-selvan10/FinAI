@@ -82,5 +82,290 @@
   background-color: white;
 }
 
+.tools-container {
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
 
+.tool-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+.tool-content-wrapper {
+  display: flex;
+  width: 100%;
+  height: 400px;
+}
+
+/* Alternating layout */
+.image-left .tool-content-wrapper {
+  flex-direction: row;
+}
+
+.image-right .tool-content-wrapper {
+  flex-direction: row-reverse;
+}
+
+.tool-image-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.tool-img {
+  width: 50%;
+  height: 100%;
+  object-fit:fill;
+}
+
+.tool-text-container {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.tool-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #000;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.tool-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 3px;
+  background-color: #ff4655;
+}
+
+.tool-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.tool-link {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff4655;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.5rem 0;
+}
+
+.tool-link .arrow {
+  margin-left: 8px;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.tool-link:hover {
+  color: #cc2333;
+}
+
+.tool-link:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tool-content-wrapper {
+    flex-direction: column-reverse !important;
+    height: auto;
+  }
+  
+  .tool-image-container,
+  .tool-text-container {
+    width: 100%;
+  }
+  
+  .tool-image-container {
+    height: 200px;
+  }
+  
+  .tool-text-container {
+    padding: 2rem;
+  }
+  
+  .tool-title {
+    font-size: 2rem;
+  }
+}/* Full-width alternating Financial Tools Styling with alternating colors */
+.tools-container {
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Alternating background colors */
+.tool-card:nth-child(odd) {
+  background-color: #15a7d3;
+}
+
+.tool-card:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.tool-content-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 2rem 4rem;
+  align-items: center;
+  height: 400px;
+}
+
+/* Alternating layout */
+.image-left .tool-content-wrapper {
+  flex-direction: row;
+}
+
+.image-right .tool-content-wrapper {
+  flex-direction: row-reverse;
+}
+
+.tool-image-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tool-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tool-text-container {
+  width: 60%;
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* Adjust padding for text containers based on image position */
+.image-left .tool-text-container {
+  padding-left: 5rem;
+  padding-right: 0;
+}
+
+.image-right .tool-text-container {
+  padding-right: 4rem;
+  padding-left: 0;
+}
+
+.tool-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #000;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.tool-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 3px;
+  background-color: #ff4655;
+}
+
+.tool-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.tool-link {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff4655;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.5rem 0;
+}
+
+.tool-link .arrow {
+  margin-left: 8px;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.tool-link:hover {
+  color: #cc2333;
+}
+
+.tool-link:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tool-content-wrapper {
+    flex-direction: column-reverse !important;
+    height: auto;
+  }
+  
+  .tool-image-container,
+  .tool-text-container {
+    width: 100%;
+  }
+  
+  .tool-image-container {
+    height: 200px;
+  }
+  
+  .tool-text-container {
+    padding: 2rem;
+  }
+  
+  .tool-title {
+    font-size: 2rem;
+  }
+}
