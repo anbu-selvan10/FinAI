@@ -78,7 +78,7 @@
 }
 
 .home-card-container {
-  width: calc(50% - 3rem); /* Changed from 33.333% to 50% for 2 cards per row */
+  width: 40%; /* Changed from calc(50% - 3rem) to 40% for 2 cards per row */
   height: 450px;
   position: relative;
   overflow: hidden;

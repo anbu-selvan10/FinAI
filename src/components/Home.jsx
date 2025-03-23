@@ -89,8 +89,8 @@ const HomePage = () => {
           <h1 className="finai-title">FinAI</h1>
           <p className="finai-tagline">Your Personalized Financial Assistant</p>
           <div className="hero-description">
-            <p>"Record your daily expenses on various categories using our daily tracker!</p>
-            <p>Plan your monthly budget accordingly and analyse your spendings!"</p>
+            <p>Plan your monthly budget and Record your daily expenses</p>
+            <p>Analyse your spendings and Build your stocks portfolio with our AI Agents</p>
           </div>
         </div>
       </section>
