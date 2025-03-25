@@ -1,0 +1,461 @@
+id,category,date,expense_amt_categorized,username
+Vivekanand.M.UAUT030225,Automotive,2025-02-03,834,Vivekanand.M.U
+Vivekanand.M.UAUT031224,Automotive,2024-12-03,266,Vivekanand.M.U
+Vivekanand.M.UAUT040225,Automotive,2025-02-04,150,Vivekanand.M.U
+Vivekanand.M.UAUT060125,Automotive,2025-01-06,1143,Vivekanand.M.U
+Vivekanand.M.UAUT060225,Automotive,2025-02-06,143,Vivekanand.M.U
+Vivekanand.M.UAUT061224,Automotive,2024-12-06,293,Vivekanand.M.U
+Vivekanand.M.UAUT070125,Automotive,2025-01-07,717,Vivekanand.M.U
+Vivekanand.M.UAUT111224,Automotive,2024-12-11,1327,Vivekanand.M.U
+Vivekanand.M.UAUT120225,Automotive,2025-02-12,361,Vivekanand.M.U
+Vivekanand.M.UAUT130325,Automotive,2025-03-13,1125,Vivekanand.M.U
+Vivekanand.M.UAUT160125,Automotive,2025-01-16,213,Vivekanand.M.U
+Vivekanand.M.UAUT200225,Automotive,2025-02-20,1241,Vivekanand.M.U
+Vivekanand.M.UAUT221124,Automotive,2024-11-22,1071,Vivekanand.M.U
+Vivekanand.M.UAUT240225,Automotive,2025-02-24,1284,Vivekanand.M.U
+Vivekanand.M.UAUT241224,Automotive,2024-12-24,835,Vivekanand.M.U
+Vivekanand.M.UAUT250225,Automotive,2025-02-25,901,Vivekanand.M.U
+Vivekanand.M.UAUT260125,Automotive,2025-01-26,1146,Vivekanand.M.U
+Vivekanand.M.UAUT270225,Automotive,2025-02-27,378,Vivekanand.M.U
+Vivekanand.M.UBIL010325,Bills & Utilities,2025-03-01,1227,Vivekanand.M.U
+Vivekanand.M.UBIL020225,Bills & Utilities,2025-02-02,1158,Vivekanand.M.U
+Vivekanand.M.UBIL020325,Bills & Utilities,2025-03-02,924,Vivekanand.M.U
+Vivekanand.M.UBIL030125,Bills & Utilities,2025-01-03,196,Vivekanand.M.U
+Vivekanand.M.UBIL030325,Bills & Utilities,2025-03-03,632,Vivekanand.M.U
+Vivekanand.M.UBIL041124,Bills & Utilities,2024-11-04,973,Vivekanand.M.U
+Vivekanand.M.UBIL041224,Bills & Utilities,2024-12-04,1207,Vivekanand.M.U
+Vivekanand.M.UBIL051124,Bills & Utilities,2024-11-05,1479,Vivekanand.M.U
+Vivekanand.M.UBIL051224,Bills & Utilities,2024-12-05,616,Vivekanand.M.U
+Vivekanand.M.UBIL060325,Bills & Utilities,2025-03-06,134,Vivekanand.M.U
+Vivekanand.M.UBIL080225,Bills & Utilities,2025-02-08,554,Vivekanand.M.U
+Vivekanand.M.UBIL080325,Bills & Utilities,2025-03-08,1283,Vivekanand.M.U
+Vivekanand.M.UBIL101124,Bills & Utilities,2024-11-10,705,Vivekanand.M.U
+Vivekanand.M.UBIL101224,Bills & Utilities,2024-12-10,1097,Vivekanand.M.U
+Vivekanand.M.UBIL170225,Bills & Utilities,2025-02-17,487,Vivekanand.M.U
+Vivekanand.M.UBIL180125,Bills & Utilities,2025-01-18,1174,Vivekanand.M.U
+Vivekanand.M.UBIL180225,Bills & Utilities,2025-02-18,197,Vivekanand.M.U
+Vivekanand.M.UBIL190225,Bills & Utilities,2025-02-19,486,Vivekanand.M.U
+Vivekanand.M.UBIL230325,Bills & Utilities,2025-03-23,644,Vivekanand.M.U
+Vivekanand.M.UBIL231124,Bills & Utilities,2024-11-23,500,Vivekanand.M.U
+Vivekanand.M.UBIL241124,Bills & Utilities,2024-11-24,423,Vivekanand.M.U
+Vivekanand.M.UBIL261224,Bills & Utilities,2024-12-26,856,Vivekanand.M.U
+Vivekanand.M.UBIL280225,Bills & Utilities,2025-02-28,1201,Vivekanand.M.U
+Vivekanand.M.UBIL301024,Bills & Utilities,2024-10-30,770,Vivekanand.M.U
+Vivekanand.M.UEDU010125,Education,2025-01-01,838,Vivekanand.M.U
+Vivekanand.M.UEDU021224,Education,2024-12-02,320,Vivekanand.M.U
+Vivekanand.M.UEDU041124,Education,2024-11-04,1101,Vivekanand.M.U
+Vivekanand.M.UEDU050225,Education,2025-02-05,133,Vivekanand.M.U
+Vivekanand.M.UEDU090125,Education,2025-01-09,200,Vivekanand.M.U
+Vivekanand.M.UEDU091124,Education,2024-11-09,416,Vivekanand.M.U
+Vivekanand.M.UEDU100125,Education,2025-01-10,956,Vivekanand.M.U
+Vivekanand.M.UEDU120125,Education,2025-01-12,1061,Vivekanand.M.U
+Vivekanand.M.UEDU131224,Education,2024-12-13,735,Vivekanand.M.U
+Vivekanand.M.UEDU140225,Education,2025-02-14,343,Vivekanand.M.U
+Vivekanand.M.UEDU141124,Education,2024-11-14,654,Vivekanand.M.U
+Vivekanand.M.UEDU150325,Education,2025-03-15,253,Vivekanand.M.U
+Vivekanand.M.UEDU160225,Education,2025-02-16,659,Vivekanand.M.U
+Vivekanand.M.UEDU160325,Education,2025-03-16,590,Vivekanand.M.U
+Vivekanand.M.UEDU171124,Education,2024-11-17,1078,Vivekanand.M.U
+Vivekanand.M.UEDU171224,Education,2024-12-17,309,Vivekanand.M.U
+Vivekanand.M.UEDU180325,Education,2025-03-18,1124,Vivekanand.M.U
+Vivekanand.M.UEDU200225,Education,2025-02-20,964,Vivekanand.M.U
+Vivekanand.M.UEDU210325,Education,2025-03-21,1187,Vivekanand.M.U
+Vivekanand.M.UEDU211124,Education,2024-11-21,1348,Vivekanand.M.U
+Vivekanand.M.UEDU230125,Education,2025-01-23,747,Vivekanand.M.U
+Vivekanand.M.UEDU230325,Education,2025-03-23,400,Vivekanand.M.U
+Vivekanand.M.UEDU241224,Education,2024-12-24,580,Vivekanand.M.U
+Vivekanand.M.UEDU251024,Education,2024-10-25,1024,Vivekanand.M.U
+Vivekanand.M.UEDU260125,Education,2025-01-26,998,Vivekanand.M.U
+Vivekanand.M.UEDU291124,Education,2024-11-29,1296,Vivekanand.M.U
+Vivekanand.M.UEDU311224,Education,2024-12-31,1086,Vivekanand.M.U
+Vivekanand.M.UENT010325,Entertainment,2025-03-01,1352,Vivekanand.M.U
+Vivekanand.M.UENT011124,Entertainment,2024-11-01,884,Vivekanand.M.U
+Vivekanand.M.UENT021124,Entertainment,2024-11-02,923,Vivekanand.M.U
+Vivekanand.M.UENT040325,Entertainment,2025-03-04,132,Vivekanand.M.U
+Vivekanand.M.UENT081124,Entertainment,2024-11-08,1011,Vivekanand.M.U
+Vivekanand.M.UENT110225,Entertainment,2025-02-11,271,Vivekanand.M.U
+Vivekanand.M.UENT160125,Entertainment,2025-01-16,176,Vivekanand.M.U
+Vivekanand.M.UENT161124,Entertainment,2024-11-16,396,Vivekanand.M.U
+Vivekanand.M.UENT171124,Entertainment,2024-11-17,729,Vivekanand.M.U
+Vivekanand.M.UENT171224,Entertainment,2024-12-17,110,Vivekanand.M.U
+Vivekanand.M.UENT180125,Entertainment,2025-01-18,762,Vivekanand.M.U
+Vivekanand.M.UENT190125,Entertainment,2025-01-19,603,Vivekanand.M.U
+Vivekanand.M.UENT210125,Entertainment,2025-01-21,585,Vivekanand.M.U
+Vivekanand.M.UENT210225,Entertainment,2025-02-21,450,Vivekanand.M.U
+Vivekanand.M.UENT220125,Entertainment,2025-01-22,1272,Vivekanand.M.U
+Vivekanand.M.UENT220225,Entertainment,2025-02-22,852,Vivekanand.M.U
+Vivekanand.M.UENT221124,Entertainment,2024-11-22,306,Vivekanand.M.U
+Vivekanand.M.UENT221224,Entertainment,2024-12-22,954,Vivekanand.M.U
+Vivekanand.M.UENT251124,Entertainment,2024-11-25,1329,Vivekanand.M.U
+Vivekanand.M.UENT291024,Entertainment,2024-10-29,1079,Vivekanand.M.U
+Vivekanand.M.UFOO021124,Food & Drink,2024-11-02,1046,Vivekanand.M.U
+Vivekanand.M.UFOO030325,Food & Drink,2025-03-03,1339,Vivekanand.M.U
+Vivekanand.M.UFOO050125,Food & Drink,2025-01-05,1402,Vivekanand.M.U
+Vivekanand.M.UFOO061124,Food & Drink,2024-11-06,1139,Vivekanand.M.U
+Vivekanand.M.UFOO070225,Food & Drink,2025-02-07,661,Vivekanand.M.U
+Vivekanand.M.UFOO070325,Food & Drink,2025-03-07,750,Vivekanand.M.U
+Vivekanand.M.UFOO080125,Food & Drink,2025-01-08,1088,Vivekanand.M.U
+Vivekanand.M.UFOO080325,Food & Drink,2025-03-08,409,Vivekanand.M.U
+Vivekanand.M.UFOO090225,Food & Drink,2025-02-09,799,Vivekanand.M.U
+Vivekanand.M.UFOO090325,Food & Drink,2025-03-09,376,Vivekanand.M.U
+Vivekanand.M.UFOO100325,Food & Drink,2025-03-10,1270,Vivekanand.M.U
+Vivekanand.M.UFOO161224,Food & Drink,2024-12-16,1070,Vivekanand.M.U
+Vivekanand.M.UFOO181124,Food & Drink,2024-11-18,698,Vivekanand.M.U
+Vivekanand.M.UFOO190325,Food & Drink,2025-03-19,382,Vivekanand.M.U
+Vivekanand.M.UFOO191124,Food & Drink,2024-11-19,657,Vivekanand.M.U
+Vivekanand.M.UFOO201224,Food & Drink,2024-12-20,1310,Vivekanand.M.U
+Vivekanand.M.UFOO211224,Food & Drink,2024-12-21,1284,Vivekanand.M.U
+Vivekanand.M.UFOO230325,Food & Drink,2025-03-23,100,Vivekanand.M.U
+Vivekanand.M.UFOO251124,Food & Drink,2024-11-25,526,Vivekanand.M.U
+Vivekanand.M.UFOO310125,Food & Drink,2025-01-31,286,Vivekanand.M.U
+Vivekanand.M.UFOO311224,Food & Drink,2024-12-31,612,Vivekanand.M.U
+Vivekanand.M.UGIF020125,Gifts & Donations,2025-01-02,345,Vivekanand.M.U
+Vivekanand.M.UGIF020325,Gifts & Donations,2025-03-02,601,Vivekanand.M.U
+Vivekanand.M.UGIF030325,Gifts & Donations,2025-03-03,179,Vivekanand.M.U
+Vivekanand.M.UGIF040125,Gifts & Donations,2025-01-04,214,Vivekanand.M.U
+Vivekanand.M.UGIF040325,Gifts & Donations,2025-03-04,742,Vivekanand.M.U
+Vivekanand.M.UGIF071224,Gifts & Donations,2024-12-07,1269,Vivekanand.M.U
+Vivekanand.M.UGIF081224,Gifts & Donations,2024-12-08,915,Vivekanand.M.U
+Vivekanand.M.UGIF110225,Gifts & Donations,2025-02-11,976,Vivekanand.M.U
+Vivekanand.M.UGIF121224,Gifts & Donations,2024-12-12,1319,Vivekanand.M.U
+Vivekanand.M.UGIF140125,Gifts & Donations,2025-01-14,904,Vivekanand.M.U
+Vivekanand.M.UGIF141124,Gifts & Donations,2024-11-14,1378,Vivekanand.M.U
+Vivekanand.M.UGIF141224,Gifts & Donations,2024-12-14,269,Vivekanand.M.U
+Vivekanand.M.UGIF150225,Gifts & Donations,2025-02-15,1400,Vivekanand.M.U
+Vivekanand.M.UGIF151124,Gifts & Donations,2024-11-15,1461,Vivekanand.M.U
+Vivekanand.M.UGIF160325,Gifts & Donations,2025-03-16,508,Vivekanand.M.U
+Vivekanand.M.UGIF170125,Gifts & Donations,2025-01-17,1291,Vivekanand.M.U
+Vivekanand.M.UGIF170225,Gifts & Donations,2025-02-17,473,Vivekanand.M.U
+Vivekanand.M.UGIF180225,Gifts & Donations,2025-02-18,877,Vivekanand.M.U
+Vivekanand.M.UGIF231124,Gifts & Donations,2024-11-23,263,Vivekanand.M.U
+Vivekanand.M.UGIF240125,Gifts & Donations,2025-01-24,523,Vivekanand.M.U
+Vivekanand.M.UGIF241024,Gifts & Donations,2024-10-24,1308,Vivekanand.M.U
+Vivekanand.M.UGIF241124,Gifts & Donations,2024-11-24,1272,Vivekanand.M.U
+Vivekanand.M.UGIF250225,Gifts & Donations,2025-02-25,468,Vivekanand.M.U
+Vivekanand.M.UGIF260125,Gifts & Donations,2025-01-26,990,Vivekanand.M.U
+Vivekanand.M.UGIF260225,Gifts & Donations,2025-02-26,1328,Vivekanand.M.U
+Vivekanand.M.UGIF261024,Gifts & Donations,2024-10-26,842,Vivekanand.M.U
+Vivekanand.M.UGIF270225,Gifts & Donations,2025-02-27,1120,Vivekanand.M.U
+Vivekanand.M.UGIF281024,Gifts & Donations,2024-10-28,114,Vivekanand.M.U
+Vivekanand.M.UGIF301124,Gifts & Donations,2024-11-30,642,Vivekanand.M.U
+Vivekanand.M.UGRO041124,Groceries,2024-11-04,971,Vivekanand.M.U
+Vivekanand.M.UGRO041224,Groceries,2024-12-04,167,Vivekanand.M.U
+Vivekanand.M.UGRO050125,Groceries,2025-01-05,293,Vivekanand.M.U
+Vivekanand.M.UGRO051224,Groceries,2024-12-05,365,Vivekanand.M.U
+Vivekanand.M.UGRO070125,Groceries,2025-01-07,1364,Vivekanand.M.U
+Vivekanand.M.UGRO071124,Groceries,2024-11-07,1341,Vivekanand.M.U
+Vivekanand.M.UGRO091224,Groceries,2024-12-09,1418,Vivekanand.M.U
+Vivekanand.M.UGRO101224,Groceries,2024-12-10,1201,Vivekanand.M.U
+Vivekanand.M.UGRO111224,Groceries,2024-12-11,739,Vivekanand.M.U
+Vivekanand.M.UGRO150125,Groceries,2025-01-15,642,Vivekanand.M.U
+Vivekanand.M.UGRO150225,Groceries,2025-02-15,1209,Vivekanand.M.U
+Vivekanand.M.UGRO151124,Groceries,2024-11-15,1242,Vivekanand.M.U
+Vivekanand.M.UGRO151224,Groceries,2024-12-15,132,Vivekanand.M.U
+Vivekanand.M.UGRO160225,Groceries,2025-02-16,1309,Vivekanand.M.U
+Vivekanand.M.UGRO161224,Groceries,2024-12-16,289,Vivekanand.M.U
+Vivekanand.M.UGRO201124,Groceries,2024-11-20,674,Vivekanand.M.U
+Vivekanand.M.UGRO201224,Groceries,2024-12-20,648,Vivekanand.M.U
+Vivekanand.M.UGRO221224,Groceries,2024-12-22,603,Vivekanand.M.U
+Vivekanand.M.UGRO230125,Groceries,2025-01-23,440,Vivekanand.M.U
+Vivekanand.M.UGRO231024,Groceries,2024-10-23,486,Vivekanand.M.U
+Vivekanand.M.UGRO251024,Groceries,2024-10-25,709,Vivekanand.M.U
+Vivekanand.M.UGRO261124,Groceries,2024-11-26,797,Vivekanand.M.U
+Vivekanand.M.UGRO271024,Groceries,2024-10-27,1377,Vivekanand.M.U
+Vivekanand.M.UGRO271124,Groceries,2024-11-27,1213,Vivekanand.M.U
+Vivekanand.M.UGRO280125,Groceries,2025-01-28,1009,Vivekanand.M.U
+Vivekanand.M.UGRO290125,Groceries,2025-01-29,160,Vivekanand.M.U
+Vivekanand.M.UHEA010125,Health & Wellness,2025-01-01,346,Vivekanand.M.U
+Vivekanand.M.UHEA010225,Health & Wellness,2025-02-01,255,Vivekanand.M.U
+Vivekanand.M.UHEA011224,Health & Wellness,2024-12-01,639,Vivekanand.M.U
+Vivekanand.M.UHEA050325,Health & Wellness,2025-03-05,563,Vivekanand.M.U
+Vivekanand.M.UHEA060325,Health & Wellness,2025-03-06,1130,Vivekanand.M.U
+Vivekanand.M.UHEA091124,Health & Wellness,2024-11-09,1465,Vivekanand.M.U
+Vivekanand.M.UHEA110225,Health & Wellness,2025-02-11,967,Vivekanand.M.U
+Vivekanand.M.UHEA111224,Health & Wellness,2024-12-11,500,Vivekanand.M.U
+Vivekanand.M.UHEA120225,Health & Wellness,2025-02-12,1406,Vivekanand.M.U
+Vivekanand.M.UHEA120325,Health & Wellness,2025-03-12,807,Vivekanand.M.U
+Vivekanand.M.UHEA131124,Health & Wellness,2024-11-13,896,Vivekanand.M.U
+Vivekanand.M.UHEA140325,Health & Wellness,2025-03-14,581,Vivekanand.M.U
+Vivekanand.M.UHEA180225,Health & Wellness,2025-02-18,1222,Vivekanand.M.U
+Vivekanand.M.UHEA181224,Health & Wellness,2024-12-18,485,Vivekanand.M.U
+Vivekanand.M.UHEA200225,Health & Wellness,2025-02-20,1031,Vivekanand.M.U
+Vivekanand.M.UHEA200325,Health & Wellness,2025-03-20,1237,Vivekanand.M.U
+Vivekanand.M.UHEA220325,Health & Wellness,2025-03-22,1157,Vivekanand.M.U
+Vivekanand.M.UHEA251124,Health & Wellness,2024-11-25,391,Vivekanand.M.U
+Vivekanand.M.UHEA271124,Health & Wellness,2024-11-27,578,Vivekanand.M.U
+Vivekanand.M.UHEA271224,Health & Wellness,2024-12-27,1401,Vivekanand.M.U
+Vivekanand.M.UHEA281224,Health & Wellness,2024-12-28,167,Vivekanand.M.U
+Vivekanand.M.UHEA290125,Health & Wellness,2025-01-29,236,Vivekanand.M.U
+Vivekanand.M.UHEA300125,Health & Wellness,2025-01-30,1295,Vivekanand.M.U
+Vivekanand.M.UHEA311024,Health & Wellness,2024-10-31,379,Vivekanand.M.U
+Vivekanand.M.UHOM010125,Home,2025-01-01,332,Vivekanand.M.U
+Vivekanand.M.UHOM030225,Home,2025-02-03,835,Vivekanand.M.U
+Vivekanand.M.UHOM040225,Home,2025-02-04,822,Vivekanand.M.U
+Vivekanand.M.UHOM051124,Home,2024-11-05,1127,Vivekanand.M.U
+Vivekanand.M.UHOM071224,Home,2024-12-07,750,Vivekanand.M.U
+Vivekanand.M.UHOM080125,Home,2025-01-08,432,Vivekanand.M.U
+Vivekanand.M.UHOM080225,Home,2025-02-08,665,Vivekanand.M.U
+Vivekanand.M.UHOM090225,Home,2025-02-09,915,Vivekanand.M.U
+Vivekanand.M.UHOM091224,Home,2024-12-09,209,Vivekanand.M.U
+Vivekanand.M.UHOM100125,Home,2025-01-10,867,Vivekanand.M.U
+Vivekanand.M.UHOM100225,Home,2025-02-10,122,Vivekanand.M.U
+Vivekanand.M.UHOM100325,Home,2025-03-10,1319,Vivekanand.M.U
+Vivekanand.M.UHOM111124,Home,2024-11-11,553,Vivekanand.M.U
+Vivekanand.M.UHOM120325,Home,2025-03-12,770,Vivekanand.M.U
+Vivekanand.M.UHOM131224,Home,2024-12-13,378,Vivekanand.M.U
+Vivekanand.M.UHOM140325,Home,2025-03-14,488,Vivekanand.M.U
+Vivekanand.M.UHOM141224,Home,2024-12-14,915,Vivekanand.M.U
+Vivekanand.M.UHOM151124,Home,2024-11-15,287,Vivekanand.M.U
+Vivekanand.M.UHOM160125,Home,2025-01-16,1430,Vivekanand.M.U
+Vivekanand.M.UHOM161224,Home,2024-12-16,1012,Vivekanand.M.U
+Vivekanand.M.UHOM181124,Home,2024-11-18,1195,Vivekanand.M.U
+Vivekanand.M.UHOM190225,Home,2025-02-19,806,Vivekanand.M.U
+Vivekanand.M.UHOM191224,Home,2024-12-19,122,Vivekanand.M.U
+Vivekanand.M.UHOM210125,Home,2025-01-21,522,Vivekanand.M.U
+Vivekanand.M.UHOM220325,Home,2025-03-22,1156,Vivekanand.M.U
+Vivekanand.M.UHOM221124,Home,2024-11-22,1100,Vivekanand.M.U
+Vivekanand.M.UHOM230225,Home,2025-02-23,1139,Vivekanand.M.U
+Vivekanand.M.UHOM231224,Home,2024-12-23,554,Vivekanand.M.U
+Vivekanand.M.UHOM261024,Home,2024-10-26,1220,Vivekanand.M.U
+Vivekanand.M.UHOM270225,Home,2025-02-27,724,Vivekanand.M.U
+Vivekanand.M.UHOM271024,Home,2024-10-27,717,Vivekanand.M.U
+Vivekanand.M.UHOM271224,Home,2024-12-27,394,Vivekanand.M.U
+Vivekanand.M.UHOM281024,Home,2024-10-28,1322,Vivekanand.M.U
+Vivekanand.M.UHOM291024,Home,2024-10-29,141,Vivekanand.M.U
+Vivekanand.M.UHOM301024,Home,2024-10-30,1117,Vivekanand.M.U
+Vivekanand.M.UMIS021224,Miscellaneous,2024-12-02,642,Vivekanand.M.U
+Vivekanand.M.UMIS040125,Miscellaneous,2025-01-04,1381,Vivekanand.M.U
+Vivekanand.M.UMIS050225,Miscellaneous,2025-02-05,1335,Vivekanand.M.U
+Vivekanand.M.UMIS070225,Miscellaneous,2025-02-07,796,Vivekanand.M.U
+Vivekanand.M.UMIS071124,Miscellaneous,2024-11-07,675,Vivekanand.M.U
+Vivekanand.M.UMIS090325,Miscellaneous,2025-03-09,773,Vivekanand.M.U
+Vivekanand.M.UMIS100225,Miscellaneous,2025-02-10,630,Vivekanand.M.U
+Vivekanand.M.UMIS101124,Miscellaneous,2024-11-10,679,Vivekanand.M.U
+Vivekanand.M.UMIS120125,Miscellaneous,2025-01-12,1092,Vivekanand.M.U
+Vivekanand.M.UMIS120325,Miscellaneous,2025-03-12,569,Vivekanand.M.U
+Vivekanand.M.UMIS121124,Miscellaneous,2024-11-12,572,Vivekanand.M.U
+Vivekanand.M.UMIS121224,Miscellaneous,2024-12-12,299,Vivekanand.M.U
+Vivekanand.M.UMIS130125,Miscellaneous,2025-01-13,842,Vivekanand.M.U
+Vivekanand.M.UMIS130225,Miscellaneous,2025-02-13,731,Vivekanand.M.U
+Vivekanand.M.UMIS140125,Miscellaneous,2025-01-14,195,Vivekanand.M.U
+Vivekanand.M.UMIS150325,Miscellaneous,2025-03-15,613,Vivekanand.M.U
+Vivekanand.M.UMIS161124,Miscellaneous,2024-11-16,1357,Vivekanand.M.U
+Vivekanand.M.UMIS180325,Miscellaneous,2025-03-18,1202,Vivekanand.M.U
+Vivekanand.M.UMIS191224,Miscellaneous,2024-12-19,336,Vivekanand.M.U
+Vivekanand.M.UMIS201124,Miscellaneous,2024-11-20,1293,Vivekanand.M.U
+Vivekanand.M.UMIS220125,Miscellaneous,2025-01-22,1084,Vivekanand.M.U
+Vivekanand.M.UMIS220225,Miscellaneous,2025-02-22,468,Vivekanand.M.U
+Vivekanand.M.UMIS220325,Miscellaneous,2025-03-22,1206,Vivekanand.M.U
+Vivekanand.M.UMIS230225,Miscellaneous,2025-02-23,145,Vivekanand.M.U
+Vivekanand.M.UMIS240125,Miscellaneous,2025-01-24,845,Vivekanand.M.U
+Vivekanand.M.UMIS240225,Miscellaneous,2025-02-24,753,Vivekanand.M.U
+Vivekanand.M.UMIS241224,Miscellaneous,2024-12-24,600,Vivekanand.M.U
+Vivekanand.M.UMIS251224,Miscellaneous,2024-12-25,1392,Vivekanand.M.U
+Vivekanand.M.UMIS301124,Miscellaneous,2024-11-30,376,Vivekanand.M.U
+Vivekanand.M.UMIS301224,Miscellaneous,2024-12-30,791,Vivekanand.M.U
+Vivekanand.M.UMIS311024,Miscellaneous,2024-10-31,1056,Vivekanand.M.U
+Vivekanand.M.UOTH030125,Other,2025-01-03,944,Vivekanand.M.U
+Vivekanand.M.UOTH050225,Other,2025-02-05,1142,Vivekanand.M.U
+Vivekanand.M.UOTH050325,Other,2025-03-05,876,Vivekanand.M.U
+Vivekanand.M.UOTH051224,Other,2024-12-05,951,Vivekanand.M.U
+Vivekanand.M.UOTH061224,Other,2024-12-06,542,Vivekanand.M.U
+Vivekanand.M.UOTH071124,Other,2024-11-07,342,Vivekanand.M.U
+Vivekanand.M.UOTH091124,Other,2024-11-09,236,Vivekanand.M.U
+Vivekanand.M.UOTH110325,Other,2025-03-11,1449,Vivekanand.M.U
+Vivekanand.M.UOTH111124,Other,2024-11-11,935,Vivekanand.M.U
+Vivekanand.M.UOTH121124,Other,2024-11-12,407,Vivekanand.M.U
+Vivekanand.M.UOTH130325,Other,2025-03-13,1246,Vivekanand.M.U
+Vivekanand.M.UOTH190325,Other,2025-03-19,888,Vivekanand.M.U
+Vivekanand.M.UOTH210225,Other,2025-02-21,225,Vivekanand.M.U
+Vivekanand.M.UOTH231024,Other,2024-10-23,1215,Vivekanand.M.U
+Vivekanand.M.UOTH231124,Other,2024-11-23,1061,Vivekanand.M.U
+Vivekanand.M.UOTH240225,Other,2025-02-24,443,Vivekanand.M.U
+Vivekanand.M.UOTH241124,Other,2024-11-24,321,Vivekanand.M.U
+Vivekanand.M.UOTH250125,Other,2025-01-25,637,Vivekanand.M.U
+Vivekanand.M.UOTH291224,Other,2024-12-29,1276,Vivekanand.M.U
+Vivekanand.M.UOTH301124,Other,2024-11-30,812,Vivekanand.M.U
+Vivekanand.M.UOTH311024,Other,2024-10-31,486,Vivekanand.M.U
+Vivekanand.M.UPER011124,Personal,2024-11-01,866,Vivekanand.M.U
+Vivekanand.M.UPER011224,Personal,2024-12-01,833,Vivekanand.M.U
+Vivekanand.M.UPER020225,Personal,2025-02-02,252,Vivekanand.M.U
+Vivekanand.M.UPER030225,Personal,2025-02-03,1183,Vivekanand.M.U
+Vivekanand.M.UPER040325,Personal,2025-03-04,1454,Vivekanand.M.U
+Vivekanand.M.UPER060225,Personal,2025-02-06,1046,Vivekanand.M.U
+Vivekanand.M.UPER061124,Personal,2024-11-06,1171,Vivekanand.M.U
+Vivekanand.M.UPER070125,Personal,2025-01-07,903,Vivekanand.M.U
+Vivekanand.M.UPER080325,Personal,2025-03-08,727,Vivekanand.M.U
+Vivekanand.M.UPER081224,Personal,2024-12-08,1276,Vivekanand.M.U
+Vivekanand.M.UPER091224,Personal,2024-12-09,242,Vivekanand.M.U
+Vivekanand.M.UPER100225,Personal,2025-02-10,749,Vivekanand.M.U
+Vivekanand.M.UPER110125,Personal,2025-01-11,635,Vivekanand.M.U
+Vivekanand.M.UPER131124,Personal,2024-11-13,1478,Vivekanand.M.U
+Vivekanand.M.UPER150125,Personal,2025-01-15,527,Vivekanand.M.U
+Vivekanand.M.UPER150225,Personal,2025-02-15,273,Vivekanand.M.U
+Vivekanand.M.UPER151224,Personal,2024-12-15,1455,Vivekanand.M.U
+Vivekanand.M.UPER160325,Personal,2025-03-16,202,Vivekanand.M.U
+Vivekanand.M.UPER170125,Personal,2025-01-17,1229,Vivekanand.M.U
+Vivekanand.M.UPER190125,Personal,2025-01-19,1494,Vivekanand.M.U
+Vivekanand.M.UPER191224,Personal,2024-12-19,821,Vivekanand.M.U
+Vivekanand.M.UPER230225,Personal,2025-02-23,1415,Vivekanand.M.U
+Vivekanand.M.UPER231224,Personal,2024-12-23,986,Vivekanand.M.U
+Vivekanand.M.UPER250225,Personal,2025-02-25,678,Vivekanand.M.U
+Vivekanand.M.UPER270125,Personal,2025-01-27,473,Vivekanand.M.U
+Vivekanand.M.UPER281224,Personal,2024-12-28,303,Vivekanand.M.U
+Vivekanand.M.UPER290125,Personal,2025-01-29,753,Vivekanand.M.U
+Vivekanand.M.UPET031124,Petrol & Gas,2024-11-03,1493,Vivekanand.M.U
+Vivekanand.M.UPET031224,Petrol & Gas,2024-12-03,347,Vivekanand.M.U
+Vivekanand.M.UPET041224,Petrol & Gas,2024-12-04,875,Vivekanand.M.U
+Vivekanand.M.UPET070325,Petrol & Gas,2025-03-07,764,Vivekanand.M.U
+Vivekanand.M.UPET080125,Petrol & Gas,2025-01-08,527,Vivekanand.M.U
+Vivekanand.M.UPET081224,Petrol & Gas,2024-12-08,765,Vivekanand.M.U
+Vivekanand.M.UPET100125,Petrol & Gas,2025-01-10,306,Vivekanand.M.U
+Vivekanand.M.UPET110325,Petrol & Gas,2025-03-11,743,Vivekanand.M.U
+Vivekanand.M.UPET130125,Petrol & Gas,2025-01-13,792,Vivekanand.M.U
+Vivekanand.M.UPET150125,Petrol & Gas,2025-01-15,940,Vivekanand.M.U
+Vivekanand.M.UPET160225,Petrol & Gas,2025-02-16,1478,Vivekanand.M.U
+Vivekanand.M.UPET200125,Petrol & Gas,2025-01-20,1380,Vivekanand.M.U
+Vivekanand.M.UPET200325,Petrol & Gas,2025-03-20,1269,Vivekanand.M.U
+Vivekanand.M.UPET211124,Petrol & Gas,2024-11-21,144,Vivekanand.M.U
+Vivekanand.M.UPET220225,Petrol & Gas,2025-02-22,295,Vivekanand.M.U
+Vivekanand.M.UPET230125,Petrol & Gas,2025-01-23,250,Vivekanand.M.U
+Vivekanand.M.UPET230325,Petrol & Gas,2025-03-23,578,Vivekanand.M.U
+Vivekanand.M.UPET241024,Petrol & Gas,2024-10-24,680,Vivekanand.M.U
+Vivekanand.M.UPET250125,Petrol & Gas,2025-01-25,1165,Vivekanand.M.U
+Vivekanand.M.UPET261024,Petrol & Gas,2024-10-26,758,Vivekanand.M.U
+Vivekanand.M.UPET271024,Petrol & Gas,2024-10-27,658,Vivekanand.M.U
+Vivekanand.M.UPET280125,Petrol & Gas,2025-01-28,1113,Vivekanand.M.U
+Vivekanand.M.UPET291224,Petrol & Gas,2024-12-29,319,Vivekanand.M.U
+Vivekanand.M.UPET311224,Petrol & Gas,2024-12-31,1452,Vivekanand.M.U
+Vivekanand.M.UPRO010225,Professional Services,2025-02-01,449,Vivekanand.M.U
+Vivekanand.M.UPRO021124,Professional Services,2024-11-02,810,Vivekanand.M.U
+Vivekanand.M.UPRO050325,Professional Services,2025-03-05,482,Vivekanand.M.U
+Vivekanand.M.UPRO060125,Professional Services,2025-01-06,181,Vivekanand.M.U
+Vivekanand.M.UPRO060225,Professional Services,2025-02-06,239,Vivekanand.M.U
+Vivekanand.M.UPRO070225,Professional Services,2025-02-07,981,Vivekanand.M.U
+Vivekanand.M.UPRO090125,Professional Services,2025-01-09,487,Vivekanand.M.U
+Vivekanand.M.UPRO090325,Professional Services,2025-03-09,1185,Vivekanand.M.U
+Vivekanand.M.UPRO121124,Professional Services,2024-11-12,1097,Vivekanand.M.U
+Vivekanand.M.UPRO121224,Professional Services,2024-12-12,943,Vivekanand.M.U
+Vivekanand.M.UPRO130225,Professional Services,2025-02-13,845,Vivekanand.M.U
+Vivekanand.M.UPRO130325,Professional Services,2025-03-13,1405,Vivekanand.M.U
+Vivekanand.M.UPRO140325,Professional Services,2025-03-14,1293,Vivekanand.M.U
+Vivekanand.M.UPRO170325,Professional Services,2025-03-17,765,Vivekanand.M.U
+Vivekanand.M.UPRO171124,Professional Services,2024-11-17,1304,Vivekanand.M.U
+Vivekanand.M.UPRO181124,Professional Services,2024-11-18,1435,Vivekanand.M.U
+Vivekanand.M.UPRO200125,Professional Services,2025-01-20,854,Vivekanand.M.U
+Vivekanand.M.UPRO201224,Professional Services,2024-12-20,1139,Vivekanand.M.U
+Vivekanand.M.UPRO210125,Professional Services,2025-01-21,718,Vivekanand.M.U
+Vivekanand.M.UPRO220125,Professional Services,2025-01-22,513,Vivekanand.M.U
+Vivekanand.M.UPRO231224,Professional Services,2024-12-23,1044,Vivekanand.M.U
+Vivekanand.M.UPRO260225,Professional Services,2025-02-26,761,Vivekanand.M.U
+Vivekanand.M.UPRO261224,Professional Services,2024-12-26,995,Vivekanand.M.U
+Vivekanand.M.UPRO281124,Professional Services,2024-11-28,672,Vivekanand.M.U
+Vivekanand.M.UPRO291124,Professional Services,2024-11-29,839,Vivekanand.M.U
+Vivekanand.M.UPRO291224,Professional Services,2024-12-29,580,Vivekanand.M.U
+Vivekanand.M.UPRO300125,Professional Services,2025-01-30,545,Vivekanand.M.U
+Vivekanand.M.UREN010325,Rent,2025-03-01,1374,Vivekanand.M.U
+Vivekanand.M.UREN020125,Rent,2025-01-02,1294,Vivekanand.M.U
+Vivekanand.M.UREN020225,Rent,2025-02-02,1374,Vivekanand.M.U
+Vivekanand.M.UREN021224,Rent,2024-12-02,1405,Vivekanand.M.U
+Vivekanand.M.UREN051124,Rent,2024-11-05,1294,Vivekanand.M.U
+Vivekanand.M.UREN061124,Rent,2024-11-06,363,Vivekanand.M.U
+Vivekanand.M.UREN061224,Rent,2024-12-06,1278,Vivekanand.M.U
+Vivekanand.M.UREN071224,Rent,2024-12-07,348,Vivekanand.M.U
+Vivekanand.M.UREN110125,Rent,2025-01-11,859,Vivekanand.M.U
+Vivekanand.M.UREN130125,Rent,2025-01-13,639,Vivekanand.M.U
+Vivekanand.M.UREN131124,Rent,2024-11-13,858,Vivekanand.M.U
+Vivekanand.M.UREN140225,Rent,2025-02-14,432,Vivekanand.M.U
+Vivekanand.M.UREN141224,Rent,2024-12-14,997,Vivekanand.M.U
+Vivekanand.M.UREN150325,Rent,2025-03-15,336,Vivekanand.M.U
+Vivekanand.M.UREN170325,Rent,2025-03-17,1488,Vivekanand.M.U
+Vivekanand.M.UREN180325,Rent,2025-03-18,1446,Vivekanand.M.U
+Vivekanand.M.UREN191124,Rent,2024-11-19,830,Vivekanand.M.U
+Vivekanand.M.UREN200325,Rent,2025-03-20,355,Vivekanand.M.U
+Vivekanand.M.UREN221224,Rent,2024-12-22,1316,Vivekanand.M.U
+Vivekanand.M.UREN230325,Rent,2025-03-23,300,Vivekanand.M.U
+Vivekanand.M.UREN250125,Rent,2025-01-25,980,Vivekanand.M.U
+Vivekanand.M.UREN251024,Rent,2024-10-25,1097,Vivekanand.M.U
+Vivekanand.M.UREN251224,Rent,2024-12-25,937,Vivekanand.M.U
+Vivekanand.M.UREN261124,Rent,2024-11-26,167,Vivekanand.M.U
+Vivekanand.M.UREN261224,Rent,2024-12-26,1434,Vivekanand.M.U
+Vivekanand.M.UREN270125,Rent,2025-01-27,626,Vivekanand.M.U
+Vivekanand.M.UREN291024,Rent,2024-10-29,308,Vivekanand.M.U
+Vivekanand.M.UREN291124,Rent,2024-11-29,321,Vivekanand.M.U
+Vivekanand.M.UREN301224,Rent,2024-12-30,705,Vivekanand.M.U
+Vivekanand.M.UREN310125,Rent,2025-01-31,1471,Vivekanand.M.U
+Vivekanand.M.USAV011124,Savings,2024-11-01,606,Vivekanand.M.U
+Vivekanand.M.USAV020325,Savings,2025-03-02,1165,Vivekanand.M.U
+Vivekanand.M.USAV030125,Savings,2025-01-03,1352,Vivekanand.M.U
+Vivekanand.M.USAV031124,Savings,2024-11-03,315,Vivekanand.M.U
+Vivekanand.M.USAV050125,Savings,2025-01-05,1462,Vivekanand.M.U
+Vivekanand.M.USAV060125,Savings,2025-01-06,248,Vivekanand.M.U
+Vivekanand.M.USAV070325,Savings,2025-03-07,180,Vivekanand.M.U
+Vivekanand.M.USAV080225,Savings,2025-02-08,1044,Vivekanand.M.U
+Vivekanand.M.USAV090125,Savings,2025-01-09,538,Vivekanand.M.U
+Vivekanand.M.USAV101124,Savings,2024-11-10,845,Vivekanand.M.U
+Vivekanand.M.USAV101224,Savings,2024-12-10,1007,Vivekanand.M.U
+Vivekanand.M.USAV131224,Savings,2024-12-13,382,Vivekanand.M.U
+Vivekanand.M.USAV161124,Savings,2024-11-16,1153,Vivekanand.M.U
+Vivekanand.M.USAV170225,Savings,2025-02-17,637,Vivekanand.M.U
+Vivekanand.M.USAV171224,Savings,2024-12-17,179,Vivekanand.M.U
+Vivekanand.M.USAV181224,Savings,2024-12-18,354,Vivekanand.M.U
+Vivekanand.M.USAV191124,Savings,2024-11-19,1239,Vivekanand.M.U
+Vivekanand.M.USAV211224,Savings,2024-12-21,936,Vivekanand.M.U
+Vivekanand.M.USAV230325,Savings,2025-03-23,200,Vivekanand.M.U
+Vivekanand.M.USAV231024,Savings,2024-10-23,458,Vivekanand.M.U
+Vivekanand.M.USAV240125,Savings,2025-01-24,962,Vivekanand.M.U
+Vivekanand.M.USAV270125,Savings,2025-01-27,152,Vivekanand.M.U
+Vivekanand.M.USAV271124,Savings,2024-11-27,1260,Vivekanand.M.U
+Vivekanand.M.USAV280225,Savings,2025-02-28,548,Vivekanand.M.U
+Vivekanand.M.USAV281024,Savings,2024-10-28,551,Vivekanand.M.U
+Vivekanand.M.USAV281124,Savings,2024-11-28,1231,Vivekanand.M.U
+Vivekanand.M.USAV281224,Savings,2024-12-28,616,Vivekanand.M.U
+Vivekanand.M.USAV301024,Savings,2024-10-30,724,Vivekanand.M.U
+Vivekanand.M.USHO010225,Shopping,2025-02-01,1474,Vivekanand.M.U
+Vivekanand.M.USHO011224,Shopping,2024-12-01,499,Vivekanand.M.U
+Vivekanand.M.USHO031224,Shopping,2024-12-03,1245,Vivekanand.M.U
+Vivekanand.M.USHO040125,Shopping,2025-01-04,635,Vivekanand.M.U
+Vivekanand.M.USHO060325,Shopping,2025-03-06,142,Vivekanand.M.U
+Vivekanand.M.USHO081124,Shopping,2024-11-08,856,Vivekanand.M.U
+Vivekanand.M.USHO110325,Shopping,2025-03-11,637,Vivekanand.M.U
+Vivekanand.M.USHO111124,Shopping,2024-11-11,143,Vivekanand.M.U
+Vivekanand.M.USHO120125,Shopping,2025-01-12,1223,Vivekanand.M.U
+Vivekanand.M.USHO130225,Shopping,2025-02-13,261,Vivekanand.M.U
+Vivekanand.M.USHO140125,Shopping,2025-01-14,1392,Vivekanand.M.U
+Vivekanand.M.USHO140225,Shopping,2025-02-14,326,Vivekanand.M.U
+Vivekanand.M.USHO141124,Shopping,2024-11-14,229,Vivekanand.M.U
+Vivekanand.M.USHO180125,Shopping,2025-01-18,707,Vivekanand.M.U
+Vivekanand.M.USHO181224,Shopping,2024-12-18,1102,Vivekanand.M.U
+Vivekanand.M.USHO190125,Shopping,2025-01-19,1380,Vivekanand.M.U
+Vivekanand.M.USHO190225,Shopping,2025-02-19,145,Vivekanand.M.U
+Vivekanand.M.USHO190325,Shopping,2025-03-19,1112,Vivekanand.M.U
+Vivekanand.M.USHO210325,Shopping,2025-03-21,1179,Vivekanand.M.U
+Vivekanand.M.USHO211124,Shopping,2024-11-21,798,Vivekanand.M.U
+Vivekanand.M.USHO230325,Shopping,2025-03-23,124,Vivekanand.M.U
+Vivekanand.M.USHO261124,Shopping,2024-11-26,1106,Vivekanand.M.U
+Vivekanand.M.USHO280125,Shopping,2025-01-28,1318,Vivekanand.M.U
+Vivekanand.M.USHO280225,Shopping,2025-02-28,515,Vivekanand.M.U
+Vivekanand.M.USHO310125,Shopping,2025-01-31,633,Vivekanand.M.U
+Vivekanand.M.UTRA020125,Travel,2025-01-02,604,Vivekanand.M.U
+Vivekanand.M.UTRA031124,Travel,2024-11-03,1057,Vivekanand.M.U
+Vivekanand.M.UTRA040225,Travel,2025-02-04,1250,Vivekanand.M.U
+Vivekanand.M.UTRA081124,Travel,2024-11-08,168,Vivekanand.M.U
+Vivekanand.M.UTRA090225,Travel,2025-02-09,914,Vivekanand.M.U
+Vivekanand.M.UTRA100325,Travel,2025-03-10,1307,Vivekanand.M.U
+Vivekanand.M.UTRA110125,Travel,2025-01-11,888,Vivekanand.M.U
+Vivekanand.M.UTRA120225,Travel,2025-02-12,1377,Vivekanand.M.U
+Vivekanand.M.UTRA151224,Travel,2024-12-15,1344,Vivekanand.M.U
+Vivekanand.M.UTRA170125,Travel,2025-01-17,468,Vivekanand.M.U
+Vivekanand.M.UTRA170325,Travel,2025-03-17,786,Vivekanand.M.U
+Vivekanand.M.UTRA200125,Travel,2025-01-20,737,Vivekanand.M.U
+Vivekanand.M.UTRA201124,Travel,2024-11-20,386,Vivekanand.M.U
+Vivekanand.M.UTRA210225,Travel,2025-02-21,379,Vivekanand.M.U
+Vivekanand.M.UTRA210325,Travel,2025-03-21,1257,Vivekanand.M.U
+Vivekanand.M.UTRA211224,Travel,2024-12-21,1376,Vivekanand.M.U
+Vivekanand.M.UTRA241024,Travel,2024-10-24,334,Vivekanand.M.U
+Vivekanand.M.UTRA251224,Travel,2024-12-25,414,Vivekanand.M.U
+Vivekanand.M.UTRA260225,Travel,2025-02-26,897,Vivekanand.M.U
+Vivekanand.M.UTRA271224,Travel,2024-12-27,537,Vivekanand.M.U
+Vivekanand.M.UTRA281124,Travel,2024-11-28,385,Vivekanand.M.U
+Vivekanand.M.UTRA300125,Travel,2025-01-30,1409,Vivekanand.M.U
+Vivekanand.M.UTRA301224,Travel,2024-12-30,397,Vivekanand.M.U
