@@ -13,8 +13,43 @@ export const BudgetTracker = () => {
   const [msg, setMsg] = useState("");
   const [budgetItems, setBudgetItems] = useState([]);
   const [totalBudget, setTotalBudget] = useState(0);
+  const [predictionUserBudget, setPredictionUserBudget] = useState('');
+  const [predictionError, setPredictionError] = useState('');
   const navigate = useNavigate();
 
+  const [predictionResult, setPredictionResult] = useState(null);
+  const [isPredicting, setIsPredicting] = useState(false);
+
+  const handlePredictNextMonthBudget = async () => {
+    // Reset previous states
+    setPredictionError('');
+    setPredictionResult(null);
+
+    // Validate input
+    const budgetValue = parseFloat(predictionUserBudget);
+    if (isNaN(budgetValue) || budgetValue <= 0) {
+      setPredictionError('Please enter a valid budget amount');
+      return;
+    }
+
+    setIsPredicting(true);
+
+    try {
+      const response = await axios.post('http://localhost:5000/predict-budget', {
+        user_budget: budgetValue,
+        username: 'current_user' // Replace with actual username logic
+      });
+
+      setPredictionResult(response.data);
+    } catch (error) {
+      console.error('Error predicting budget:', error);
+      setPredictionError('Failed to predict budget. Please try again.');
+    } finally {
+      setIsPredicting(false);
+    }
+  };
+
+  
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
@@ -181,6 +216,55 @@ export const BudgetTracker = () => {
             ) : (
               <div className="empty-chart-message">
                 <p>Add budget categories to see your allocation chart</p>
+              </div>
+            )}
+          </div>
+          <div className="budget-prediction-section">
+            <div className="prediction-input-container">
+              <input 
+                type="number"
+                value={predictionUserBudget}
+                onChange={(e) => setPredictionUserBudget(e.target.value)}
+                placeholder="Enter Total Budget for Next Month"
+                className="prediction-budget-input"
+                min="0"
+                step="100"
+              />
+              <button 
+                onClick={handlePredictNextMonthBudget} 
+                className="budget-predict-btn"
+                disabled={isPredicting || budgetItems.length === 0 || !predictionUserBudget}
+              >
+                {isPredicting ? 'Predicting...' : 'Predict Next Month Budget'}
+              </button>
+            </div>
+
+            {predictionError && (
+              <div className="prediction-error-message">
+                {predictionError}
+              </div>
+            )}
+
+            {predictionResult && (
+              <div className="budget-prediction-results">
+                <h3>Next Month Budget Prediction</h3>
+                <div className="prediction-grid">
+                  {Object.entries(predictionResult.result).map(([category, amount]) => (
+                    <div key={category} className="prediction-card">
+                      <div className="prediction-category">{category}</div>
+                      <div className="prediction-amount">
+                        ₹{amount.toLocaleString()}
+                      </div>
+                      <div className="prediction-percentage">
+                        {((amount / predictionResult.total_budget) * 100).toFixed(1)}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="prediction-total">
+                  <span>Total Predicted Budget:</span>
+                  <span>₹{predictionResult.total_budget.toLocaleString()}</span>
+                </div>
               </div>
             )}
           </div>

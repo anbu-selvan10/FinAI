@@ -3,6 +3,7 @@ from flask_cors import CORS
 from stock_analyst import advisor_workflow
 from text2sql import query_engine
 from portfolio import portfolio_advisor_workflow
+from spending_pattern import spending_analyser
 
 app = Flask(__name__)
 
@@ -60,6 +61,26 @@ def get_portfolio_response():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+@app.route('/predict-budget', methods=['POST'])
+def predict_budget():
+    data = request.json
+    user_budget = data.get('user_budget')
+    username = data.get('username')
+
+    # Call spending_analyser function
+    rounded_category_sums, rounded_cat_sum = spending_analyser(user_budget, username)
+    
+    # Convert numpy int64 to native Python int
+    prediction_result = {
+        category: int(value) for category, value in rounded_category_sums.items()
+    }
+    print(prediction_result)
+    return jsonify({
+        "result": prediction_result, 
+        "total_budget": int(rounded_cat_sum)
+    }), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

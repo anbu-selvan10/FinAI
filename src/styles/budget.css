@@ -187,7 +187,137 @@
     font-size: 0.8rem;
     color: #718096;
   }
+  .budget-prediction-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-align: center;
+  }
   
+  .budget-predict-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .budget-predict-btn:hover:not(:disabled) {
+    background-color: #45a049;
+  }
+  
+  .budget-predict-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .budget-prediction-results {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .prediction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .prediction-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .prediction-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .prediction-category {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .prediction-amount {
+    font-size: 18px;
+    color: #4CAF50;
+    margin-bottom: 5px;
+  }
+  
+  .prediction-percentage {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .prediction-total {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e0e0e0;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  .prediction-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .prediction-budget-input {
+    flex-grow: 1;
+    max-width: 300px;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .prediction-budget-input:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+  
+  .prediction-error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  
+  .budget-predict-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .budget-predict-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .budget-predict-btn:hover:not(:disabled) {
+    background-color: #45a049;
+  }
   /* Budget List Styles - Override existing styles */
   .budget-list {
     margin-bottom: 1.5rem;
@@ -273,3 +403,74 @@
       width: 100%;
     }
   }
+
+  .budget-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 140%;
+  margin-left: -200px;
+  box-sizing: border-box;
+}
+
+.budget-form-section,
+.budget-chart-section,
+.budget-prediction-section {
+  flex: 1;
+  min-width: 300px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.budget-form-section {
+  background-color: #ffffff;
+}
+
+.budget-chart-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.budget-prediction-section {
+  background-color: #f0f0f0;
+}
+
+.prediction-input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.prediction-budget-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.prediction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+@media (max-width: 1200px) {
+  .budget-content {
+    flex-direction: column;
+  }
+  
+  .budget-form-section,
+  .budget-chart-section,
+  .budget-prediction-section {
+    flex: none;
+    width: 100%;
+  }
+}
