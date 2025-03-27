@@ -4,6 +4,15 @@ from stock_analyst import advisor_workflow
 from text2sql import query_engine
 from portfolio import portfolio_advisor_workflow
 from spending_pattern import spending_analyser
+from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+
+load_dotenv(r"..\.env")
+print(os.getenv("MONGODB_URI"))
+client = MongoClient(os.getenv("MONGODB_URI"))
+db = client['FinAI']
+users_collection = db['users']
 
 app = Flask(__name__)
 
@@ -47,8 +56,18 @@ def get_analyst_response():
 def get_portfolio_response():
     try:
         data = request.json
-        username = data.get("username", "")
+        email = data.get("email", "")
         question = data.get("question", "")
+
+        if not email:
+            return jsonify({"error": "Email is required"}), 400
+
+        user = users_collection.find_one({"email": email})
+
+        if user:
+            username = user.get("userName")
+        else:
+            return jsonify({"error": "User not found"}), 404
 
         if not question:
             return jsonify({"error": "No question provided"}), 400

@@ -5,6 +5,7 @@ from phi.workflow import Workflow, RunResponse
 import yfinance as yf
 from phi.agent import Agent
 from phi.model.google import Gemini
+from phi.model.azure import AzureOpenAIChat
 from pypfopt.black_litterman import BlackLittermanModel
 from pypfopt.efficient_frontier import EfficientFrontier
 from pypfopt.risk_models import CovarianceShrinkage
@@ -20,6 +21,16 @@ from savings import savings_agent
 load_dotenv(r"..\.env")
 
 GEMINI_API_KEY=os.getenv('GEMINI_API_KEY')
+AZURE_KEY = os.getenv("AZURE_KEY")
+AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
+AZURE_DEPLOYMENT = os.getenv("AZURE_DEPLOYMENT")
+
+azure_model = AzureOpenAIChat(
+    id=AZURE_DEPLOYMENT,
+    api_key=AZURE_KEY,
+    azure_endpoint=AZURE_ENDPOINT,
+    azure_deployment=AZURE_DEPLOYMENT,
+)
 
 gemini_model = Gemini(
     id="gemini-2.0-flash",
@@ -87,7 +98,7 @@ class BlackLittermanPortfolioOptimizer(Toolkit):
 
 portfolio_agent = Agent(
     name="Portfolio Analyst",
-    model=gemini_model,
+    model=azure_model,
     team=[risk_analysis_team, savings_agent],
     tools=[
         YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True),
@@ -100,7 +111,11 @@ portfolio_agent = Agent(
         "Get the savings using savings_agent and combined risk level or final risk using risk_analysis_team and pass as savings and risk_tolerance",
         "Use these returns as market views in the Black-Litterman model.",
         "Optimize portfolio allocation based on user's savings and risk tolerance.",
-        "Return results in JSON format with username, risk_tolerance for the combined stock and portfolio advise"
+        '''Strictly return results in the below format
+        First a json output - 
+        {'allocation': {'stock_symbol': allocation, ...}, 'expected_returns': {'stock_symbol': return, ...} wrapped in json
+        Second a detailed analysis for the reason of allocation point by point.
+        '''
     ]
 )
 
