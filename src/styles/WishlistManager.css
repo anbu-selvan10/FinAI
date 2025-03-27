@@ -31,7 +31,24 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
+
+  .portfolioget-button {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-left: 1rem; /* Adds spacing between buttons */
+  }
+
+  .wishlist-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem; /* Alternative method for adding space between buttons */
+  }
   .back-button:hover {
     background-color: #3b5998;
   }
@@ -179,4 +196,56 @@
     .wishlist-grid {
       grid-template-columns: 1fr;
     }
+  }
+  
+
+  .portfolio-recommendation-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .pie-chart-container {
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .portfolio-detailed-analysis {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .allocation-breakdown {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+  
+  .stock-allocation {
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+  }
+
+  .narrative-analysis {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    line-height: 1.6;
+  }
+  
+  .narrative-analysis h4 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  
+  .narrative-analysis p {
+    color: #666;
+    font-size: 0.9em;
   }
