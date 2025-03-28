@@ -9,7 +9,7 @@ warnings.filterwarnings("ignore")
 
 
 df = pd.read_csv(
-    r'..\model\expenses2.csv',
+    r'..\expenses_csv\expenses2.csv',
     usecols=['date', 'category', 'expense_amt_categorized']
 )
 
