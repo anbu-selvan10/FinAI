@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv(r"..\.env")
-print(os.getenv("MONGODB_URI"))
+
 client = MongoClient(os.getenv("MONGODB_URI"))
 db = client['FinAI']
 users_collection = db['users']
@@ -38,26 +38,8 @@ def get_analyst_response():
     try:
         data = request.json
         question = data.get("question", "")
-
-        if not question:
-            return jsonify({"error": "No question provided"}), 400
-
-        response = advisor_workflow.run(question).content
-        print(response)
-
-        responseDict = {"response": response}
-
-        return jsonify(responseDict)
-    
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/portfolio_ask', methods=['POST'])
-def get_portfolio_response():
-    try:
-        data = request.json
         email = data.get("email", "")
-        question = data.get("question", "")
+        session_id = data.get("session_id", "")
 
         if not email:
             return jsonify({"error": "Email is required"}), 400
@@ -72,7 +54,41 @@ def get_portfolio_response():
         if not question:
             return jsonify({"error": "No question provided"}), 400
 
-        response = portfolio_advisor_workflow.run(f"{question} with {username}").content
+        response = advisor_workflow.run(question).content
+        print(response)
+        advisor_workflow.save_to_db(question, response, username, session_id)
+
+        responseDict = {"response": response}
+
+        return jsonify(responseDict)
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/portfolio_ask', methods=['POST'])
+def get_portfolio_response():
+    try:
+        data = request.json
+        email = data.get("email", "")
+        question = data.get("question", "")
+        session_id = data.get("session_id", "")
+
+        if not email:
+            return jsonify({"error": "Email is required"}), 400
+
+        user = users_collection.find_one({"email": email})
+
+        if user:
+            username = user.get("userName")
+        else:
+            return jsonify({"error": "User not found"}), 404
+
+        if not question:
+            return jsonify({"error": "No question provided"}), 400
+
+        response = portfolio_advisor_workflow.run(f"{question} with username {username}").content
+        print(response)
+        portfolio_advisor_workflow.save_to_db(question, response, username, session_id)
 
         responseDict = {"response": response}
 

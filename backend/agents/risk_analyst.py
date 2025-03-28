@@ -381,7 +381,7 @@ risk_analysis_team = Agent(
     model=azure_model,
     tools=[StockRiskTools()],
     instructions=[
-        "Act as a NER to identify the stock symbols in the query. Stocks can be more than one",
+        "Act as a NER to identify the stock symbols in the query. Stocks can be one or more than one. Stock symbols may be suffixed with .NS or .BO",
         "Use the StockRiskTools for analysing risk for the given stock symbol.",
         "Provide confidence level (low, medium, high).",
         "Format output as a json or python dictionary. Keep it Concise",

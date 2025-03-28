@@ -17,6 +17,20 @@ from dotenv import load_dotenv
 from phi.tools.yfinance import YFinanceTools
 from risk_analyst import risk_analysis_team
 from savings import savings_agent
+from pymongo import MongoClient
+import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv(r"..\.env")
+
+MONGODB_URI=os.getenv("MONGODB_URI")
+DB_NAME = "FinAI"
+COLLECTION_NAME = "portfolio"
+
+client = MongoClient(MONGODB_URI)
+db = client[DB_NAME]
+collection = db[COLLECTION_NAME]
 
 load_dotenv(r"..\.env")
 
@@ -119,6 +133,8 @@ portfolio_agent = Agent(
     ]
 )
 
+MAX_ATTEMPTS = 3
+
 class InvestmentData(BaseModel):
     stock_query: str = Field(..., description="The stock search query.")
     savings_results: dict = Field(..., description="Results from the search agent.")
@@ -139,24 +155,73 @@ class PortfolioAdvisorWorkflow(Workflow):
         logger.info(f"Starting Portfolio Optimization Workflow for: {stock_query}")
 
         logger.info("Step 1: Calculating Savings")
-        savings_response: RunResponse = self.savings.run(stock_query)
-        savings_results = {"content": savings_response.content}
-        logger.info(f"Result: \n{savings_results}\n")
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                savings_response: RunResponse = self.savings.run(stock_query)
+                if savings_response and savings_response.content:    
+                    savings_results = {"content": savings_response.content}
+                    break
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
 
         logger.info("Step 2: Calculating Risk Tolerance")
-        risk_response: RunResponse = self.risk.run(stock_query)
-        risk_results = {"content": risk_response.content}
-        logger.info(f"Result: \n{risk_results}\n")
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                risk_response: RunResponse = self.risk.run(stock_query)
+                if risk_response and risk_response.content:    
+                    risk_results = {"content": risk_response.content}
+                    break
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
 
         combined_input = InvestmentData(
             stock_query=stock_query,
             savings_results=savings_results,
             risk_results=risk_results,
         )
-        advisor_input_str = json.dumps(combined_input.model_dump(), indent=4)
-        logger.info("Step 3: Getting final portfolio advice")
 
-        advisor_response = self.portfolio_advisor.run(advisor_input_str)
-        return advisor_response
+        advisor_input_str = json.dumps(combined_input.model_dump(), indent=4)
+
+        logger.info("Step 3: Getting final portfolio advice")
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                advisor_response = self.portfolio_advisor.run(advisor_input_str)
+                if advisor_response and advisor_response.content:    
+                    return advisor_response
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
+
+    def save_to_db(self, topic: str, response: str, user_id:str, session_id:str):
+        current_timestamp = int(time.time())
+
+        session_data = collection.find_one({"session_id": session_id})
+
+        if session_data:
+            collection.update_one(
+                {"session_id": session_id},
+                {
+                    "$push": {"memory.runs": {"input": topic, "response": response}},
+                    "$set": {"updated_at": current_timestamp},
+                    "$unset": { 
+                        "workflow_id": "",
+                        "user_data": "",
+                        "session_data": "",
+                        "workflow_data": "",
+                    }
+                }
+            )
+        else:
+            # Create new session
+            new_session = {
+                "session_id": session_id,
+                "user_id": user_id,
+                "memory": {"runs": [{"input": topic, "response": response}]},
+                "created_at": current_timestamp,
+                "updated_at": current_timestamp,  # Initialize updated_at as well
+            }
+            collection.insert_one(new_session)
 
 portfolio_advisor_workflow = PortfolioAdvisorWorkflow()

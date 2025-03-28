@@ -10,6 +10,20 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from phi.workflow import Workflow, RunResponse
 from phi.utils.log import logger
+from pymongo import MongoClient
+import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv(r"..\.env")
+
+MONGODB_URI=os.getenv("MONGODB_URI")
+DB_NAME = "FinAI"
+COLLECTION_NAME = "stock"
+
+client = MongoClient(MONGODB_URI)
+db = client[DB_NAME]
+collection = db[COLLECTION_NAME]
 
 load_dotenv(r"..\.env")
 
@@ -50,14 +64,16 @@ stock_agent = Agent(
 finai_agent = Agent(
     team=[search_agent, stock_agent],
     model=azure_model,
-    instructions=[
-        "Use the search agent to find company-related news and the financial agent to retrieve stock market data.",
-        "You should give advise on investment based on the historical stock data and analyst recommendations."
-        "Ensure the data is in concise markdown format for the user."
+    instructions = [
+    "Use the search agent to find company-related news and the financial agent to retrieve stock market data.",
+    "Provide investment advice based on historical stock data and analyst recommendations.",
+    "Ensure the data is presented in concise markdown format for the user. If the data includes periods, present it as bullet points rather than tables."
     ],
     show_tool_calls=True,
     markdown=True
 )
+
+MAX_ATTEMPTS: int = 3
 
 class InvestmentData(BaseModel):
     stock_query: str = Field(..., description="The stock search query.")
@@ -79,23 +95,75 @@ class StockInvestmentAdvisorWorkflow(Workflow):
         logger.info(f"Starting Stock Investment Advisor Workflow for: {stock_query}")
 
         logger.info("Step 1: Searching the web for stock-related news")
-        search_response: RunResponse = self.searcher.run(stock_query)
-        search_results = {"content": search_response.content}
-
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                search_response: RunResponse = self.searcher.run(stock_query)
+                if search_response and search_response.content:    
+                    search_results = {"content": search_response.content}
+                    break
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
+        
         logger.info("Step 2: Retrieving stock recommendations")
-        stock_response: RunResponse = self.stock_analyzer.run(stock_query)
-        stock_recommendations = {"content": stock_response.content}
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                stock_response: RunResponse = self.stock_analyzer.run(stock_query)
+                if stock_response and stock_response.content:    
+                    stock_recommendations = {"content": stock_response.content}
+                    break
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
 
         combined_input = InvestmentData(
             stock_query=stock_query,
             search_results=search_results,
             stock_recommendations=stock_recommendations,
         )
+
         advisor_input_str = json.dumps(combined_input.model_dump(), indent=4)
+
         logger.info("Step 3: Getting final investment advice from fin_ai agent")
 
-        advisor_response = self.advisor.run(advisor_input_str)
-        return advisor_response
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                advisor_response = self.advisor.run(advisor_input_str)
+                if advisor_response and advisor_response.content:    
+                    return advisor_response
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{MAX_ATTEMPTS} failed: {str(e)}")
+                continue
+
+    def save_to_db(self, topic: str, response: str, user_id:str, session_id:str):
+        current_timestamp = int(time.time())
+
+        session_data = collection.find_one({"session_id": session_id})
+
+        if session_data:
+            collection.update_one(
+                {"session_id": session_id},
+                {
+                    "$push": {"memory.runs": {"input": topic, "response": response}},
+                    "$set": {"updated_at": current_timestamp},
+                    "$unset": { 
+                        "workflow_id": "",
+                        "user_data": "",
+                        "session_data": "",
+                        "workflow_data": "",
+                    }
+                }
+            )
+        else:
+            # Create new session
+            new_session = {
+                "session_id": session_id,
+                "user_id": user_id,
+                "memory": {"runs": [{"input": topic, "response": response}]},
+                "created_at": current_timestamp,
+                "updated_at": current_timestamp,  # Initialize updated_at as well
+            }
+            collection.insert_one(new_session)
 
 advisor_workflow = StockInvestmentAdvisorWorkflow()
 # app = Playground(agents=[stock_agent, search_agent]).get_app(use_async=False)

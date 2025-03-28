@@ -134,7 +134,7 @@ const WishlistManager = () => {
           </button>
           {wishlistItems.length > 0 && (
             <button 
-              className="portfolio-recommendations-button" 
+              className="back-button"
               onClick={handlePortfolioRecommendations}
             >
               Get Portfolio Recommendations
