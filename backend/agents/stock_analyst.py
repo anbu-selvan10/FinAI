@@ -41,6 +41,11 @@ azure_model = AzureOpenAIChat(
     azure_deployment=AZURE_DEPLOYMENT,
 )
 
+def chat_from_history_tool(session_id: str):
+    session_data = collection.find_one({"session_id": session_id})
+
+    return json.dumps(session_data["memory"])
+
 search_agent = Agent(
     name="Search Agent",
     role="Search the web for Indian financial news",
@@ -64,12 +69,15 @@ stock_agent = Agent(
 finai_agent = Agent(
     team=[search_agent, stock_agent],
     model=azure_model,
+    tools=[chat_from_history_tool],
     instructions = [
     "Use the search agent to find company-related news and the financial agent to retrieve stock market data.",
     "Provide investment advice based on historical stock data and analyst recommendations.",
+    "Use the session_id to retrieve the memory of the particular session using the chat_from_history tool for chatting",
     "Ensure the data is presented in concise markdown format for the user. If the data includes periods, present it as bullet points rather than tables."
     ],
-    show_tool_calls=True,
+    add_chat_history_to_messages=True,
+    num_history_responses=5,
     markdown=True
 )
 

@@ -78,7 +78,7 @@ def get_analyst_response():
 
             sessions_collection.insert_one(new_session)
 
-        response = advisor_workflow.run(question).content
+        response = advisor_workflow.run(f"{question} with session_id {session_id}").content
         advisor_workflow.save_to_db(question, response, username, session_id)
 
         return jsonify({
