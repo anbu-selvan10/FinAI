@@ -6,6 +6,8 @@ from portfolio import portfolio_advisor_workflow
 from spending_pattern import spending_analyser
 from pymongo import MongoClient
 import os
+import random
+import time
 from dotenv import load_dotenv
 
 load_dotenv(r"..\.env")
@@ -13,6 +15,7 @@ load_dotenv(r"..\.env")
 client = MongoClient(os.getenv("MONGODB_URI"))
 db = client['FinAI']
 users_collection = db['users']
+sessions_collection = db['stock']
 
 app = Flask(__name__)
 
@@ -33,6 +36,7 @@ def get_response():
     })
 
 
+
 @app.route('/ask', methods=['POST'])
 def get_analyst_response():
     try:
@@ -46,21 +50,41 @@ def get_analyst_response():
 
         user = users_collection.find_one({"email": email})
 
-        if user:
-            username = user.get("userName")
-        else:
+        if not user:
             return jsonify({"error": "User not found"}), 404
+
+        username = user.get("userName", "Anonymous")
 
         if not question:
             return jsonify({"error": "No question provided"}), 400
 
+        if not session_id:
+            while True:
+                new_session_id = str(random.randint(0, 1000000))
+                existing_session = sessions_collection.find_one({"session_id": new_session_id})
+                if not existing_session:
+                    session_id = new_session_id
+                    break
+
+            new_session = {
+                "session_id": session_id,
+                "user_id": username,  
+                "memory": {
+                    "runs": []
+                },
+                "created_at": int(time.time()),
+                "updated_at": int(time.time())
+            }
+
+            sessions_collection.insert_one(new_session)
+
         response = advisor_workflow.run(question).content
-        print(response)
         advisor_workflow.save_to_db(question, response, username, session_id)
 
-        responseDict = {"response": response}
-
-        return jsonify(responseDict)
+        return jsonify({
+            "response": response,
+            "session_id": session_id
+        })
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500

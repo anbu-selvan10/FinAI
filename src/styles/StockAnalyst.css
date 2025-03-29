@@ -1,208 +1,272 @@
 /* StockAnalyst.css */
 
-.stock-analyst-container {
+/* Page Layout */
+.stock-analyst-page {
   display: flex;
-  flex-direction: column;
-  height: 600px;
-  width: 100%; /* Full width */
-  max-width: 1200px; /* Maximum width to ensure readability on very large screens */
-  margin: 0 auto;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  height: 100vh;
+  width: 100%;
+  background-color: #f5f7fa;
 }
 
-.stock-analyst-header {
-  background-color: #1a56db;
+.sidebar-open .stock-analyst-main {
+  flex: 1;
+  margin-left: 280px;
+}
+
+.sidebar-closed .stock-analyst-main {
+  flex: 1;
+  margin-left: 0;
+}
+
+/* Sidebar Styling */
+.chat-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: #2c3e50;
   color: white;
-  padding: 16px 24px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #34495e;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.new-chat-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 0;
+  transition: background-color 0.2s;
+}
+
+.new-chat-button:hover {
+  background-color: #2980b9;
+}
+
+.sidebar-sessions {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.session-item {
+  padding: 15px;
+  border-bottom: 1px solid #34495e;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.session-item:hover {
+  background-color: #34495e;
+}
+
+.session-item.active {
+  background-color: #3498db;
+}
+
+.session-title {
+  font-size: 14px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.session-date {
+  font-size: 12px;
+  color: #bdc3c7;
+}
+
+.loading-sessions, .no-sessions {
+  padding: 20px;
+  text-align: center;
+  color: #bdc3c7;
+}
+
+/* Header Styling */
+.stock-analyst-header {
+  background-color: #3498db;
+  padding: 15px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .stock-analyst-title {
   margin: 0;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 500;
+  flex: 1;
+  text-align: center;
 }
 
-.stock-analyst-subtitle {
-  margin: 4px 0 0 0;
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.wishlist-manager-button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
   font-size: 14px;
-  opacity: 0.9;
+  transition: background-color 0.2s;
+}
+
+.wishlist-manager-button:hover {
+  background-color: #1a2530;
+}
+
+/* Main Container Styling */
+.stock-analyst-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px);
+  padding: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
 .stock-analyst-messages {
   flex: 1;
-  padding: 16px 24px;
   overflow-y: auto;
-  background-color: #f9fafb;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
 .stock-analyst-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #95a5a6;
   text-align: center;
-  color: #6b7280;
-  margin-top: 32px;
-  font-size: 16px;
+  padding: 20px;
 }
 
 .stock-analyst-message {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .stock-analyst-message-user {
-  text-align: right;
+  align-items: flex-end;
 }
 
 .stock-analyst-message-bot {
-  text-align: left;
+  align-items: flex-start;
 }
 
 .stock-analyst-message-bubble {
-  display: inline-block;
+  max-width: 80%;
   padding: 12px 16px;
-  border-radius: 8px;
-  max-width: 85%;
+  border-radius: 18px;
   word-wrap: break-word;
 }
 
 .stock-analyst-message-user .stock-analyst-message-bubble {
-  background-color: #1a56db;
+  background-color: #3498db;
   color: white;
+  border-top-right-radius: 4px;
 }
 
 .stock-analyst-message-bot .stock-analyst-message-bubble {
-  background-color: #e5e7eb;
-  color: #1f2937;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  border-top-left-radius: 4px;
 }
 
-/* Markdown formatting */
 .stock-analyst-markdown {
-  text-align: left;
-  padding: 16px;
-  line-height: 1.5;
-  width: 100%;
-  max-width: 800px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
-.stock-analyst-markdown h3 {
+.stock-analyst-markdown h1,
+.stock-analyst-markdown h2,
+.stock-analyst-markdown h3,
+.stock-analyst-markdown h4,
+.stock-analyst-markdown h5,
+.stock-analyst-markdown h6 {
   margin-top: 16px;
-  margin-bottom: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 8px;
-}
-
-.stock-analyst-markdown table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0;
-  font-size: 14px;
-}
-
-.stock-analyst-markdown table th,
-.stock-analyst-markdown table td {
-  border: 1px solid #d1d5db;
-  padding: 10px;
-  text-align: left;
-}
-
-.stock-analyst-markdown table th {
-  background-color: #f3f4f6;
-  font-weight: 600;
-}
-
-.stock-analyst-markdown table tr:nth-child(even) {
-  background-color: #f9fafb;
-}
-
-.stock-analyst-markdown ul,
-.stock-analyst-markdown ol {
-  margin: 12px 0;
-  padding-left: 24px;
-}
-
-.stock-analyst-markdown li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .stock-analyst-markdown p {
-  margin: 12px 0;
+  margin-bottom: 10px;
 }
 
-.stock-analyst-form {
-  padding: 16px 24px;
-  border-top: 1px solid #e5e7eb;
-  background-color: white;
+.stock-analyst-markdown code {
+  background-color: #f1f1f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+  color: #e74c3c;
 }
 
-.stock-analyst-input-container {
-  display: flex;
-  max-width: 100%;
+.stock-analyst-markdown pre {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
 }
 
-.stock-analyst-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #d1d5db;
-  border-right: none;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  font-size: 16px;
-}
-
-.stock-analyst-input:focus {
-  outline: none;
-  border-color: #1a56db;
-  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.1);
-}
-
-.stock-analyst-input:disabled {
-  background-color: #f9fafb;
-  cursor: not-allowed;
-}
-
-.stock-analyst-button {
-  background-color: #1a56db;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  min-width: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.stock-analyst-button:hover {
-  background-color: #1e40af;
-}
-
-.stock-analyst-button:disabled {
-  background-color: #93c5fd;
-  cursor: not-allowed;
-}
-
-/* Loading animations */
+/* Loading Animation */
 .stock-analyst-loading {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 24px;
+  padding: 10px 20px;
 }
 
 .stock-analyst-dot {
   width: 8px;
   height: 8px;
-  background-color: #6b7280;
+  background-color: #95a5a6;
   border-radius: 50%;
   margin: 0 4px;
   animation: bounce 1.4s infinite ease-in-out both;
@@ -217,9 +281,7 @@
 }
 
 @keyframes bounce {
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     transform: scale(0);
   }
   40% {
@@ -227,14 +289,67 @@
   }
 }
 
+/* Input Form Styling */
+.stock-analyst-form {
+  padding: 15px;
+  border-top: 1px solid #ecf0f1;
+  background-color: white;
+}
+
+.stock-analyst-input-container {
+  display: flex;
+  gap: 10px;
+}
+
+.stock-analyst-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #dce4ec;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.stock-input {
+  max-width: 200px;
+}
+
+.stock-analyst-input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.stock-analyst-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock-analyst-button:hover {
+  background-color: #2980b9;
+}
+
+.stock-analyst-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
 .stock-analyst-spinner {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: white;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -243,43 +358,37 @@
   }
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .stock-analyst-container {
-    height: 500px;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+  .chat-sidebar {
+    width: 240px;
   }
-
-  .stock-analyst-markdown {
-    padding: 12px;
+  
+  .sidebar-open .stock-analyst-main {
+    margin-left: 240px;
   }
-
-  .stock-analyst-message-bubble {
-    max-width: 95%;
+  
+  .stock-analyst-input-container {
+    flex-direction: column;
+  }
+  
+  .stock-input {
+    max-width: none;
   }
 }
 
-.stock-analyst-table-container {
-  overflow-x: auto;
-  margin-top: 10px;
-}
-
-.stock-analyst-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ddd;
-}
-
-.stock-analyst-table th,
-.stock-analyst-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.stock-analyst-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+@media (max-width: 576px) {
+  .chat-sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+  
+  .sidebar-open .chat-sidebar {
+    transform: translateX(0);
+  }
+  
+  .sidebar-open .stock-analyst-main, 
+  .sidebar-closed .stock-analyst-main {
+    margin-left: 0;
+  }
 }
