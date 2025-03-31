@@ -2,45 +2,48 @@ const portfolioSession = require('./portsession.model');
 const User = require("../users/users.model");
 
 const getUserPortfolioSessions = async (req, res) => {
-  const { email } = req.query;
-  try {
-    if (!email) {
-      return res.status(400).json({ error: "Email is required" });
+    const { email } = req.query;
+    try {
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+      
+      const user = await User.findOne({ email });
+      
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      const sessions = await portfolioSession
+        .find({ user_id: user.userName || user._id })
+        .lean()
+        .sort({ updated_at: -1 });
+      
+      const formattedSessions = sessions.map(session => {
+        return {
+          session_id: session.session_id,
+          user_id: session.user_id,
+          // Keep the memory structure intact with runs inside it
+          memory: {
+            runs: (session.memory?.runs || []).map(run => {
+              return {
+                input: run.input || "",
+                response: run.response || ""
+              };
+            })
+          },
+          question: session.question || "", // Include the original question if available
+          created_at: session.created_at || Math.floor(Date.now() / 1000),
+          updated_at: session.updated_at || Math.floor(Date.now() / 1000)
+        };
+      });
+    
+      return res.status(200).json(formattedSessions);
+    } catch (error) {
+      console.error("Error fetching sessions:", error);
+      return res.status(500).json({ error: error.message });
     }
-    
-    const user = await User.findOne({ email });
-    
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    
-    const sessions = await portfolioSession
-      .find({ user_id: user.userName || user._id })
-      .lean()
-      .sort({ updated_at: -1 });
-    
-    const formattedSessions = sessions.map(session => {
-      return {
-        session_id: session.session_id,
-        user_id: session.user_id,
-        runs: (session.memory?.runs || []).map(run => {
-          return {
-            input: run.input || "",
-            // Make sure we get the complete response
-            response: run.response || ""
-          };
-        }),
-        created_at: session.created_at || Math.floor(Date.now() / 1000),
-        updated_at: session.updated_at || Math.floor(Date.now() / 1000)
-      };
-    });
-  
-    return res.status(200).json(formattedSessions);
-  } catch (error) {
-    console.error("Error fetching sessions:", error);
-    return res.status(500).json({ error: error.message });
-  }
-};
+  };
 
 
 const getUserPortfolioChat = async (req, res) => {

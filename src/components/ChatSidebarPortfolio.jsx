@@ -57,26 +57,27 @@ const ChatSidebarPortfolio = ({ onSelectSession, currentSessionId }) => {
     }
   };
 
-  const extractStockSymbols = (session) => {
-    if (session.memory && session.memory.runs && session.memory.runs.length > 0) {
-      const input = session.memory.runs[0].input;
-      if (input) {
-        const match = input.match(/for\s+(.+)/i);
-        if (match && match[1]) {
-          return match[1];
+  const extractSessionTitle = (session) => {
+    if (session.runs && session.runs.length > 0) {
+        const input = session.runs[0].input;
+        if (input && typeof input === 'string') {
+          return input.trim();
         }
       }
-    }
-    
-    if (session.question) {
-      const match = session.question.match(/for:\s+(.+)/i);
-      if (match && match[1]) {
-        return match[1];
+      
+      if (session.memory && session.memory.runs && session.memory.runs.length > 0) {
+        const input = session.memory.runs[0].input;
+        if (input && typeof input === 'string') {
+          return input.trim();
+        }
       }
-    }
-    
-    return 'Portfolio Analysis';
-  };
+      
+      if (session.question) {
+        return session.question.trim();
+      }
+      
+      return 'Portfolio Analysis';
+    };
   
   return (
     <div className="chat-sidebar">
@@ -91,19 +92,20 @@ const ChatSidebarPortfolio = ({ onSelectSession, currentSessionId }) => {
           <div className="no-sessions">No previous portfolio analyses found</div>
         ) : (
           sessions.map((session) => {
-            const symbols = extractStockSymbols(session);
-            
+            const title = extractSessionTitle(session);
             const date = session.created_at ? formatDate(session.created_at) : "Unknown date";
             
             return (
-              <div 
+                <div 
                 key={session.session_id}
                 className={`session-item ${session.session_id === currentSessionId ? 'active' : ''}`}
-                onClick={() => onSelectSession(session.session_id, 
-                  session.memory && session.memory.runs ? session.memory.runs : [])}
-              >
+                onClick={() => onSelectSession(
+                  session.session_id, 
+                  session.memory && session.memory.runs ? session.memory.runs : session.runs || []
+                )}
+                >
                 <div className="session-title">
-                  {symbols}
+                  {title}
                 </div>
                 <div className="session-date">{date}</div>
               </div>
