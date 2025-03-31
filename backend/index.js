@@ -9,6 +9,7 @@ const budgetRoutes = require("./src/budget/budget.route");
 const userRoutes = require("./src/users/users.route");
 const stockRoutes = require("./src/wishlist/stockanalyst.route");
 const stockSessionRoutes = require("./src/stocksession/stocksession.route");
+const PortSessionRoutes = require("./src/portfoliosession/portsession.route");
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use("/api/budget", budgetRoutes);
 app.use("/api", userRoutes);
 app.use("/api", stockRoutes);
 app.use("/api/stocksession",stockSessionRoutes);
+app.use("/api/portsession",PortSessionRoutes);
 
 
 app.listen(port, () => {
