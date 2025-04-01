@@ -4,6 +4,7 @@ import { useAuth } from "./contexts/AuthContext";
 import "../styles/profile.css";
 import { useNavigate } from "react-router-dom";
 import profile from "../img/profileimg.jpg";
+import NotificationComponent from "./NotificationComponent";
 
 const Form = () => {
   const { currentUser } = useAuth();
@@ -86,25 +87,28 @@ const Form = () => {
 
   if (existingUser) {
     return (
-        <div className="profile-header">
-          <div className="profile-image">
-            <img src={profile} alt="Profile" />
-          </div>
-          <div className="profile-info">
-            <h2 className="profile-name">{existingUser.name}</h2>
-            <p className="profile-title">{existingUser.userName}</p>
-            <p className="profile-location"><b>About me:</b> {existingUser.aboutMe}</p>
-            <p className="profile-location"><b>Phone number:</b> {existingUser.phone}</p>
-            <p className="profile-location"><b>Age:</b>{existingUser.age}</p>
-            <div className="profile-actions">
-              <button className="follow-button">Add social media</button>
+      <div className="profile-page-container">
+            <div className="profile-header">
+            <div className="profile-image">
+              <img src={profile} alt="Profile" />
+            </div>
+            <div className="profile-info">
+              <h2 className="profile-name">{existingUser.name}</h2>
+              <p className="profile-title">{existingUser.userName}</p>
+              <p className="profile-location"><b>About me:</b> {existingUser.aboutMe}</p>
+              <p className="profile-location"><b>Phone number:</b> {existingUser.phone}</p>
+              <p className="profile-location"><b>Age:</b>{existingUser.age}</p>
+              <div className="profile-actions">
+                <button className="follow-button">Add social media</button>
+              </div>
+            </div>
+            <div className="profile-stats">
+              <div className="stat-item">
+                <div className="stat-value">{existingUser.coins || 0}</div>
+              </div>
             </div>
           </div>
-          <div className="profile-stats">
-            <div className="stat-item">
-              <div className="stat-value">{existingUser.coins || 0}</div>
-            </div>
-          </div>
+          <NotificationComponent userEmail={existingUser.email} />
         </div>
     );
   }

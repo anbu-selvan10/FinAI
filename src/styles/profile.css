@@ -327,6 +327,16 @@
   border-radius: 20px;
 }
 
+.profile-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Add some spacing between profile header and notifications */
+.profile-header {
+  margin-bottom: 10%;
+}
 /* Style the add social media button */
 .follow-button {
   background-color: #262626;

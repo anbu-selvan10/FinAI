@@ -8,12 +8,50 @@ import chatbot from "../img/chatbot.jpeg";
 import store from "../img/store.png";
 import stock from "../img/stock-analyst.png";
 import { useNavigate } from 'react-router-dom';  
-
-import "../../src/styles/home.css";
+import axios from 'axios';
+import "../styles/home.css";
 
 const HomePage = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { currentUser } = useAuth();
+  const userEmail = currentUser ? currentUser.email : null;
+  
+  const [hasNotifications, setHasNotifications] = useState(false);
+  
+  useEffect(() => {
+    const checkNotifications = async () => {
+      const notificationsRead = localStorage.getItem('notificationsRead') === 'true';
+      
+      if (notificationsRead) {
+        setHasNotifications(false);
+        return;
+      }
+      
+      if (userEmail) {
+        try {
+          const currentDate = new Date().toISOString().split('T')[0];
+          const response = await axios.get('http://localhost:4000/api/notification/missing-expenses', {
+            params: {
+              email: userEmail,
+              currentDate: currentDate
+            }
+          });
+          
+          const hasUnread = response.data.missingDates && response.data.missingDates.length > 0;
+          setHasNotifications(hasUnread);
+        } catch (error) {
+          console.error('Error checking notifications:', error);
+          setHasNotifications(true);
+        }
+      }
+    };
+    
+    checkNotifications();
+    
+    const interval = setInterval(checkNotifications, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [userEmail]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,32 +133,39 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Cards Section */}
       <section className="home-cards-section">
-          {cards.map((card, index) => (
-            <div 
-              key={card.id}
-              className={`home-card-container ${activeCard === card.id ? 'active' : ''}`}
-              onMouseEnter={() => setActiveCard(card.id)}
-              onMouseLeave={() => setActiveCard(null)}
-            >
-              <div className="home-card-background" style={{ backgroundImage: `url(${card.image})` }}></div>
-              <div className="home-card-content">
-                <h2 className="home-card-title">{card.title}</h2>
-                
-                <div className="home-card-details" style={{ 
-                  opacity: activeCard === card.id ? 1 : 0,
-                  transform: activeCard === card.id ? 'translateY(0)' : 'translateY(20px)'
-                }}>
-                  <p className="home-card-description">{card.description}</p>
-                  <Link to={card.path} className="home-card-button">
-                    VIEW {card.title}
-                  </Link>
-                </div>
+        {cards.map((card, index) => (
+          <div 
+            key={card.id}
+            className={`home-card-container ${activeCard === card.id ? 'active' : ''}`}
+            onMouseEnter={() => setActiveCard(card.id)}
+            onMouseLeave={() => setActiveCard(null)}
+          >
+            <div className="home-card-background" style={{ backgroundImage: `url(${card.image})` }}></div>
+            
+            {/* Show notification bell for profile card if there are notifications */}
+            {card.id === 'profile' && hasNotifications && (
+              <div className="notification-bell">
+                <i className="fas fa-exclamation"></i>
               </div>
+            )}
+            
+            <div className="home-card-content">
+              <h2 className="home-card-title">{card.title}</h2>
+              
+              <div className="home-card-details" style={{ 
+                opacity: activeCard === card.id ? 1 : 0,
+                transform: activeCard === card.id ? 'translateY(0)' : 'translateY(20px)'
+              }}>
+                <p className="home-card-description">{card.description}</p>
+                <Link to={card.path} className="home-card-button">
+                  VIEW {card.title}
+                </Link>
+              </div>
+            </div>
           </div>
         ))}
-</section>
+      </section>
     </div>
   );
 };
