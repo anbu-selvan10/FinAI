@@ -16,3 +16,7 @@
 2. Backend session and storage for agents
 3. Create neat UIs for AI agents
 4. RM Bot -> Personalized analyser with Spending Pattern DL Model
+
+### Commands to run celery:
+celery -A celery_app beat -l info
+celery -A email_sender worker -l info -P gevent
